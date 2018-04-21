@@ -3,4 +3,25 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Triad (3-colors) -->
+        <!-- Color 1 -->
+    <color name="triadColorSet1Primary">#295E6D</color>
+    <color name="triadColorSet1Secondary1">#A9CAD3</color>
+    <color name="triadColorSet1Secondary2">#578794</color>
+    <color name="triadColorSet1Secondary3">#0B3744</color>
+    <color name="triadColorSet1Secondary4">#01161C</color>
+        <!-- Color 2 -->
+    <color name="triadColorSet2Primary">#AF443E</color>
+    <color name="triadColorSet2Secondary1">#FFCDCA</color>
+    <color name="triadColorSet2Secondary2">#EF8E89</color>
+    <color name="triadColorSet2Secondary3">#6E130E</color>
+    <color name="triadColorSet2Secondary4">#2D0200</color>
+        <!-- Color 3 -->
+    <color name="triadColorSet3Primary">#83A43A</color>
+    <color name="triadColorSet3Secondary1">#E8F8C4</color>
+    <color name="triadColorSet3Secondary2">#C2E080</color>
+    <color name="triadColorSet3Secondary3">#4B670D</color>
+    <color name="triadColorSet3Secondary4">#1D2A00</color>
+
 </resources>

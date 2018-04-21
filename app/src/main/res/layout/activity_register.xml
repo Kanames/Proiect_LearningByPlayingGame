@@ -28,7 +28,7 @@
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/RegisterEmailRAW" />
+            android:hint="@string/inputEmail" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/RegisterPass1RAW"
+            android:hint="@string/inputPass"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
@@ -109,6 +109,7 @@
         android:text="@string/RegisterAgreements"
         android:textAlignment="textStart"
         android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPass2"
         app:layout_constraintHorizontal_bias="0.481"
