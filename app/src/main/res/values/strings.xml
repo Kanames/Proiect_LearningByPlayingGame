@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">Proiect_LearningByPlayingGame</string>
+    <string name="app_name">Learn java</string>
+    <!-- Activitatea de Login -->
+    <string name="LoginButtonAccept">LOGIN to my account</string>
+    <string name="LoginRegister">New here ? Create a new account.</string>
+    <string name="LoginForgotPassword">Forgot password ?</string>
+    <string name="LoginNameRAW">E-mail:</string>
+    <string name="LoginPassRAW">Password:</string>
+    <!-- Activitatea de Inregistrare -->
+    <string name="RegisterEmailRAW">E-mail:</string>
+    <string name="RegisterPass1RAW">Password:</string>
+    <string name="RegisterPass2RAW">Reapeat the password:</string>
+    <string name="RegisterAgreements">Check if you accept terms and conditions</string>
+    <string name="RegisterButtonRegister">Register to our system</string>
+
 </resources>

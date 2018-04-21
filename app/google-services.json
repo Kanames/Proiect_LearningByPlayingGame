@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "731636348402",
+    "firebase_url": "https://licenta-f4e4f.firebaseio.com",
+    "project_id": "licenta-f4e4f",
+    "storage_bucket": "licenta-f4e4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731636348402:android:1d58404cb9b37c63",
+        "android_client_info": {
+          "package_name": "ro.LearnByPlaying.Activitati"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731636348402-pncup12fgi40lu1i7iajirbsr83cgo92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLAcVgEqxr0Xd_S2QhtBwxpAc38tJL-6k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

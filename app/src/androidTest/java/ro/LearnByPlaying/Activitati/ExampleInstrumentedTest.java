@@ -1,4 +1,4 @@
-package com.example.stefan.proiect_learningbyplayinggame;
+package ro.LearnByPlaying.Activitati;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.stefan.proiect_learningbyplayinggame", appContext.getPackageName());
+        assertEquals("ro.example.stefan.proiect_learningbyplayinggame", appContext.getPackageName());
     }
 }
