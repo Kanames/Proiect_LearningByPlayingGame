@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText inputEmail,inputPassword1, inputPassword2;
@@ -26,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Activitati", "<<< Intrat in RegisterActivity.onCreate >>>");
         super.onCreate(savedInstanceState);
         //Initializarea resurselor------
         setContentView(R.layout.activity_register);
@@ -82,7 +87,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (password2.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Second password too short,minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
@@ -104,10 +108,25 @@ public class RegisterActivity extends AppCompatActivity {
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(),Toast.LENGTH_SHORT).show();
+                                    try {
+                                        throw task.getException();
+//                                    } catch(FirebaseAuthWeakPasswordException e) {
+//                                        mTxtPassword.setError(getString(R.string.error_weak_password));
+//                                        mTxtPassword.requestFocus();
+//                                    } catch(FirebaseAuthInvalidCredentialsException e) {
+//                                        mTxtEmail.setError(getString(R.string.error_invalid_email));
+//                                        mTxtEmail.requestFocus();
+                                    } catch(FirebaseAuthUserCollisionException e) {
+                                        Log.e("Activitati", "FirebaseAuthUserCollisionException: "+e.getMessage());
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.error_user_exists) + task.getException(),Toast.LENGTH_SHORT).show();
+                                        inputEmail.setError(getString(R.string.error_user_exists));
+                                        inputEmail.requestFocus();
+                                    } catch(Exception e) {
+                                        Log.e("Activitati", "Exception: "+e.getMessage());
+                                    }
                                 } else {
-                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                     finish();
                                 }
                             }
@@ -115,11 +134,36 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+        Log.d("Activitati", "<<< Iesit din RegisterActivity.onCreate >>>");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(View.GONE);
+    }
+    @Override
+    protected void onPause() {
+        Log.d("Activitati", "<<< Intrat in RegisterActivity.onPause >>>");
+        super.onPause();
+    }
+    @Override
+    protected void onStop() {
+        Log.d("Activitati", "<<< Intrat in RegisterActivity.onStop >>>");
+        inputEmail.setText("");
+        inputPassword1.setText("");
+        inputPassword2.setText("");
+        super.onStop();
+    }
+    @Override
+    protected void onRestart(){
+        Log.d("Activitati", "<<< Intrat in RegisterActivity.onRestart >>>");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onDestroy(){
+        Log.d("Activitati", "<<< Intrat in RegisterActivity.onDestroy >>>");
+        super.onDestroy();
     }
 }

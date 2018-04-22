@@ -1,8 +1,11 @@
 package ro.LearnByPLaying.Utilitare;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Stefan on 4/18/2018.
@@ -29,5 +32,11 @@ public class StringUtils {
         }
         Log.d("StringUtils","<<< OUT trsfOut() >>>");
         return representation.toString();
+    }
+
+    public static HashMap<String,Boolean> checkInputs(List<Object> inputs){
+        HashMap<String,Boolean> rezultat = new HashMap<>();
+
+        return rezultat;
     }
 }

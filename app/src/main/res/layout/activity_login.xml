@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ro.LearnByPLaying.Activitati.MainActivity">
+    tools:context="ro.LearnByPLaying.Activitati.LoginActivity">
 
     <TextView
         android:id="@+id/textViewCreateAccount"
@@ -85,7 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/inputEmail"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -112,7 +113,8 @@
             android:ems="10"
             android:hint="@string/inputPass"
             android:inputType="textPassword"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
     </android.support.design.widget.TextInputLayout>
 
 

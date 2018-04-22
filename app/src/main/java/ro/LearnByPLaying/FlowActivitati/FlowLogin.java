@@ -1,12 +1,10 @@
 package ro.LearnByPLaying.FlowActivitati;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import javax.security.auth.login.LoginException;
-
-import ro.LearnByPLaying.Activitati.MainActivity;
 
 /**
  * Created by Stefan on 4/18/2018.
@@ -15,10 +13,10 @@ import ro.LearnByPLaying.Activitati.MainActivity;
 public class FlowLogin {
     public void execute(EditText email, EditText parolaUser) throws LoginException{
         Log.d("Login", "<<< Iesit in FlowLogin.execute() >>>");
-        if("".equals(email.getText().toString())){
+        if(TextUtils.isEmpty(email.getText().toString())){
             throw new LoginException("Completeaza campul E-mail");
         }
-        if("".equals(parolaUser.getText().toString())){
+        if(TextUtils.isEmpty(parolaUser.getText().toString())){
             throw new LoginException("Completeaza campul Password");
         }
         String emailStr = email.getText().toString();

@@ -53,7 +53,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/inputPass"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -69,7 +70,8 @@
         app:layout_constraintStart_toStartOf="@+id/textInputLayoutPass1"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPass1"
         app:layout_constraintVertical_bias="0.0"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        >
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/editTextPass2"
@@ -78,7 +80,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/RegisterPass2RAW"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+           />
 
     </android.support.design.widget.TextInputLayout>
 

@@ -9,7 +9,7 @@
         android:theme="@style/AppTheme"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round">
-        <activity android:name="ro.LearnByPLaying.Activitati.MainActivity">
+        <activity android:name="ro.LearnByPLaying.Activitati.LoginActivity">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
@@ -18,11 +18,11 @@
         </activity>
         <!-- A child of the main activity -->
         <activity android:name="ro.LearnByPLaying.Activitati.RegisterActivity"
-                  android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity" >
+                  android:parentActivityName="ro.LearnByPLaying.Activitati.LoginActivity" >
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ro.LearnByPLaying.Activitati.MainActivity" />
+                android:value="ro.LearnByPLaying.Activitati.LoginActivity" />
 
         </activity>
 

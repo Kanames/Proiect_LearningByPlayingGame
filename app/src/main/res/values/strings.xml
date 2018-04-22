@@ -3,6 +3,7 @@
     <!-- Universale -->
     <string name="inputEmail">E-mail:</string>
     <string name="inputPass">Password:</string>
+    <string name="inputPassHelper">At least 8 characters</string>
 
     <!-- Activitatea de Login -->
     <string name="LoginButtonAccept">LOGIN to my account</string>
@@ -17,4 +18,6 @@
     <!-- Activitatea de Recuperare/Resetare parola -->
     <string name="RecuperareParolaInstructions">...</string>
 
+    <!-- Mesaje de exceptie -->
+    <string name="error_user_exists">An account already exists with the same email address</string>
 </resources>
