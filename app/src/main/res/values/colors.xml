@@ -24,4 +24,7 @@
     <color name="triadColorSet3Secondary3">#4B670D</color>
     <color name="triadColorSet3Secondary4">#1D2A00</color>
 
+
+    <!-- Color background -->
+    <color name="backgroundColorBlack_1">#414141</color>
 </resources>

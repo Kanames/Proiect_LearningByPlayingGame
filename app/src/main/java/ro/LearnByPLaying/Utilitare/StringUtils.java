@@ -5,7 +5,11 @@ import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import ro.LearnByPLaying.Exception.RegisterException;
 
 /**
  * Created by Stefan on 4/18/2018.
@@ -34,9 +38,5 @@ public class StringUtils {
         return representation.toString();
     }
 
-    public static HashMap<String,Boolean> checkInputs(List<Object> inputs){
-        HashMap<String,Boolean> rezultat = new HashMap<>();
 
-        return rezultat;
-    }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ro.LearnByPLaying.Activitati.RegisterAgreementsActivity">
+
+    <ScrollView
+        android:id="@+id/scrollAgreementDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutAgreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/register_textViewAgreementsDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/RegisterAgreementsDetails"
+                />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/register_btnAgreementAcceptedYES"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/register_textViewAgreementsDetails"
+                android:text="@string/RegisterAgreementsDetailsYES"
+                style="@style/Widget.AppCompat.Button.Colored"
+                />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/register_btnAgreementAcceptedNO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/register_btnAgreementAcceptedYES"
+                android:text="@string/RegisterAgreementsDetailsNO"
+                style="@style/Widget.AppCompat.Button.Colored"
+                />
+        </RelativeLayout>
+
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

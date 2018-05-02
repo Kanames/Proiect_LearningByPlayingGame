@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private Button signUp;
+    private CheckBox checkBoxAgree;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Activitati", "<<< Intrat in RegisterActivity.onCreate >>>");
@@ -38,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         inputPassword1 = (EditText) findViewById(R.id.editTextPass1);
         inputPassword2 = (EditText) findViewById(R.id.editTextPass2);
         inputEmail = (EditText) findViewById(R.id.editTextEmail);
+        checkBoxAgree = (CheckBox) findViewById(R.id.checkBoxAgree);
         //------------------------------
 
         //Get Firebase auth instance----
@@ -57,8 +60,10 @@ public class RegisterActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Register form");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setSubtitle("Learn Java better and smarter");
+        getSupportActionBar().setSubtitle("Learn java better and smarter");
         //-------------------------------------------------------------------------
+
+
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
@@ -165,5 +170,16 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onDestroy(){
         Log.d("Activitati", "<<< Intrat in RegisterActivity.onDestroy >>>");
         super.onDestroy();
+    }
+
+    public void checkbox_clicked(View v)
+    {
+        if(checkBoxAgree.isChecked()){
+            Log.d("Activitati", "check box agreements status: checked");
+            Intent intent = new Intent(v.getContext(), RegisterAgreementsActivity.class);
+            startActivity(intent);
+        }else{
+            Log.d("Activitati", "check box agreements status: unchecked");
+        }
     }
 }

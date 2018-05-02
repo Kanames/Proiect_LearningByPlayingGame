@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">Learn java</string>
+    <string name="app_name">Learn programming</string>
     <!-- Universale -->
     <string name="inputEmail">E-mail:</string>
     <string name="inputPass">Password:</string>
     <string name="inputPassHelper">At least 8 characters</string>
+    <!-- Mesaje de exceptie -->
+    <string name="error_invalid_email">Error: check your e-mail format</string>
+    <string name="error_user_exists">Error: user already exists</string>
+    <string name="error_weak_password">Error: at least 8 characters</string>
 
     <!-- Activitatea de Login -->
     <string name="LoginButtonAccept">LOGIN to my account</string>
@@ -13,11 +17,48 @@
     <!-- Activitatea de Inregistrare -->
     <string name="RegisterPass2RAW">Reapeat the password:</string>
     <string name="RegisterAgreements">Check if you accept terms and conditions</string>
+    <string name="RegisterAgreementsTitle">Terms and conditions</string>
+    <string name="RegisterAgreementsDetails" formatted="false">
+        <![CDATA[
+        <center>Agreements and details </center>
+        <br>
+        <font color=\'#28b5f5\'>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This app is just a project done for my university <strong>\"Dunarea de jos\"</strong> at the profile \"CTI\" </font>
+        <br><strong>1)</strong>For the goal of proving all my hard work in 4 years in one single application.
+        <br><strong>2)</strong>To get the license I deserve
+        <br><strong>3)</strong>To finish an important part of my life.
+        <br>Details about the data I will collect:
+        <br>- E-mails : that will never be used in any bad way.
+        <br>- Password: that can not be read by me ( the programmer ) being secured by google framework (Firebase).
+        <br>- Phone mode: so that the application can know how to addapt in the future for all phone models.
+        <br>
+        <br>Choosing:<strong>I agree with the terms and conditions</strong>
+        <br>You can register to our system.
+        <br>Choosing:<strong>I don\'t agree with the terms and conditions</strong>
+        <br>You ca not register to our system and you will be send back to the login activity/page where you will choose what to do next.
+        The system will not register data or something else until the agreements is checked.
+        ]]>
+    </string>
+    <string name="RegisterAgreementsDetailsYES">I agree with the terms and conditions</string>
+    <string name="RegisterAgreementsDetailsNO">I don\'t agree with the terms and conditions</string>
     <string name="RegisterButtonRegister">Register to our system</string>
 
     <!-- Activitatea de Recuperare/Resetare parola -->
-    <string name="RecuperareParolaInstructions">...</string>
+    <string name="ForgotPassBtn">Reset password</string>
+    <string name="ForgotPassDetails" formatted="false">
+        <![CDATA[
+        <strong>Indications reseting the password</strong>
+        <br>Please provide the username or email address that you used when you signed up for your App account.
+        <br>Google will send you an email that will allow you to reset your password.
+        <br><br>
+        If you ever have any problem please do feel to <font color="#990000"><strong>CONTACT US<strong></font>.
+        <br>
+        If you don't get the e-mail for the reset password please do try the second time.
+        ]]>
+    </string>
 
-    <!-- Mesaje de exceptie -->
-    <string name="error_user_exists">An account already exists with the same email address</string>
+
+
+
+
 </resources>
