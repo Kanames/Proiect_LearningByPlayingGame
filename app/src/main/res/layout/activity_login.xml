@@ -60,7 +60,9 @@
             android:ems="10"
             android:hint="@string/inputPass"
             android:inputType="textPassword"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:imeOptions="actionNext"/>
     </android.support.design.widget.TextInputLayout>
 
     <!-- Text input layout & Edit text pentru E-MAIL -->
@@ -79,7 +81,8 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_imgBackground"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintVertical_bias="0.134"
+        />
 
 
     <!-- Link creare cont -->

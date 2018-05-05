@@ -11,5 +11,7 @@
         android:layout_height="match_parent"
         android:hint="@string/inputEmail"
         android:textStyle="bold"
+        android:singleLine="true"
+        android:imeOptions="actionNext"
         />
 </android.support.design.widget.TextInputLayout>

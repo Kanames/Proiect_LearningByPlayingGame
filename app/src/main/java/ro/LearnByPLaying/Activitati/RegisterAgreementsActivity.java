@@ -30,6 +30,10 @@ public class RegisterAgreementsActivity extends AppCompatActivity {
 
         btnAgreementNo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                RegisterActivity.checkBoxAgree.setChecked(false);
+                RegisterActivity.inputEmail.setText("");
+                RegisterActivity.inputPassword1.setText("");
+                RegisterActivity.inputPassword2.setText("");
                 finish();
             }
         });

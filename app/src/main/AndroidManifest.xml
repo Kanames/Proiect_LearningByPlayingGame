@@ -3,19 +3,20 @@
     package="com.example.stefan.proiect_learningbyplayinggame">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
-
+        android:theme="@style/AppTheme">
         <activity android:name="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,14 +35,14 @@
         <!-- A child of the main activity -->
         <activity
             android:name="ro.LearnByPLaying.Activitati.ForgotPasswordActivity"
-            android:parentActivityName="ro.LearnByPLaying.Activitati.LoginActivity">
-        </activity>
-
+            android:parentActivityName="ro.LearnByPLaying.Activitati.LoginActivity"></activity>
         <activity
             android:name="ro.LearnByPLaying.Activitati.RegisterAgreementsActivity"
-            android:parentActivityName="ro.LearnByPLaying.Activitati.RegisterActivity">
-        </activity>
+            android:parentActivityName="ro.LearnByPLaying.Activitati.RegisterActivity"></activity>
+        <activity android:name="ro.LearnByPLaying.Activitati.CreatingProfile"
+            android:screenOrientation="portrait">
 
+        </activity>
     </application>
 
 </manifest>

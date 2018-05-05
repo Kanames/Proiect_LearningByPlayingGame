@@ -29,7 +29,9 @@
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/inputEmail" />
+            android:hint="@string/inputEmail"
+            android:singleLine="true"
+            android:imeOptions="actionNext"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -54,7 +56,9 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/inputPass"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:imeOptions="actionNext"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -79,7 +83,9 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/RegisterPass2RAW"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:imeOptions="actionNext"/>
 
     </android.support.design.widget.TextInputLayout>
 

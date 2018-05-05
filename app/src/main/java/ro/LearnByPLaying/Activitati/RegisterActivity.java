@@ -23,13 +23,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Date;
+
+import ro.LearnByPLaying.Beans.User;
+
+import static ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils.isUserRegistered;
+import static ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils.savingUSER;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText inputEmail,inputPassword1, inputPassword2;
+    public static  EditText inputEmail,inputPassword1, inputPassword2;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private Button signUp;
-    private CheckBox checkBoxAgree;
+    public static CheckBox checkBoxAgree;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Activitati", "<<< Intrat in RegisterActivity.onCreate >>>");
@@ -63,14 +71,12 @@ public class RegisterActivity extends AppCompatActivity {
         getSupportActionBar().setSubtitle("Learn java better and smarter");
         //-------------------------------------------------------------------------
 
-
-
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = inputEmail.getText().toString().trim();
-                String password1 = inputPassword1.getText().toString().trim();
+                final String email = inputEmail.getText().toString().trim();
+                final String password1 = inputPassword1.getText().toString().trim();
                 String password2 = inputPassword2.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
@@ -101,6 +107,10 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (!checkBoxAgree.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "Please agree with the terms", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //progressBar.setVisibility(View.VISIBLE);
                 //create user
                 auth.createUserWithEmailAndPassword(email, password1)
@@ -131,12 +141,22 @@ public class RegisterActivity extends AppCompatActivity {
                                         Log.e("Activitati", "Exception: "+e.getMessage());
                                     }
                                 } else {
-                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                        User userObject = new User();
+                                    FirebaseUser userFirebaseObject = task.getResult().getUser();
+                                    Log.d("Activitati", "onComplete: uid=" + userFirebaseObject.getUid());
+                                        userObject.setUserFirebaseID(userFirebaseObject.getUid());
+                                        userObject.setDateAccountCreated(new Date().toString());
+                                        userObject.setEmailAddress(email);
+                                        userObject.setPassword(password1);
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    intent.putExtra("SESSION_USER", userObject);
+                                    savingUSER(userObject);
+                                    isUserRegistered(userObject);
+                                    startActivity(intent);
                                     finish();
                                 }
                             }
                         });
-
             }
         });
         Log.d("Activitati", "<<< Iesit din RegisterActivity.onCreate >>>");
@@ -155,9 +175,6 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         Log.d("Activitati", "<<< Intrat in RegisterActivity.onStop >>>");
-        inputEmail.setText("");
-        inputPassword1.setText("");
-        inputPassword2.setText("");
         super.onStop();
     }
     @Override

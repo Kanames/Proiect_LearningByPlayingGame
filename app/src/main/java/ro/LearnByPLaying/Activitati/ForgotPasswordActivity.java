@@ -21,24 +21,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-    FirebaseAuth auth;
-    EditText inputEmail;
-    ProgressBar progressBar;
-    Button btnReset;
+    private FirebaseAuth auth;
+    private EditText inputEmail;
+    private ProgressBar progressBar;
+    private Button btnReset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-        //Find the toolbar view inside the activity layout------
         //------------------------------------------------------
         Toolbar toolbar = (Toolbar) findViewById(R.id.forgotPass_toolbar);
-
-
         auth = FirebaseAuth.getInstance();
         progressBar = (ProgressBar) findViewById(R.id.forgotPass_ProgressBar);
         btnReset    = (Button)      findViewById(R.id.forgotPass_button);
         inputEmail  = (EditText)    findViewById(R.id.forgotPass_editTextEmail);
+
 
         // Sets the Toolbar to act as the ActionBar for this Activity window.------
         // Make sure the toolbar exists in the activity and is not null
@@ -47,9 +45,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         // Display icon in the toolbar---------------------------------------------
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Reset password");
+        getSupportActionBar().setTitle(getString(R.string.ForgotPass_Toolbar_Title));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setSubtitle("Learn java better and smarter");
+        getSupportActionBar().setSubtitle(getString(R.string.Toolbar_TitleSecondary));
         //-------------------------------------------------------------------------
 
         TextView textView = findViewById(R.id.forgotPass_textViewDetails);
@@ -58,9 +56,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String email = inputEmail.getText().toString().trim();
-
                 if (TextUtils.isEmpty(email)) {
                     inputEmail.setError(getString(R.string.error_invalid_email));
                     inputEmail.requestFocus();
@@ -72,14 +68,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ForgotPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
                                         finish();
                                     } else {
                                         Toast.makeText(ForgotPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                                     }
-
                                 progressBar.setVisibility(View.GONE);
                             }
                         });

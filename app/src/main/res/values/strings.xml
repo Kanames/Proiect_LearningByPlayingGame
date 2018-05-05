@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">Learn programming</string>
+    <string name="ForgotPass_Toolbar_Title">Reseting password</string>
+    <string name="Register_Toolbar_Title">Sign Up</string>
+    <string name="Toolbar_TitleSecondary">Learn smarter and better</string>
     <!-- Universale -->
     <string name="inputEmail">E-mail:</string>
     <string name="inputPass">Password:</string>
     <string name="inputPassHelper">At least 8 characters</string>
     <!-- Mesaje de exceptie -->
     <string name="error_invalid_email">Error: check your e-mail format</string>
+    <string name="error_empty_email">Error: check your e-mail format</string>
+    <string name="error_empty_password">Error: check your e-mail format</string>
     <string name="error_user_exists">Error: user already exists</string>
     <string name="error_weak_password">Error: at least 8 characters</string>
 
@@ -53,12 +58,63 @@
         <br><br>
         If you ever have any problem please do feel to <font color="#990000"><strong>CONTACT US<strong></font>.
         <br>
-        If you don't get the e-mail for the reset password please do try the second time.
+        If you don\'t get the e-mail for the reset password please do try the second time.
         ]]>
     </string>
 
+    <!-- Activitatea de construire a profilului -->
+    <string name="CP_StringProfileBuilder" formatted="false">
+        <![CDATA[
+        <strong>This will take just a few moments</strong>
+        ]]>
+    </string>
+    <string name="CP_HelloAboutAPPTitle" formatted="false">
+        <![CDATA[
+        <strong>Some words about this application</strong>
+        ]]>
+    </string>
+    <string name="CP_HelloAboutAPP" formatted="false">
+        <![CDATA[
+        <br>First I want to thank you for choosing to register to your system.
+        <br>This applications wants to offer the user the chance to learn in a better and simpler
+        way different terms from programming that will helped them in there first steps in this career
+        or for those who allready are programmers just do some refreshing of their knowlege.
+        <br>This applications will NOT learn you how to code, it will teach you why the code is written in X manner.
+        ]]>
+    </string>
+    <string name="CP_HelloAboutAPPJava" formatted="false">
+        <![CDATA[
+        <br><strong>WHY JAVA ?</strong>
+        <br>Not to be confused with JavaScript, this general-purpose language was designed to be easier to use than C++,
+        which was a notoriously complex language. 90% of the Fortune 500 companies have since used Java to develop desktop
+         apps and website backend systems.Java is a highly portable language as it must be executed through a cross-platform
+         compatible Java Virtual Machine (JVM).Furthermore, Android apps are also developed using Java since the Android Operating
+         System runs on a Java language environment.
+        ]]>
+    </string>
+    <string name="CP_HelloAboutAPPsql" formatted="false">
+        <![CDATA[
+        <br><strong>WHY SQL ?</strong>
+        <br>..................................................................
+        .............................................................................
+        ........................................................................................
+        ........................................................................................
+        ........................................................................................
+        ........................................................................................
+        ]]>
+    </string>
+    <string name="AI_COMMUNICATION" formatted="false">
 
+    </string>
 
-
-
+    <string-array name="conuntrys_array">
+        <item>Romania</item>
+        <item>Italia</item>
+        <item>Franta</item>
+        <item>Germania</item>
+        <item>USA</item>
+        <item>Canada</item>
+        <item>Norvegia</item>
+        <item>South Korea</item>
+    </string-array>
 </resources>

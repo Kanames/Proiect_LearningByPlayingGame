@@ -41,4 +41,10 @@ public class StringUtilsTestCollections {
         System.out.println(StringUtils.trfOut(listAdvancedScenario));
     }
 
+    @Test
+    public void humanReadableObjects_betterMethod() {
+        initializareScenari();
+        System.out.println(StringUtils.readObject(listSimpleScenario));
+        System.out.println(StringUtils.readObject(listAdvancedScenario));
+    }
 }
