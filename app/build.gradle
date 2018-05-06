@@ -27,6 +27,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    // for expresso framework , automated UI testing
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:design:26.1.0'
     // Add this line
@@ -35,8 +36,6 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:15.0.0'
     compile 'com.google.firebase:firebase-database:15.0.0'
     compile 'com.android.support:design:26.1.0'
-
-
     // Unit testing dependencies
     testCompile 'junit:junit:4.12'
     // Set this dependency if you want to use the Hamcrest matcher library

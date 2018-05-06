@@ -20,6 +20,14 @@ public class User implements Serializable{
     private String userFirebaseID;
     private String dateAccountCreated;
 
+    public User() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public User(String email) {
+        this.emailAddress = email;
+    }
+
     public String getUserFirebaseID() {
         return userFirebaseID;
     }

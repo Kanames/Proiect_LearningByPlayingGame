@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.stefan.proiect_learningbyplayinggame.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -21,21 +20,23 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import javax.security.auth.login.LoginException;
-
 import ro.LearnByPLaying.Beans.User;
 import ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils;
 
-import static ro.LearnByPLaying.Activitati.CreatingProfileTabs.TabHello.user;
 
 
 public class LoginActivity extends AppCompatActivity {
     //Declarare resurse------------------
     private static String USER_FIREBASE_ID;
     private static String USER_OBJECT;
+    //---
     private FirebaseAuth auth;
     private Button btnLogin;
     private EditText emailUser, parolaUser;
@@ -58,11 +59,17 @@ public class LoginActivity extends AppCompatActivity {
         register    = findViewById(R.id.login_textViewCreateAccount);
         forgotPass  = findViewById(R.id.login_textViewForgotPassword);
         intent = new Intent(LoginActivity.this, CreatingProfile.class);
+
+        //---Daca venim din RegisterActivity----
         Bundle extras = getIntent().getExtras();
         if (extras != null) { //Comming from Register to Login
+            Log.d("Activitati", getClass().getName()+"< Comming from Register to Login >");
             User userObject = (User) extras.getSerializable("SESSION_USER");
-            Log.d("Activitati", getClass().getName()+" FirebaseUserID"+userObject.getUserFirebaseID());
-            intent.putExtra("SESSION_USER", userObject);
+            if(userObject != null ){
+                Log.d("Activitati", getClass().getName()+" FirebaseUserID: "+userObject.getUserFirebaseID());
+                intent.putExtra("SESSION_USER", userObject);
+            }
+
         }
         //--------------------------------------
 
@@ -70,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Activitati", "Clicked Login btn !");
+                Log.d("Activitati", getClass().getName()+" Clicked Login button !");
                 //Verificare resurse--------------------
                 try {
                     if (TextUtils.isEmpty(emailUser.getText().toString())) {
@@ -100,9 +107,31 @@ public class LoginActivity extends AppCompatActivity {
                                             parolaUser.setError("Error: password has minim 8 characters");
                                         }
                                     } else {
+                                        //---Getting the UserID-----------
                                         USER_FIREBASE_ID = FirebaseRealtimeDBUtils.getUserFirebaseID(auth);
-                                        startActivity(intent);
-                                        finish();
+                                        Log.d("Activitati",getClass().getName()+" USER_FIREBASE_ID: "+USER_FIREBASE_ID);
+                                        //----Getting the USER
+                                        //User userObj = FirebaseRealtimeDBUtils.getUser(USER_FIREBASE_ID);
+                                        final User[] user = new User[1];
+                                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference ref = database.getReference("USERS");
+                                        ref.child(USER_FIREBASE_ID).addValueEventListener(new ValueEventListener() {
+                                                                                              @Override
+                                                                                              public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                  user[0] = dataSnapshot.getValue(User.class);
+                                                                                                  Log.d("Activitati", "child email: ---------- " + user[0].getEmailAddress());
+                                                                                                  intent.putExtra("SESSION_USER", user[0]);
+                                                                                                  startActivity(intent);
+                                                                                                  finish();
+                                                                                              }
+
+                                                                                              @Override
+                                                                                              public void onCancelled(DatabaseError databaseError) {
+                                                                                                  Log.d("Activitati", getClass().getName() + " DB ERROR: " + databaseError.getMessage());
+                                                                                              }
+                                                                                          });
+                                        //--------------------------------
+
                                     }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -133,6 +162,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
         //--------------------------------------
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

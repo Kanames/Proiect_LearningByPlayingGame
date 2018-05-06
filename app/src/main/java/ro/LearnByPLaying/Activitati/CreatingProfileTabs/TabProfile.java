@@ -27,10 +27,10 @@ import ro.LearnByPLaying.Activitati.CreatingProfile;
  */
 
 public class TabProfile extends Fragment {
-    View view;
-
-    public static Button btnProfile;
     public static Boolean IS_PROFILE_CREATED;
+
+    View view;
+    public static Button btnProfile;
     private TextView displayTextView;
     private ViewPager viewPager;
     private EditText nickname,firstname,lastname,country;
@@ -59,6 +59,7 @@ public class TabProfile extends Fragment {
 
         btnProfile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 CreatingProfile.viewPager.setCurrentItem(2);
             }
         });

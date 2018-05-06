@@ -62,6 +62,7 @@ public class TabHello extends Fragment {
                     raspuns.add(postSnapshot.getValue().toString());
                     msgDB = postSnapshot.getValue().toString();
                     Log.d("Activitati","R------"+raspuns.get(0));
+
                 }
                 if(msgDB==null){
                     msgDB="ceva nu a mers";
