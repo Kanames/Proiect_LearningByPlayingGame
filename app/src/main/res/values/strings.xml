@@ -1,18 +1,29 @@
 <resources>
     <string name="app_name">Learn programming</string>
+
     <string name="ForgotPass_Toolbar_Title">Reseting password</string>
     <string name="Register_Toolbar_Title">Sign Up</string>
+    <string name="RegisterToolbarString">Register form</string>
+
     <string name="Toolbar_TitleSecondary">Learn smarter and better</string>
+
     <!-- Universale -->
+    <string name="userName">%1$s</string>
     <string name="inputEmail">E-mail:</string>
     <string name="inputPass">Password:</string>
     <string name="inputPassHelper">At least 8 characters</string>
+    <string name="RegisterToolbarSecondaryString">Learn java better and smarter</string>
     <!-- Mesaje de exceptie -->
-    <string name="error_invalid_email">Error: check your e-mail format</string>
+    <string name="error_empty">Error: please fill the input %1$s</string>
+    <string name="error_length">Error: No more than 20 characters for %1$s</string>
+    <string name="error_weak_password">Error: at least %1$s characters</string>
+    <string name="error_invalid_email">Error: check your E-mail format</string>
+    <string name="error_password_match">Error: passwords don\'t match</string>
+
     <string name="error_empty_email">Error: check your e-mail format</string>
     <string name="error_empty_password">Error: check your e-mail format</string>
     <string name="error_user_exists">Error: user already exists</string>
-    <string name="error_weak_password">Error: at least 8 characters</string>
+
 
     <!-- Activitatea de Login -->
     <string name="LoginButtonAccept">LOGIN to my account</string>
@@ -20,6 +31,8 @@
     <string name="LoginForgotPassword">Forgot password ?</string>
 
     <!-- Activitatea de Inregistrare -->
+
+
     <string name="RegisterPass2RAW">Reapeat the password:</string>
     <string name="RegisterAgreements">Check if you accept terms and conditions</string>
     <string name="RegisterAgreementsTitle">Terms and conditions</string>

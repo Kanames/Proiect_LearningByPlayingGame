@@ -49,20 +49,19 @@ public class TabHello extends Fragment {
         final TypeWriter textAI = (TypeWriter)view.findViewById(R.id.text_message_body);
         textAI.setText("");
         textAI.setCharacterDelay(75);
+        textAI.animateText("test");
         // Get a reference to our posts
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("ai_replici");
+        DatabaseReference ref = database.getReference("ai_replici/CreateProfile/TabHello");
         // Attach a listener to read the data at our posts reference
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.limitToFirst(1).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> raspuns = new ArrayList<String>();
-                Log.d("Activitati","-------------yo-------");
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     raspuns.add(postSnapshot.getValue().toString());
                     msgDB = postSnapshot.getValue().toString();
                     Log.d("Activitati","R------"+raspuns.get(0));
-
                 }
                 if(msgDB==null){
                     msgDB="ceva nu a mers";

@@ -2,6 +2,7 @@ package ro.LearnByPLaying.Activitati;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,12 +29,14 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Date;
 
 import ro.LearnByPLaying.Beans.User;
+import ro.LearnByPLaying.Utilitare.StringUtils;
 
 import static ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils.isUserRegistered;
 import static ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils.savingUSER;
 
 public class RegisterActivity extends AppCompatActivity {
     public static  EditText inputEmail,inputPassword1, inputPassword2;
+    private TextInputLayout inputLayoutEmail,inputLayoutPass1,inputLayoutPass2;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     private Button signUp;
@@ -42,13 +45,17 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Activitati", "<<< Intrat in RegisterActivity.onCreate >>>");
         super.onCreate(savedInstanceState);
+
         //Initializarea resurselor------
         setContentView(R.layout.activity_register);
-        signUp = (Button) findViewById(R.id.btnRegister);
-        inputPassword1 = (EditText) findViewById(R.id.editTextPass1);
-        inputPassword2 = (EditText) findViewById(R.id.editTextPass2);
-        inputEmail = (EditText) findViewById(R.id.editTextEmail);
-        checkBoxAgree = (CheckBox) findViewById(R.id.checkBoxAgree);
+        signUp         = findViewById(R.id.Register_btnRegister);
+        inputPassword1 = findViewById(R.id.Register_editTextPass1);
+        inputPassword2 = findViewById(R.id.Register_editTextPass2);
+        inputEmail     = findViewById(R.id.Register_editTextEmail);
+        checkBoxAgree  = findViewById(R.id.Register_checkBoxAgree);
+        inputLayoutPass1 =  findViewById(R.id.Register_textInputLayoutPass1);
+        inputLayoutPass2 =  findViewById(R.id.Register_textInputLayoutPass2);
+        inputLayoutEmail =  findViewById(R.id.Register_textInputLayoutEmail);
         //------------------------------
 
         //Get Firebase auth instance----
@@ -66,97 +73,77 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Display icon in the toolbar---------------------------------------------
         //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Register form");
+        getSupportActionBar().setTitle(R.string.RegisterToolbarString);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setSubtitle("Learn java better and smarter");
+        getSupportActionBar().setSubtitle(getString(R.string.RegisterToolbarSecondaryString));
         //-------------------------------------------------------------------------
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String email = inputEmail.getText().toString().trim();
-                final String password1 = inputPassword1.getText().toString().trim();
-                String password2 = inputPassword2.getText().toString().trim();
+                try{
+                    StringUtils.controlTextInput(inputEmail,getString(R.string.error_empty,"E-mail"));
+                    StringUtils.controlTextInput(inputPassword1,inputLayoutPass1,getString(R.string.error_empty,"password"),true,8l,getString(R.string.error_weak_password,"8"));
+                    StringUtils.controlTextInput(inputPassword2,inputLayoutPass2,getString(R.string.error_empty,"password"),true,8l,getString(R.string.error_weak_password,"8"));
+                    StringUtils.control2Passwords(inputPassword1,inputPassword2,inputLayoutPass1,inputLayoutPass2,getString(R.string.error_password_match));
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                    final String emailStr     = inputEmail.getText().toString().trim();
+                    final String password1Str = inputPassword1.getText().toString().trim();
 
-                if (TextUtils.isEmpty(password1)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password2)) {
-                    Toast.makeText(getApplicationContext(), "Complete both input passswords!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (password1.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (password2.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Second password too short,minimum 6 characters!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (!password1.equals(password2)) {
-                    Toast.makeText(getApplicationContext(), "Passwords don't match, Please check again!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (!checkBoxAgree.isChecked()) {
-                    Toast.makeText(getApplicationContext(), "Please agree with the terms", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //progressBar.setVisibility(View.VISIBLE);
-                //create user
-                auth.createUserWithEmailAndPassword(email, password1)
-                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                //Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    //Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(),Toast.LENGTH_SHORT).show();
-                                    try {
-                                        throw task.getException();
-//                                    } catch(FirebaseAuthWeakPasswordException e) {
-//                                        mTxtPassword.setError(getString(R.string.error_weak_password));
-//                                        mTxtPassword.requestFocus();
-//                                    } catch(FirebaseAuthInvalidCredentialsException e) {
-//                                        mTxtEmail.setError(getString(R.string.error_invalid_email));
-//                                        mTxtEmail.requestFocus();
-                                    } catch(FirebaseAuthUserCollisionException e) {
-                                        Log.e("Activitati", "FirebaseAuthUserCollisionException: "+e.getMessage());
-                                        Toast.makeText(RegisterActivity.this, getString(R.string.error_user_exists) + task.getException(),Toast.LENGTH_SHORT).show();
-                                        inputEmail.setError(getString(R.string.error_user_exists));
-                                        inputEmail.requestFocus();
-                                    } catch(Exception e) {
-                                        Log.e("Activitati", "Exception: "+e.getMessage());
-                                    }
-                                } else {
+                    if (!checkBoxAgree.isChecked()) {
+                        Toast.makeText(getApplicationContext(), "Please agree with the terms", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    progressBar.setVisibility(View.VISIBLE);
+                    //create user
+                    auth.createUserWithEmailAndPassword(emailStr, password1Str)
+                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    progressBar.setVisibility(View.GONE);
+                                    if (!task.isSuccessful()) {
+                                        try {
+                                            throw task.getException();
+                                        } catch (FirebaseAuthWeakPasswordException e) {
+                                            Log.e("Activitati", "RegisterActivity- FirebaseAuthWeakPasswordException: " + e.getMessage());
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_weak_password), Toast.LENGTH_SHORT).show();
+                                            inputLayoutPass1.setError(getString(R.string.error_weak_password));
+                                            inputLayoutPass2.setError(getString(R.string.error_weak_password));
+                                            inputLayoutPass1.requestFocus();
+                                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                                            Log.e("Activitati", "RegisterActivity- FirebaseAuthInvalidCredentialsException: " + e.getMessage());
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_invalid_email), Toast.LENGTH_SHORT).show();
+                                            inputLayoutEmail.setError(getString(R.string.error_invalid_email));
+                                            inputEmail.requestFocus();
+                                        } catch (FirebaseAuthUserCollisionException e) {
+                                            Log.e("Activitati", "RegisterActivity- FirebaseAuthUserCollisionException: " + e.getMessage());
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_user_exists) + task.getException(), Toast.LENGTH_SHORT).show();
+                                            inputLayoutEmail.setError(getString(R.string.error_user_exists));
+                                            inputEmail.requestFocus();
+                                        } catch (Exception e) {
+                                            Log.e("Activitati", "RegisterActivity- Exception: " + e.getMessage());
+                                        }
+                                    } else {
                                         User userObject = new User();
-                                    FirebaseUser userFirebaseObject = task.getResult().getUser();
-                                    Log.d("Activitati", "onComplete: uid=" + userFirebaseObject.getUid());
+                                        FirebaseUser userFirebaseObject = task.getResult().getUser();
+                                        Log.d("Activitati", "RegisterActivity- userFirebaseObject.uid= " + userFirebaseObject.getUid());
                                         userObject.setUserFirebaseID(userFirebaseObject.getUid());
                                         userObject.setDateAccountCreated(new Date().toString());
-                                        userObject.setEmailAddress(email);
-                                        userObject.setPassword(password1);
-                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    intent.putExtra("SESSION_USER", userObject);
-                                    savingUSER(userObject);
-                                    isUserRegistered(userObject);
-                                    startActivity(intent);
-                                    finish();
+                                        userObject.setEmailAddress(emailStr);
+                                        userObject.setPassword(password1Str);
+                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        intent.putExtra("SESSION_USER", userObject);
+                                        savingUSER(userObject);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }catch (Exception e){
+                    Log.e("Activitati", "RegisterActivity- Error register: "+e.getMessage());
+                }
+
             }
         });
         Log.d("Activitati", "<<< Iesit din RegisterActivity.onCreate >>>");
@@ -192,11 +179,11 @@ public class RegisterActivity extends AppCompatActivity {
     public void checkbox_clicked(View v)
     {
         if(checkBoxAgree.isChecked()){
-            Log.d("Activitati", "check box agreements status: checked");
+            Log.d("Activitati", "RegisterActivity- check box agreements status: checked");
             Intent intent = new Intent(v.getContext(), RegisterAgreementsActivity.class);
             startActivity(intent);
         }else{
-            Log.d("Activitati", "check box agreements status: unchecked");
+            Log.d("Activitati", "RegisterActivity- check box agreements status: unchecked");
         }
     }
 }

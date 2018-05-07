@@ -19,6 +19,7 @@ import ro.LearnByPLaying.Beans.User;
 
 
 public class CreatingProfile extends FragmentActivity {
+    public static User USER_OBJECT;
     private TabLayout tabLayout;
     private AppBarLayout appBarLayout;
     public static ViewPager viewPager;
@@ -36,13 +37,14 @@ public class CreatingProfile extends FragmentActivity {
         viewPageAdapter.addFragment(new TabProfile(), "Create profile");
         viewPageAdapter.addFragment(new TabStart(), "START");
         viewPager.setAdapter(viewPageAdapter);
+        viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             Log.d("Activitati", "We have extras in Create profile toooo X_X !!!");
-            User userObject = (User) extras.getSerializable("SESSION_USER");
-            Log.d("Activitati", userObject.getUserFirebaseID());
+            USER_OBJECT = (User) extras.getSerializable("SESSION_USER");
+            Log.d("Activitati", USER_OBJECT.getUserFirebaseID());
         }
 
     }

@@ -2,6 +2,7 @@ package ro.LearnByPLaying.Activitati;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import javax.security.auth.login.LoginException;
 import ro.LearnByPLaying.Beans.User;
 import ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils;
-
+import ro.LearnByPLaying.Utilitare.StringUtils;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private Button btnLogin;
     private EditText emailUser, parolaUser;
+    private TextInputLayout textInputLayoutEmail, textInputLayoutPassword;
     private TextView register, forgotPass;
     private ProgressBar progressBar;
     private Intent intent;
@@ -58,15 +60,17 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.login_progressBar);
         register    = findViewById(R.id.login_textViewCreateAccount);
         forgotPass  = findViewById(R.id.login_textViewForgotPassword);
+        textInputLayoutEmail = findViewById(R.id.login_textInputLayoutEmail);
+        textInputLayoutPassword = findViewById(R.id.login_textInputLayoutPassword);
         intent = new Intent(LoginActivity.this, CreatingProfile.class);
-
+        //intent = new Intent(LoginActivity.this, MainActivity.class);
         //---Daca venim din RegisterActivity----
         Bundle extras = getIntent().getExtras();
         if (extras != null) { //Comming from Register to Login
-            Log.d("Activitati", getClass().getName()+"< Comming from Register to Login >");
+            Log.d("Activitati", "LoginActivity- "+"< Comming from Register to Login >");
             User userObject = (User) extras.getSerializable("SESSION_USER");
             if(userObject != null ){
-                Log.d("Activitati", getClass().getName()+" FirebaseUserID: "+userObject.getUserFirebaseID());
+                Log.d("Activitati", "LoginActivity- "+" FirebaseUserID: "+userObject.getUserFirebaseID());
                 intent.putExtra("SESSION_USER", userObject);
             }
 
@@ -77,19 +81,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Activitati", getClass().getName()+" Clicked Login button !");
+                Log.d("Activitati", "LoginActivity- "+" Clicked Login button !");
                 //Verificare resurse--------------------
                 try {
-                    if (TextUtils.isEmpty(emailUser.getText().toString())) {
-                        emailUser.requestFocus();
-                        emailUser.setError("Please enter your e-mail");
-                        throw new LoginException("Error: please enter the e-mail");
-                    }
-                    if (TextUtils.isEmpty(parolaUser.getText().toString())) {
-                        parolaUser.requestFocus();
-                        parolaUser.setError("Please enter the password");
-                        throw new LoginException("Error: please fill the password");
-                    }
+                    StringUtils.controlTextInput(emailUser,getString(R.string.error_empty,"E-mail"));
+                    StringUtils.controlTextInput(parolaUser,getString(R.string.error_empty,"password"));
                     String emailStr = emailUser.getText().toString();
                     String passStr = parolaUser.getText().toString();
                     Log.d("Activitati", "numeUser: " + emailStr + " parolaUser: " + passStr);
@@ -103,13 +99,11 @@ public class LoginActivity extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
                                     if (!task.isSuccessful()) {
                                         // there was an error
-                                        if (parolaUser.length() < 8) {
-                                            parolaUser.setError("Error: password has minim 8 characters");
-                                        }
                                     } else {
                                         //---Getting the UserID-----------
                                         USER_FIREBASE_ID = FirebaseRealtimeDBUtils.getUserFirebaseID(auth);
-                                        Log.d("Activitati",getClass().getName()+" USER_FIREBASE_ID: "+USER_FIREBASE_ID);
+                                        Log.d("Activitati","LoginActivity- "+" object auth: "+StringUtils.trfOut(auth));
+                                        Log.d("Activitati","LoginActivity- "+" USER_FIREBASE_ID: "+USER_FIREBASE_ID);
                                         //----Getting the USER
                                         //User userObj = FirebaseRealtimeDBUtils.getUser(USER_FIREBASE_ID);
                                         final User[] user = new User[1];
@@ -119,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                                               @Override
                                                                                               public void onDataChange(DataSnapshot dataSnapshot) {
                                                                                                   user[0] = dataSnapshot.getValue(User.class);
-                                                                                                  Log.d("Activitati", "child email: ---------- " + user[0].getEmailAddress());
+                                                                                                  Log.d("Activitati", "LoginActivity- "+"child email: ---------- " + user[0].getEmailAddress());
                                                                                                   intent.putExtra("SESSION_USER", user[0]);
                                                                                                   startActivity(intent);
                                                                                                   finish();
@@ -127,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                                                                               @Override
                                                                                               public void onCancelled(DatabaseError databaseError) {
-                                                                                                  Log.d("Activitati", getClass().getName() + " DB ERROR: " + databaseError.getMessage());
+                                                                                                  Log.d("Activitati", "LoginActivity- " + " DB ERROR: " + databaseError.getMessage());
                                                                                               }
                                                                                           });
                                         //--------------------------------
@@ -144,21 +138,23 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 String errorCode = ((FirebaseAuthInvalidUserException) e).getErrorCode();
                                 if (errorCode.equals("ERROR_USER_NOT_FOUND")) {
-                                    Log.e("Activitati", "No matching account found");
+                                    Log.e("Activitati", "LoginActivity- "+"No matching account found");
                                 } else if (errorCode.equals("ERROR_USER_DISABLED")) {
-                                    Log.e("Activitati", "User account has been disabled");
+                                    Log.e("Activitati", "LoginActivity- "+"User account has been disabled");
                                     Toast.makeText(LoginActivity.this, "User account has been disabled", Toast.LENGTH_LONG).show();
                                 } else {
-                                    Log.e("Activitati", e.getLocalizedMessage());
+                                    Log.e("Activitati", "LoginActivity- "+"Exception: "+e.getLocalizedMessage());
                                 }
                             }
                         }
                     });
                 } catch (LoginException el) {
-                    Log.e("Activitati", getClass().getName()+" "+el.getMessage());
+                    Log.e("Activitati", "LoginActivity- "+el.getMessage());
                 } catch (Exception e) {
-                    Log.e("Activitati", getClass().getName()+" "+e.getMessage());
-                    Toast.makeText(LoginActivity.this, "We are sorry, we have a problem...", Toast.LENGTH_SHORT).show();
+                    Log.e("Activitati", "LoginActivity- "+e.getMessage());
+                    if(!e.getMessage().contains("Error: please fill the input")){
+                        Toast.makeText(LoginActivity.this, "We are sorry, we have a problem...", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -166,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
         //--------------------------------------
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("Activitati", getClass().getName()+" flowing to -> RegisterActivity ");
+                Log.d("Activitati", "LoginActivity- "+" flowing to -> RegisterActivity ");
                 Intent intent = new Intent(v.getContext(), RegisterActivity.class);
                 startActivity(intent);
             }
@@ -174,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
 
         forgotPass.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("Activitati", getClass().getName()+" flowing to -> ForgotPasswordActivity ");
+                Log.d("Activitati", "LoginActivity- "+" flowing to -> ForgotPasswordActivity ");
                 Intent intent = new Intent(v.getContext(), ForgotPasswordActivity.class);
                 startActivity(intent);
             }

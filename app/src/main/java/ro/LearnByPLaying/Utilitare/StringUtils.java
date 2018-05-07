@@ -1,5 +1,7 @@
 package ro.LearnByPLaying.Utilitare;
 
+import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -7,6 +9,8 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
+
+import javax.security.auth.login.LoginException;
 
 /**
  * Created by Stefan on 4/18/2018.
@@ -74,4 +78,42 @@ public class StringUtils {
     }
 
 
+    public static void controlTextInput(EditText editText, String errorEmpty) throws Exception{
+        String rawEditTextValue = editText.getText().toString();
+        if (TextUtils.isEmpty(rawEditTextValue)) {
+            editText.requestFocus();
+            editText.setError(errorEmpty);
+            throw new Exception(errorEmpty);
+        }
+    }
+    public static void controlTextInput(EditText editText,TextInputLayout textInputLayout, String errorEmpty) throws Exception{
+        textInputLayout.setError(null);
+        String rawEditTextValue = editText.getText().toString();
+        if (TextUtils.isEmpty(rawEditTextValue)) {
+            editText.requestFocus();
+            textInputLayout.setError(errorEmpty);
+            throw new Exception(errorEmpty);
+        }
+    }
+    public static void controlTextInput(EditText editText, TextInputLayout textInputLayout, String errorEmpty, Boolean isLengthChecked , Long lengthInputMin, String errorLength) throws Exception{
+        textInputLayout.setError(null);
+        controlTextInput(editText,textInputLayout,errorEmpty);
+        String rawEditTextValue = editText.getText().toString();
+        if (rawEditTextValue.length() < lengthInputMin) {
+            editText.requestFocus();
+            textInputLayout.setError(errorLength);
+            throw new Exception(errorLength);
+        }
+    }
+    public static void control2Passwords(EditText password1 ,EditText password2 , TextInputLayout layoutPass1, TextInputLayout layoutPass2, String errorPasswordMatch) throws Exception{
+        layoutPass1.setError(null);
+        String password1Str1 = password1.getText().toString();
+        String password1Str2 = password2.getText().toString();
+        if (!password1Str1.equals(password1Str2)) {
+            password1.requestFocus();
+            layoutPass1.setError(errorPasswordMatch);
+            layoutPass2.setError(errorPasswordMatch);
+            throw new Exception(errorPasswordMatch);
+        }
+    }
 }

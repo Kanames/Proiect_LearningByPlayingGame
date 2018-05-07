@@ -24,8 +24,13 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.core.internal.deps.guava.base.Preconditions.checkNotNull;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.core.Is.is;
 
 /**
  * Created by Stefan on 5/6/2018.
@@ -44,9 +49,10 @@ public class LoginTest_Espresso {
     public void setUp() throws Exception{
 
     }
+
     @Test
     public void testScenario_01(){
-        Log.d("Espresso"," - Scenariul 01 - ");
+        Log.d("Espresso"," - Scenariul 01 ambele imput-uri bune - ");
         Log.d("Espresso","inputs email: "+email);
         Log.d("Espresso","inputs password: "+password);
         //input some text in edit text
@@ -64,7 +70,7 @@ public class LoginTest_Espresso {
     }
     @Test
     public void testScenario_02(){
-        Log.d("Espresso"," - Scenariul 02 - ");
+        Log.d("Espresso"," - Scenariul 02 input doar pentru password - ");
         Log.d("Espresso","inputs password: "+password);
         onView(withId(R.id.login_editTextPassword)).perform(typeText(password));
         //close soft keyboard
@@ -72,11 +78,11 @@ public class LoginTest_Espresso {
         //perform button click
         onView(withId(R.id.login_button)).perform(click());
         //checking the text in the textView
-        Espresso.onView(withId(R.id.editTextEmail)).check(matches(hasErrorText("Please enter your e-mail")));
+        Espresso.onView(withId(R.id.editTextEmail)).check(matches(hasErrorText("Error: please fill the input E-mail")));
     }
     @Test
     public void testScenario_03(){
-        Log.d("Espresso"," - Scenariul 03 - ");
+        Log.d("Espresso"," - Scenariul 03 input doar pentru email - ");
         Log.d("Espresso","inputs email: "+email);
         //input some text in edit text
         onView(withId(R.id.editTextEmail)).perform(typeText(email));
@@ -85,6 +91,45 @@ public class LoginTest_Espresso {
         //perform button click
         onView(withId(R.id.login_button)).perform(click());
         //checking the text in the textView
+        Espresso.onView(withId(R.id.login_editTextPassword)).check(matches(hasErrorText("Error: please fill the input password")));
+    }
+    @Test
+    public void testScenario_04(){
+        Log.d("Espresso"," - Scenariul 04 fake email and password - ");
+        Log.d("Espresso","inputs email: "+"fake@fake.com");
+        Log.d("Espresso","inputs password: "+"fakefakefake");
+        //input some text in edit text
+        onView(withId(R.id.editTextEmail)).perform(typeText("fake@fake.com"));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.login_editTextPassword)).perform(typeText("fake@fake.com"));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //perform button click
+        onView(withId(R.id.login_button)).perform(click());
+        //checking the toast
+        LoginActivity activity = mActivityTestRule.getActivity();
+        onView(withText("Incorrect email address")).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
+    }
+    @Test
+    public void testScenario_05(){
+        Log.d("Espresso"," - Scenariul 05 real email and  fake password - ");
+        Log.d("Espresso","inputs email: "+email);
+        Log.d("Espresso","inputs password: "+"fakefakefake");
+        //input some text in edit text
+        onView(withId(R.id.editTextEmail)).perform(typeText(email));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.login_editTextPassword)).perform(typeText("fake@fake.com"));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //perform button click
+        onView(withId(R.id.login_button)).perform(click());
+        //checking the toast
+        LoginActivity activity = mActivityTestRule.getActivity();
+        onView(withText("Invalid password")).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
 

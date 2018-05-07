@@ -11,7 +11,7 @@
         layout="@layout/register_toolbar" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayoutEmail"
+        android:id="@+id/Register_textInputLayoutEmail"
         android:layout_width="300dp"
         android:layout_height="57dp"
         android:layout_marginBottom="8dp"
@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.334">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/Register_editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/inputEmail"
@@ -35,22 +35,22 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayoutPass1"
+        android:id="@+id/Register_textInputLayoutPass1"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutEmail"
+        app:layout_constraintEnd_toEndOf="@+id/Register_textInputLayoutEmail"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayoutEmail"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEmail"
+        app:layout_constraintStart_toStartOf="@+id/Register_textInputLayoutEmail"
+        app:layout_constraintTop_toBottomOf="@+id/Register_textInputLayoutEmail"
         app:layout_constraintVertical_bias="0.0"
         app:passwordToggleEnabled="true">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/editTextPass1"
+            android:id="@+id/Register_editTextPass1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -62,22 +62,22 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayoutPass2"
+        android:id="@+id/Register_textInputLayoutPass2"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPass1"
+        app:layout_constraintEnd_toEndOf="@+id/Register_textInputLayoutPass1"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayoutPass1"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPass1"
+        app:layout_constraintStart_toStartOf="@+id/Register_textInputLayoutPass1"
+        app:layout_constraintTop_toBottomOf="@+id/Register_textInputLayoutPass1"
         app:layout_constraintVertical_bias="0.0"
         app:passwordToggleEnabled="true">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/editTextPass2"
+            android:id="@+id/Register_editTextPass2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -90,7 +90,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/btnRegister"
+        android:id="@+id/Register_btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="104dp"
@@ -99,15 +99,15 @@
         android:layout_marginTop="8dp"
         android:text="@string/RegisterButtonRegister"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/checkBoxAgree"
+        app:layout_constraintEnd_toEndOf="@+id/Register_checkBoxAgree"
         app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="@+id/checkBoxAgree"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxAgree"
+        app:layout_constraintStart_toStartOf="@+id/Register_checkBoxAgree"
+        app:layout_constraintTop_toBottomOf="@+id/Register_checkBoxAgree"
         app:layout_constraintVertical_bias="0.11"
         style="@style/Widget.AppCompat.Button.Colored"/>
 
     <CheckBox
-        android:id="@+id/checkBoxAgree"
+        android:id="@+id/Register_checkBoxAgree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -119,10 +119,10 @@
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPass2"
+        app:layout_constraintEnd_toEndOf="@+id/Register_textInputLayoutPass2"
         app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayoutPass2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPass2"
+        app:layout_constraintStart_toStartOf="@+id/Register_textInputLayoutPass2"
+        app:layout_constraintTop_toBottomOf="@+id/Register_textInputLayoutPass2"
         app:layout_constraintVertical_bias="0.0"
         android:onClick="checkbox_clicked"/>
 
@@ -136,7 +136,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutEmail"
+        app:layout_constraintBottom_toTopOf="@+id/Register_textInputLayoutEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
