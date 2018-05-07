@@ -65,8 +65,6 @@ public class LoginTest_Espresso {
         Espresso.closeSoftKeyboard();
         //perform button click
         onView(withId(R.id.login_button)).perform(click());
-        //checking the text in the textView
-        //Espresso.onView(withId(R.id._)).perform(matches(withText()));
     }
     @Test
     public void testScenario_02(){
