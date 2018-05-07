@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
         textInputLayoutEmail = findViewById(R.id.login_textInputLayoutEmail);
         textInputLayoutPassword = findViewById(R.id.login_textInputLayoutPassword);
         intent = new Intent(LoginActivity.this, CreatingProfile.class);
-        //intent = new Intent(LoginActivity.this, MainActivity.class);
         //---Daca venim din RegisterActivity----
         Bundle extras = getIntent().getExtras();
         if (extras != null) { //Comming from Register to Login
@@ -105,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                                         Log.d("Activitati","LoginActivity- "+" object auth: "+StringUtils.trfOut(auth));
                                         Log.d("Activitati","LoginActivity- "+" USER_FIREBASE_ID: "+USER_FIREBASE_ID);
                                         //----Getting the USER
-                                        //User userObj = FirebaseRealtimeDBUtils.getUser(USER_FIREBASE_ID);
                                         final User[] user = new User[1];
                                         final FirebaseDatabase database = FirebaseDatabase.getInstance();
                                         DatabaseReference ref = database.getReference("USERS");
@@ -115,8 +113,15 @@ public class LoginActivity extends AppCompatActivity {
                                                                                                   user[0] = dataSnapshot.getValue(User.class);
                                                                                                   Log.d("Activitati", "LoginActivity- "+"child email: ---------- " + user[0].getEmailAddress());
                                                                                                   intent.putExtra("SESSION_USER", user[0]);
-                                                                                                  startActivity(intent);
-                                                                                                  finish();
+                                                                                                  if(user[0].getNickName() != null) {
+                                                                                                      Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
+                                                                                                      startActivity(intent2);
+                                                                                                      finish();
+                                                                                                  }else{
+                                                                                                      startActivity(intent);
+                                                                                                      finish();
+                                                                                                  }
+
                                                                                               }
 
                                                                                               @Override

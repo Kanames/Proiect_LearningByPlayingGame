@@ -1,13 +1,10 @@
 package ro.LearnByPLaying.Activitati;
 
-import android.content.Intent;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.example.stefan.proiect_learningbyplayinggame.R;
 
@@ -16,12 +13,12 @@ import ro.LearnByPLaying.Activitati.CreatingProfileTabs.TabStart;
 import ro.LearnByPLaying.Activitati.CreatingProfileTabs.TabHello;
 import ro.LearnByPLaying.Activitati.CreatingProfileTabs.ViewPageAdapter;
 import ro.LearnByPLaying.Beans.User;
+import ro.LearnByPLaying.Utilitare.StringUtils;
 
 
 public class CreatingProfile extends FragmentActivity {
     public static User USER_OBJECT;
     private TabLayout tabLayout;
-    private AppBarLayout appBarLayout;
     public static ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +26,6 @@ public class CreatingProfile extends FragmentActivity {
         setContentView(R.layout.activity_creating_profile);
 
         tabLayout = findViewById(R.id.CreateProfile_tabLayout);
-        appBarLayout = findViewById(R.id.CreateProfile_appBar);
         viewPager = findViewById(R.id.CreateProfile_viewPager);
 
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
@@ -42,9 +38,8 @@ public class CreatingProfile extends FragmentActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            Log.d("Activitati", "We have extras in Create profile toooo X_X !!!");
             USER_OBJECT = (User) extras.getSerializable("SESSION_USER");
-            Log.d("Activitati", USER_OBJECT.getUserFirebaseID());
+            Log.d("Activitati", "CreatingProfile- USER_OBJECT"+ StringUtils.trfOut(USER_OBJECT));
         }
 
     }

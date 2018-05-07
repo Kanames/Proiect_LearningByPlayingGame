@@ -16,21 +16,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import ro.LearnByPLaying.Beans.User;
 import ro.LearnByPLaying.Utilitare.TypeWriter;
 
 /**
  * Created by Stefan on 5/2/2018.
  */
-
 public class TabHello extends Fragment {
     View view;
     private static String msgDB;
-    public static User user;
     public TabHello() {
     }
 
@@ -46,34 +41,45 @@ public class TabHello extends Fragment {
         editTextJava.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPJava)));
         TextView editTextsql = view.findViewById(R.id.CP_HelloAboutAPPsql);
         editTextsql.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPsql)));
-        final TypeWriter textAI = (TypeWriter)view.findViewById(R.id.text_message_body);
-        textAI.setText("");
-        textAI.setCharacterDelay(75);
-        textAI.animateText("test");
-        // Get a reference to our posts
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("ai_replici/CreateProfile/TabHello");
-        // Attach a listener to read the data at our posts reference
-        ref.limitToFirst(1).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> raspuns = new ArrayList<String>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    raspuns.add(postSnapshot.getValue().toString());
-                    msgDB = postSnapshot.getValue().toString();
-                    Log.d("Activitati","R------"+raspuns.get(0));
-                }
-                if(msgDB==null){
-                    msgDB="ceva nu a mers";
-                }
-                textAI.animateText(msgDB);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("Activitati","The read failed: " + databaseError.getCode());
-            }
-        });
+        getSpeach();
 
         return view;
+    }
+    private void getSpeach() {
+        getActivity().runOnUiThread(new Runnable(){
+            public void run() {
+                try {
+                    final TypeWriter textAI = view.findViewById(R.id.text_message_body);
+                    textAI.setText("");
+                    textAI.setCharacterDelay(50);
+                    textAI.animateText("test");
+                    // Get a reference to our posts
+                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = database.getReference("ai_replici/CreateProfile/TabHello");
+                    // Attach a listener to read the data at our posts reference
+                    ref.limitToFirst(1).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            List<String> raspuns = new ArrayList<>();
+                            for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                                raspuns.add(postSnapshot.getValue().toString());
+                                msgDB = postSnapshot.getValue().toString();
+                                Log.d("Activitati","R------"+raspuns.get(0));
+                            }
+                            if(msgDB==null){
+                                msgDB="ceva nu a mers";
+                            }
+                            textAI.animateText(msgDB);
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.e("Activitati","The read failed: " + databaseError.getCode());
+                        }
+                    });
+                } catch (final Exception ex) {
+                    Log.i("---","Exception in thread");
+                }
+            }
+        });
     }
 }

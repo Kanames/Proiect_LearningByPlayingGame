@@ -42,9 +42,9 @@ public class TabStart extends Fragment {
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
+//                    Intent intent = new Intent(getActivity(), MainActivity.class);
+//                    startActivity(intent);
+//                    getActivity().finish();
             }
         });
 
