@@ -3,7 +3,10 @@ package ro.LearnByPLaying.Activitati.Chat_AI;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -18,38 +21,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatBot extends AppCompatActivity {
-    //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
-    ArrayList<String> listItems=new ArrayList<String>();
-    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
-    ArrayAdapter<String> adapter;
-    private String HUMAN = "Human: ";
-    private String BOT = "Ben: ";
+    private String HUMAN = "Human";
+    private String BOT = "Ben";
+    private ArrayList<String> questions = new ArrayList<>();
+    private ArrayList<String> responses = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Activitati","<<<<< IN ChatBot.onCreate() >>>>");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_bot);
-        final ListView list = findViewById(R.id.list_of_messages);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        final EditText questionRAW = (EditText) findViewById(R.id.input);
+        final RecyclerView recyclerView = findViewById(R.id.list_of_messages);
 
-        // Adapter: You need three parameters 'the context, id of the layout (it will be where the data is shown),
-        // and the array that contains the data
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, listItems);
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText question = (EditText) findViewById(R.id.input);
-                adapter= new ArrayAdapter<String>(ChatBot.this, android.R.layout.simple_list_item_1, listItems);
-                adapter.add(HUMAN +question.getText().toString());
-                adapter.notifyDataSetChanged();
-                list.setAdapter(adapter);
-                question.setText("");
+                String questionSTr =questionRAW.getText().toString();
+                questionRAW.setText("");
+                questions.add(questionSTr);
+
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(questions,HUMAN,getApplicationContext(),"HUMAN");
+                recyclerView.setAdapter(adapter);
+
+                responses.add("Hmm... neah");
+            ;
+
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
             }
         });
 
-
     }
+
 
 }
