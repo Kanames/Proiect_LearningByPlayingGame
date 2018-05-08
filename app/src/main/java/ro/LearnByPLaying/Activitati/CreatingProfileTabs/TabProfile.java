@@ -91,7 +91,9 @@ public class TabProfile extends Fragment {
                     toModify.put("country", USER_OBJECT.getCountry());
                     toModify.put("firstname", USER_OBJECT.getFirstName());
                     toModify.put("lastname", USER_OBJECT.getLastName());
-                    FirebaseRealtimeDBUtils.updateUSER(USER_OBJECT, toModify);
+
+                    new taskUpdateUser().execute(toModify);
+
                     TabStart.img.setImageResource(R.drawable.ai_happy);
                     TabStart.textAI.setCharacterDelay(75);
                     TabStart.textAI.animateText("Yey, you completed your profile and I am very glad to meet you " + USER_OBJECT.getNickName() + " we can start the app now by clicking the rounded button at the bottom of this activity");
@@ -110,4 +112,11 @@ public class TabProfile extends Fragment {
         return view;
     }
 
+    private static class taskUpdateUser extends AsyncTask<HashMap,Void,Void>{
+        @Override
+        protected Void doInBackground(HashMap... hashMaps) {
+            FirebaseRealtimeDBUtils.updateUSER(USER_OBJECT, hashMaps[0]);
+            return null;
+        }
+    }
 }

@@ -25,7 +25,7 @@ public class FirebaseRealtimeDBUtils {
         return true;
 
     }
-    public static Boolean updateUSER(User user,HashMap<String,Object> objUPDATE){
+    public static Boolean updateUSER(User user, HashMap objUPDATE){
         Log.d("Activitati","<<<< IN FirebaseRealtimeDBUtils.updateUSER >>>>");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("USERS/"+user.getUserFirebaseID());

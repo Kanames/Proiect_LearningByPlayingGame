@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                                         final User[] user = new User[1];
                                         final FirebaseDatabase database = FirebaseDatabase.getInstance();
                                         DatabaseReference ref = database.getReference("USERS");
-                                        ref.child(USER_FIREBASE_ID).limitToFirst(20).addValueEventListener(new ValueEventListener() {
+                                        ref.child(USER_FIREBASE_ID).limitToFirst(20).addListenerForSingleValueEvent(new ValueEventListener() {
                                                                                               @Override
                                                                                               public void onDataChange(DataSnapshot dataSnapshot) {
                                                                                                   user[0] = dataSnapshot.getValue(User.class);

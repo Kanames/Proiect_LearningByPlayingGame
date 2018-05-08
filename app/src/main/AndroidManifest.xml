@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- A child of the main activity -->
@@ -40,11 +44,7 @@
             android:name="ro.LearnByPLaying.Activitati.CreatingProfile"
             android:screenOrientation="portrait" />
         <activity android:name="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
