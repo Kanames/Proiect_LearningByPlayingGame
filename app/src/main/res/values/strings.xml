@@ -108,12 +108,10 @@
     <string name="CP_HelloAboutAPPsql" formatted="false">
         <![CDATA[
         <br><strong>WHY SQL ?</strong>
-        <br>..................................................................
-        .............................................................................
-        ........................................................................................
-        ........................................................................................
-        ........................................................................................
-        ........................................................................................
+        <br>SQL stands for Structured Query Language.
+        SQL is a language which helps us to work with the databases. Database do not understand English or any other language.
+        Just as to create software, we use Java or C#, in the similar way to work with databases, we use SQL.
+        SQL is the standard language of Database and is also pronounced as Sequel by many people.
         ]]>
     </string>
     <string name="AI_COMMUNICATION" formatted="false">
@@ -122,6 +120,18 @@
 
     <string-array name="conuntrys_array">
         <item>Romania</item>
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Antigua and Barbuda</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Aruba</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Azerbaijan</item>
         <item>Italia</item>
         <item>Franta</item>
         <item>Germania</item>

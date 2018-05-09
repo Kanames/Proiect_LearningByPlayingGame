@@ -1,5 +1,6 @@
 package ro.LearnByPLaying.Activitati.Chat_AI;
 
+import android.app.DownloadManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +16,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.stefan.proiect_learningbyplayinggame.R;
+import com.google.android.gms.common.api.Response;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,15 +60,11 @@ public class ChatBot extends AppCompatActivity {
                     questions.add(questionStr);
                     adapter.notifyItemChanged(recyclerView.getAdapter().getItemCount());
                     Log.d("Activitati","recyclerView.getAdapter().getItemCount()-1 -----> "+String.valueOf(recyclerView.getAdapter().getItemCount()-1));
-
                     questions.add("neah nu imi pasa ce vrei");
                     adapter.notifyItemChanged(recyclerView.getAdapter().getItemCount());
                     recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
                 }
             }
         });
-
     }
-
-
 }

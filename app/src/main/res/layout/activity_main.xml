@@ -16,21 +16,11 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <ScrollView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_list_lessons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/main_linearLayoutMainLessons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/main_lesson_line"
-                android:id="@+id/main_lesson_line"/>
-
-        </LinearLayout>
-        <!-- Rest of your content -->
-    </ScrollView>
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

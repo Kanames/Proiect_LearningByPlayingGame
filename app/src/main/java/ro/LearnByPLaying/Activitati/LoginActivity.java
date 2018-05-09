@@ -36,8 +36,6 @@ import ro.LearnByPLaying.Utilitare.StringUtils;
 public class LoginActivity extends AppCompatActivity {
     //Declarare resurse------------------
     private static String USER_FIREBASE_ID;
-    private static String USER_OBJECT;
-    //---
     private FirebaseAuth auth;
     private Button btnLogin;
     private EditText emailUser, parolaUser;

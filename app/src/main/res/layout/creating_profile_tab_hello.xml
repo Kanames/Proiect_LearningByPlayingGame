@@ -83,6 +83,7 @@
                 <ImageView
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/create_profile_sql_logo"
                     android:layout_weight=".30"
                     />

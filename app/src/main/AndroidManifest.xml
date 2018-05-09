@@ -14,15 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <!-- LOGIN activity -->
+        <activity android:name="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
+
         </activity>
 
-        <!-- A child of the main activity -->
+        <!-- A child of the main activity - REGISTER - -->
         <activity
             android:name="ro.LearnByPLaying.Activitati.RegisterActivity"
             android:parentActivityName="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
@@ -31,21 +29,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ro.LearnByPLaying.Activitati.LoginActivity" />
         </activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.MainActivity" />
 
-        <!-- A child of the main activity -->
+        <!-- A child of the main activity - RESET PASS - -->
         <activity
             android:name="ro.LearnByPLaying.Activitati.ForgotPasswordActivity"
             android:parentActivityName="ro.LearnByPLaying.Activitati.LoginActivity" />
+        <!-- A child of the main reset pass - Register Agreements - -->
         <activity
             android:name="ro.LearnByPLaying.Activitati.RegisterAgreementsActivity"
             android:parentActivityName="ro.LearnByPLaying.Activitati.RegisterActivity" />
         <activity
             android:name="ro.LearnByPLaying.Activitati.CreatingProfile"
             android:screenOrientation="portrait" />
-        <activity android:name="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot">
+        <activity android:name="ro.LearnByPLaying.Activitati.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot" />
+        <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity" />
+        <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.LessonActivity"></activity>
     </application>
 
 </manifest>

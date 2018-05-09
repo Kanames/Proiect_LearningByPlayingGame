@@ -68,6 +68,9 @@ public class StringUtils {
         if(object instanceof EditText){
             return object.toString();
         }
+        if(!(object instanceof Collection)){
+            return trfOut(object);
+        }
         final StringBuffer representation = new StringBuffer("[");
         for(final Object item : (Collection) object){
             representation.append(readObject(item)).append(", ");
