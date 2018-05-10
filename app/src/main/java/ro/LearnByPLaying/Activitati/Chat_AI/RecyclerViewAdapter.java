@@ -62,8 +62,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 holder.text_message_name.setText(text_message_name);
                 break;
             case 0:
-                holder.text_message_body.setCharacterDelay(50);
-                holder.text_message_body.animateText(LIST_MESSAGES.get(position));
+                holder.text_message_body.setText(LIST_MESSAGES.get(position));
                 holder.text_message_name.setText("Ben");
                 break;
         }

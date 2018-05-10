@@ -42,13 +42,15 @@
             android:name="ro.LearnByPLaying.Activitati.CreatingProfile"
             android:screenOrientation="portrait" />
         <activity android:name="ro.LearnByPLaying.Activitati.MainActivity">
+
+        </activity>
+        <activity android:name="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot" />
         <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity" />
         <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.LessonActivity"></activity>
     </application>

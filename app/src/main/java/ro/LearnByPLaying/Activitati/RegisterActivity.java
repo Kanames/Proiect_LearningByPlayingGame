@@ -107,19 +107,19 @@ public class RegisterActivity extends AppCompatActivity {
                                             throw task.getException();
                                         } catch (FirebaseAuthWeakPasswordException e) {
                                             Log.e("Activitati", "RegisterActivity- FirebaseAuthWeakPasswordException: " + e.getMessage());
-                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_weak_password), Toast.LENGTH_SHORT).show();
-                                            inputLayoutPass1.setError(getString(R.string.error_weak_password));
-                                            inputLayoutPass2.setError(getString(R.string.error_weak_password));
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_weak_password,"8"), Toast.LENGTH_SHORT).show();
+                                            inputLayoutPass1.setError(getString(R.string.error_weak_password,"8"));
+                                            inputLayoutPass2.setError(getString(R.string.error_weak_password,"8"));
                                             inputLayoutPass1.requestFocus();
                                         } catch (FirebaseAuthInvalidCredentialsException e) {
                                             Log.e("Activitati", "RegisterActivity- FirebaseAuthInvalidCredentialsException: " + e.getMessage());
-                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_invalid_email), Toast.LENGTH_SHORT).show();
-                                            inputLayoutEmail.setError(getString(R.string.error_invalid_email));
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_firebase_invalid_email), Toast.LENGTH_SHORT).show();
+                                            inputLayoutEmail.setError(getString(R.string.error_firebase_invalid_email));
                                             inputEmail.requestFocus();
                                         } catch (FirebaseAuthUserCollisionException e) {
                                             Log.e("Activitati", "RegisterActivity- FirebaseAuthUserCollisionException: " + e.getMessage());
-                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_user_exists) + task.getException(), Toast.LENGTH_SHORT).show();
-                                            inputLayoutEmail.setError(getString(R.string.error_user_exists));
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_firebase_user_exists) + task.getException(), Toast.LENGTH_SHORT).show();
+                                            inputLayoutEmail.setError(getString(R.string.error_firebase_user_exists));
                                             inputEmail.requestFocus();
                                         } catch (Exception e) {
                                             Log.e("Activitati", "RegisterActivity- Exception: " + e.getMessage());

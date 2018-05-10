@@ -19,32 +19,35 @@ public class StringUtilsTestCollections {
 
     public static void initializareScenari(){
         listSimpleScenario = new ArrayList<>();
-        listSimpleScenario.add("TestSimple1");
-        listSimpleScenario.add("TestSimple2");
-        listSimpleScenario.add("TestSimple3");
-
+            listSimpleScenario.add("TestSimple1");
+            listSimpleScenario.add("TestSimple2");
+            listSimpleScenario.add("TestSimple3");
         listAdvancedScenario = new ArrayList<>();
-        List<String> listAdvancedScenario1 = new ArrayList<>();
+        List<String>  listAdvancedScenario1 = new ArrayList<>();
+            listAdvancedScenario1.add("TestAdvanced1");
+            listAdvancedScenario1.add("TestAdvanced2");
         List<Integer> listAdvancedScenario2 = new ArrayList<>();
-        listAdvancedScenario1.add("TestAdvanced1");
-        listAdvancedScenario1.add("TestAdvanced2");
-        listAdvancedScenario2.add(1);
-        listAdvancedScenario2.add(2);
+            listAdvancedScenario2.add(1);
+            listAdvancedScenario2.add(2);
         listAdvancedScenario.add(listAdvancedScenario1);
         listAdvancedScenario.add(listAdvancedScenario2);
     }
 
     @Test
-    public void humanReadableObjects() {
+    public void readableObjects() {
         initializareScenari();
+        System.out.println("Lista simpla");
         System.out.println(StringUtils.trfOut(listSimpleScenario));
+        System.out.println("Lista complexa");
         System.out.println(StringUtils.trfOut(listAdvancedScenario));
     }
 
     @Test
-    public void humanReadableObjects_betterMethod() {
+    public void readableObjectsMethod2() {
         initializareScenari();
+        System.out.println("Lista simpla");
         System.out.println(StringUtils.readObject(listSimpleScenario));
+        System.out.println("Lista complexa");
         System.out.println(StringUtils.readObject(listAdvancedScenario));
     }
 }

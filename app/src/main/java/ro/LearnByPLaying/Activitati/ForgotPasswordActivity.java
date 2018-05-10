@@ -67,10 +67,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ForgotPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ForgotPasswordActivity.this, getString(R.string.error_firebase_reset_mail_sent), Toast.LENGTH_SHORT).show();
                                         finish();
                                     } else {
-                                        Toast.makeText(ForgotPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ForgotPasswordActivity.this, getString(R.string.error_firebase_reset_mail_fail), Toast.LENGTH_SHORT).show();
                                     }
                                     progressBar.setVisibility(View.GONE);
                                 }

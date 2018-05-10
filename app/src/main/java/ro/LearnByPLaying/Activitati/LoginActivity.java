@@ -135,9 +135,9 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                                Toast.makeText(LoginActivity.this, "Invalid password", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, getString(R.string.error_firebase_wrong_password) , Toast.LENGTH_LONG).show();
                             } else if (e instanceof FirebaseAuthInvalidUserException) {
-                                Toast.makeText(LoginActivity.this, "Incorrect email address", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, getString(R.string.error_firebase_account_not_found), Toast.LENGTH_LONG).show();
                             } else {
                                 String errorCode = ((FirebaseAuthInvalidUserException) e).getErrorCode();
                                 if (errorCode.equals("ERROR_USER_NOT_FOUND")) {

@@ -38,7 +38,7 @@ public class ForgotPasswordTest_Espresso {
     private String realEmailForTest = "test@testEmail.com"; //pass: testtesttest
     private String emptyEmailAddress = "";
     private String fakeEmailAddress = "fakeish@fake.com";
-
+    private String formatWrongEmailAddress = "testareFormatEMail";
     @Before
     public void setUp() throws Exception{
 
@@ -67,6 +67,17 @@ public class ForgotPasswordTest_Espresso {
     public void testScenario_03(){
         Log.d("Espresso"," - Scenariul 03 - ");
         Log.d("Espresso","fake email: "+fakeEmailAddress);
+        onView(withId(R.id.forgotPass_editTextEmail)).perform(typeText(fakeEmailAddress));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //perform button click
+        onView(withId(R.id.forgotPass_button)).perform(click());
+        //TODO verificarea erori ce se afiseaaza pe ecran
+    }
+    @Test
+    public void testScenario_04(){
+        Log.d("Espresso"," - Scenariul 04 - ");
+        Log.d("Espresso","wrong email format: "+formatWrongEmailAddress);
         onView(withId(R.id.forgotPass_editTextEmail)).perform(typeText(fakeEmailAddress));
         //close soft keyboard
         Espresso.closeSoftKeyboard();

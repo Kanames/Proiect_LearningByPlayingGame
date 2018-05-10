@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">Learn programming</string>
 
+    <!-- Mesaje de exceptie -->
+    <string name="error_empty">Error: please fill the input %1$s</string>
+    <string name="error_length">Error: No more than 20 characters for %1$s</string>
+    <string name="error_weak_password">Error: at least %1$s characters</string>
+    <string name="error_firebase_invalid_email">Error: check your E-mail format</string>
+    <string name="error_password_match">Error: passwords don\'t match</string>
+    <string name="error_firebase_account_not_found">Incorrect email address</string>
+    <string name="error_firebase_wrong_password">Invalid password</string>
+    <string name="error_firebase_user_exists">Error: user already exists</string>
+    <string name="error_firebase_reset_mail_sent">We have sent you instructions to reset your password!</string>
+    <string name="error_firebase_reset_mail_fail">Failed to send reset email!</string>
+
     <string name="ForgotPass_Toolbar_Title">Reseting password</string>
     <string name="Register_Toolbar_Title">Sign Up</string>
     <string name="RegisterToolbarString">Register form</string>
@@ -13,16 +25,11 @@
     <string name="inputPass">Password:</string>
     <string name="inputPassHelper">At least 8 characters</string>
     <string name="RegisterToolbarSecondaryString">Learn java better and smarter</string>
-    <!-- Mesaje de exceptie -->
-    <string name="error_empty">Error: please fill the input %1$s</string>
-    <string name="error_length">Error: No more than 20 characters for %1$s</string>
-    <string name="error_weak_password">Error: at least %1$s characters</string>
-    <string name="error_invalid_email">Error: check your E-mail format</string>
-    <string name="error_password_match">Error: passwords don\'t match</string>
+
 
     <string name="error_empty_email">Error: check your e-mail format</string>
     <string name="error_empty_password">Error: check your e-mail format</string>
-    <string name="error_user_exists">Error: user already exists</string>
+
 
 
     <!-- Activitatea de Login -->
