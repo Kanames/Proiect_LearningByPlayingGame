@@ -31,7 +31,6 @@
     <string name="error_empty_password">Error: check your e-mail format</string>
 
 
-
     <!-- Activitatea de Login -->
     <string name="LoginButtonAccept">LOGIN to my account</string>
     <string name="LoginRegister">New here ? Create a new account.</string>
