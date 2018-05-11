@@ -24,11 +24,7 @@ public class RecyclerViewLessonsAdapter extends RecyclerView.Adapter<RecyclerVie
     private Context nContext;
 
     //Crearea constructorului pentru Adapter
-    //View-ul va trebui sa poata afla:
-    // ce titlu are,
-    // ce img/logo are,
-    // ce culoare de background sa aiba
-    // ce actiune onClick sa faca.
+    //View-ul va trebui sa poata afla: ce titlu are, ce img/logo are, ce culoare de background sa aiba, ce actiune onClick sa faca.
     public RecyclerViewLessonsAdapter(ArrayList<String> LESSONS_TITLES, ArrayList<Integer> LESSONS_IMGS,ArrayList<View.OnClickListener> LESSONS_IMG_ACTIONS,ArrayList<Integer> LESSONS_BACKGROUND_COLORS, Context nContext) {
         Log.d("Activitati", "<<<<< IN RecyclerViewAdapter() >>>>");
         this.LESSONS_TITLES = LESSONS_TITLES;
@@ -36,7 +32,6 @@ public class RecyclerViewLessonsAdapter extends RecyclerView.Adapter<RecyclerVie
         this.LESSONS_IMG_ACTIONS = LESSONS_IMG_ACTIONS;
         this.LESSONS_BACKGROUND_COLORS=LESSONS_BACKGROUND_COLORS;
         this.nContext = nContext;
-
     }
     @Override
     public RecyclerViewLessonsAdapter.ViewHolderLesson onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -70,5 +65,6 @@ public class RecyclerViewLessonsAdapter extends RecyclerView.Adapter<RecyclerVie
             main_linearLayoutLesson = item.findViewById(R.id.main_linearLayoutLesson);
         }
     }
+
 
 }

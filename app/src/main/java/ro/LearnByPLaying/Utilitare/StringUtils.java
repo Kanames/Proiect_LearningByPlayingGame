@@ -19,7 +19,6 @@ import javax.security.auth.login.LoginException;
 public class StringUtils {
 
     public static String trfOut(Object object){
-        Log.d("StringUtils","<<< IN trsfOut() >>>");
         StringBuffer representation = new StringBuffer();
         representation.append(object.getClass().getName());
         for (Field field : object.getClass().getDeclaredFields()) {
@@ -36,12 +35,10 @@ public class StringUtils {
             }
 
         }
-        Log.d("StringUtils","<<< OUT trsfOut() >>>");
         return representation.toString();
     }
 
     public static String readObject(Object object){
-        Log.d("StringUtils","<<< IN trsfOut() >>>");
         if(object == null){
             return null;
         }
@@ -76,7 +73,6 @@ public class StringUtils {
             representation.append(readObject(item)).append(", ");
         }
         representation.append("]");
-        Log.d("StringUtils","<<< OUT trsfOut() >>>");
         return representation.toString();
     }
 

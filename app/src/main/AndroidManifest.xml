@@ -19,7 +19,6 @@
         <activity android:name="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,16 +44,20 @@
             android:parentActivityName="ro.LearnByPLaying.Activitati.RegisterActivity" />
         <activity
             android:name="ro.LearnByPLaying.Activitati.CreatingProfile"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name="ro.LearnByPLaying.Activitati.MainActivity">
 
         </activity>
         <activity android:name="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot">
 
         </activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity"
-            android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity"
-            />
+        <activity
+            android:name="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity"
+            android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity">
+
+        </activity>
         <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.LessonActivity"></activity>
     </application>
 

@@ -33,6 +33,7 @@ import static ro.LearnByPLaying.Utilitare.StringUtils.trfOut;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar mTopToolbar;
+    public static User SESSION_USER;
     private LinearLayout linearLayoutLessons;
     private ConstraintLayout main_lesson_line;
     private ImageView chatBotImgView;
@@ -50,12 +51,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mTopToolbar);
         //---------------------------------------------
         Bundle extras = getIntent().getExtras();
-        User userObject = null;
         if (extras != null) {
-            userObject = (User) extras.getSerializable("SESSION_USER");
+            SESSION_USER  = (User) extras.getSerializable("SESSION_USER");
         }
-        Log.d("Activitati","!#!#!# userObject: "+trfOut(userObject));
-        final User finalUserObject = userObject;
+        Log.d("Activitati","!#!#!# userObject: "+trfOut(SESSION_USER));
+        final User finalUserObject = SESSION_USER;
         View.OnClickListener chatBotClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,17 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
-
-
-
-//        View.OnClickListener flowLessonActivityClickListener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, LessonActivity.class);
-//                intent.putExtra("CONFIG_LESSON", );
-//                startActivity(intent);
-//            }
-//        };
 
 
         final RecyclerView recyclerView = findViewById(R.id.main_list_lessons);
@@ -174,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Activitati", "MainActivity- " + "menu profile");
             Toast.makeText(MainActivity.this, "Action menu_profile", Toast.LENGTH_SHORT).show();
             Intent intentMenuProfile = new Intent(MainActivity.this, ProfileActivity.class);
-//            intent.putExtra("SESSION_USER",null);
+            intentMenuProfile.putExtra("SESSION_USER",SESSION_USER);
             startActivity(intentMenuProfile);
             return true;
         }
@@ -190,7 +179,10 @@ public class MainActivity extends AppCompatActivity {
             System.exit(1);
             return true;
         }
-
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

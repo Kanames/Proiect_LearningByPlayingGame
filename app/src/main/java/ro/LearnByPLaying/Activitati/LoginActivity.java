@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                                               @Override
                                                                                               public void onDataChange(DataSnapshot dataSnapshot) {
                                                                                                   user[0] = dataSnapshot.getValue(User.class);
-                                                                                                  Log.d("Activitati", TAG+"userDB email: " + user[0].getEmailAddress());
+                                                                                                  Log.d("Activitati", TAG+"FirstNameDB email: " + user[0].getFirstName());
                                                                                                   intent.putExtra("SESSION_USER", user[0]);
                                                                                                   if(user[0].getNickName() != null) {
                                                                                                       Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
