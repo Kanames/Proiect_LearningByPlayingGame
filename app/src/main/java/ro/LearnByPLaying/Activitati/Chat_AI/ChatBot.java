@@ -45,6 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ro.LearnByPLaying.Beans.User;
 import ro.LearnByPLaying.Utilitare.StringUtils;
 
 import static ro.LearnByPLaying.Utilitare.StringUtils.trfOut;
@@ -65,9 +66,17 @@ public class ChatBot extends AppCompatActivity {
         final EditText questionRAW = (EditText) findViewById(R.id.input);
         recyclerView = findViewById(R.id.list_of_messages);
         questions.add("Hi");
-        adapter = new RecyclerViewAdapter(questions,HUMAN,getApplicationContext(),"HUMAN");
+
+        Bundle extras = getIntent().getExtras();
+        User userObject = null;
+        if (extras != null) {
+            userObject = (User) extras.getSerializable("SESSION_USER");
+        }
+
+        adapter = new RecyclerViewAdapter(questions,userObject.getNickName(),getApplicationContext(),HUMAN);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {

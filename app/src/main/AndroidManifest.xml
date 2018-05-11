@@ -17,7 +17,11 @@
 
         <!-- LOGIN activity -->
         <activity android:name="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- A child of the main activity - REGISTER - -->
@@ -25,6 +29,7 @@
             android:name="ro.LearnByPLaying.Activitati.RegisterActivity"
             android:parentActivityName="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
             <!-- Parent activity meta-data to support 4.0 and lower -->
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ro.LearnByPLaying.Activitati.LoginActivity" />
@@ -45,13 +50,11 @@
 
         </activity>
         <activity android:name="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity" />
+        <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity"
+            android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity"
+            />
         <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.LessonActivity"></activity>
     </application>
 

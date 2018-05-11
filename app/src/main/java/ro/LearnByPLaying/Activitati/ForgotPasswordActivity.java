@@ -35,7 +35,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
         //------------------------------------------------------
-        Toolbar toolbar = (Toolbar) findViewById(R.id.forgotPass_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         auth = FirebaseAuth.getInstance();
         progressBar = (ProgressBar) findViewById(R.id.forgotPass_ProgressBar);
         btnReset    = (Button)      findViewById(R.id.forgotPass_button);

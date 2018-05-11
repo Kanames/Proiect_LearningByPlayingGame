@@ -26,5 +26,28 @@
     </style>
 
 
+    <style name="MyCustomToolbar_lightMode" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">#7FB3D5</item>
+        <item name="android:textColorPrimary">#000000</item>
+        <item name="android:textColorSecondary">#000000</item>
 
+        <!-- colorPrimary is used, for instance, for the default ActionBar(but not Toolbar) background. We specify the same color for the toolbar background in toolbar.xml.. -->
+        <item name="colorPrimary">#000000</item>
+        <!-- colorPrimaryDark is used for the status bar (with the battery, clock, etc). -->
+        <item name="colorPrimaryDark">#000000</item>
+        <!-- colorAccent is used as the default value for colorControlActivated which is used to tint widgets. -->
+        <item name="colorAccent">#E7E5E5</item>
+    </style>
+    <style name="MyCustomToolbar_darkMode" parent="Theme.AppCompat.Light">
+        <item name="android:background">#17202A</item>
+        <item name="android:textColorPrimary">#E7E5E5</item>
+        <item name="android:textColorSecondary">#E7E5E5</item>
+
+        <!-- colorPrimary is used, for instance, for the default ActionBar(but not Toolbar) background. We specify the same color for the toolbar background in toolbar.xml.. -->
+        <item name="colorPrimary">#000000</item>
+        <!-- colorPrimaryDark is used for the status bar (with the battery, clock, etc). -->
+        <item name="colorPrimaryDark">#000000</item>
+        <!-- colorAccent is used as the default value for colorControlActivated which is used to tint widgets. -->
+        <item name="colorAccent">#E7E5E5</item>
+    </style>
 </resources>

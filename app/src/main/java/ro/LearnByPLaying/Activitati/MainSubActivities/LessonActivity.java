@@ -7,10 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.stefan.proiect_learningbyplayinggame.R;
 
-import ro.LearnByPLaying.Beans.User;
 
 public class LessonActivity extends AppCompatActivity {
     private FloatingActionButton buttonReturn;
@@ -24,14 +22,19 @@ public class LessonActivity extends AppCompatActivity {
         buttonReturn= findViewById(R.id.lesson_buttonReturn);
         wallpaper = findViewById(R.id.lesson_wallpaper);
         textViewLesson = findViewById(R.id.lesson_textViewLesson);
+
+
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             Log.d("Activitati", "LessonActivity- "+"< Comming from Main to Lesson >");
             configLessons = (ConfigLessons) extras.getSerializable("CONFIG_LESSON");
         }
+
+        textViewLesson.setText(configLessons.getWallText());
         wallpaper.setImageResource(configLessons.getWallpaper());
         wallpaper.setBackgroundColor(configLessons.getColorTheme());
-        textViewLesson.setText(configLessons.getWallText());
+        Log.d("Activitati", "LessonActivity- "+"configLessons.getWallText(): "+configLessons.getWallText());
         buttonReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -25,7 +25,11 @@ import ro.LearnByPLaying.Activitati.Chat_AI.RecyclerViewAdapter;
 import ro.LearnByPLaying.Activitati.MainSubActivities.ConfigLessons;
 import ro.LearnByPLaying.Activitati.MainSubActivities.LessonActivity;
 import ro.LearnByPLaying.Activitati.MainSubActivities.LessonOnClickListener;
+import ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity;
 import ro.LearnByPLaying.Activitati.MainSubActivities.RecyclerViewLessonsAdapter;
+import ro.LearnByPLaying.Beans.User;
+
+import static ro.LearnByPLaying.Utilitare.StringUtils.trfOut;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar mTopToolbar;
@@ -40,18 +44,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //-- Initializare resurse ---------------------
-        mTopToolbar = findViewById(R.id.main_toolbar);
+        mTopToolbar = findViewById(R.id.toolbar);
         //linearLayoutLessons = findViewById(R.id.main_linearLayoutMainLessons);
         //main_lesson_line = findViewById(R.id.main_lesson_line);
         setSupportActionBar(mTopToolbar);
         //---------------------------------------------
+        Bundle extras = getIntent().getExtras();
+        User userObject = null;
+        if (extras != null) {
+            userObject = (User) extras.getSerializable("SESSION_USER");
+        }
+        Log.d("Activitati","!#!#!# userObject: "+trfOut(userObject));
+        final User finalUserObject = userObject;
         View.OnClickListener chatBotClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ChatBot.class);
+                intent.putExtra("SESSION_USER", finalUserObject);
                 startActivity(intent);
             }
         };
+
+
+
 //        View.OnClickListener flowLessonActivityClickListener = new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -75,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         titlesLesssons.add("Introduction");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_3);
-        onClickListeners.add(new LessonOnClickListener(new ConfigLessons(R.drawable.functional_programing_icons_3,Color.parseColor("#e57373"),"yo","Introduction")));
+        onClickListeners.add(new LessonOnClickListener(new ConfigLessons(R.drawable.functional_programing_icons_3,Color.parseColor("#e57373"),getString(R.string.lesson_functional_programming),"Introduction")));
         backColoors.add(Color.parseColor("#e57373"));
 
         titlesLesssons.add("F.P. (Functional Programming)");
@@ -158,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.menu_profile) {
             Log.d("Activitati", "MainActivity- " + "menu profile");
             Toast.makeText(MainActivity.this, "Action menu_profile", Toast.LENGTH_SHORT).show();
+            Intent intentMenuProfile = new Intent(MainActivity.this, ProfileActivity.class);
+//            intent.putExtra("SESSION_USER",null);
+            startActivity(intentMenuProfile);
             return true;
         }
         if (id == R.id.menu_about) {

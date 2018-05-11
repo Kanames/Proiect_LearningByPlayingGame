@@ -16,47 +16,50 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import ro.LearnByPLaying.Utilitare.TypeWriter;
 
 /**
  * Created by Stefan on 5/2/2018.
  */
 public class TabHello extends Fragment {
-    View view;
+    private static final String TAG = "Fragment-TabHello- ";
     private static String msgDB;
+    private static View view;
+    private static TextView editTextTitle,editText,editTextJava,editTextsql;
     public TabHello() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.creating_profile_tab_hello,container,false);
-        TextView editTextTitle = view.findViewById(R.id.CP_HelloAboutAPPTitle);
-        editTextTitle.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPTitle)));
-        TextView editText = view.findViewById(R.id.CP_HelloAboutAPP);
-        editText.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPP)));
-        TextView editTextJava = view.findViewById(R.id.CP_HelloAboutAPPJava);
-        editTextJava.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPJava)));
-        TextView editTextsql = view.findViewById(R.id.CP_HelloAboutAPPsql);
-        editTextsql.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPsql)));
+        Log.d("Activitati", "<<< Intrat in TabHello >>>");
+        view = inflater.inflate(R.layout.creating_profile_tab_hello, container, false);
+        editTextTitle = view.findViewById(R.id.CP_HelloAboutAPPTitle);
+           editTextTitle.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPTitle)));
+        editText = view.findViewById(R.id.CP_HelloAboutAPP);
+           editText.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPP)));
+        editTextJava = view.findViewById(R.id.CP_HelloAboutAPPJava);
+           editTextJava.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPJava)));
+        editTextsql = view.findViewById(R.id.CP_HelloAboutAPPsql);
+           editTextsql.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPsql)));
         getSpeach();
-
         return view;
     }
+
     private void getSpeach() {
-        getActivity().runOnUiThread(new Runnable(){
+        getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 try {
                     final TypeWriter textAI = view.findViewById(R.id.text_message_body);
                     textAI.setText("");
                     textAI.setCharacterDelay(50);
                     textAI.animateText("test");
-                    // Get a reference to our posts
                     final FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference ref = database.getReference("ai_replici/CreateProfile/TabHello");
-                    // Attach a listener to read the data at our posts reference
                     ref.limitToFirst(1).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -64,20 +67,21 @@ public class TabHello extends Fragment {
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                                 raspuns.add(postSnapshot.getValue().toString());
                                 msgDB = postSnapshot.getValue().toString();
-                                Log.d("Activitati","R------"+raspuns.get(0));
+                                Log.d("Activitati", TAG+"raspuns dataSnapshot" + raspuns.get(0));
                             }
-                            if(msgDB==null){
-                                msgDB="ceva nu a mers";
+                            if (msgDB == null) {
+                                msgDB = "something did not work ...";
                             }
                             textAI.animateText(msgDB);
                         }
+
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Log.e("Activitati","The read failed: " + databaseError.getCode());
+                            Log.e("Activitati", TAG+"citirea a dat eroare: " + databaseError.getCode());
                         }
                     });
                 } catch (final Exception ex) {
-                    Log.i("---","Exception in thread");
+                    Log.e("Activitati", TAG+"exceptie in thread: "+ex.getMessage());
                 }
             }
         });

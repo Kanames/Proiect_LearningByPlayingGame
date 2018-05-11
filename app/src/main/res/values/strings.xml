@@ -147,4 +147,11 @@
         <item>Norvegia</item>
         <item>South Korea</item>
     </string-array>
+
+
+    <string name="lesson_functional_programming" formatted="false">
+         <![CDATA[
+        <br><strong>So why the functional way ?</strong>
+        ]]>
+    </string>
 </resources>

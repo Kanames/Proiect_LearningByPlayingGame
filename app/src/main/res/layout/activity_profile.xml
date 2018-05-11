@@ -5,50 +5,148 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity">
+
     <include
-        android:id="@+id/toolbar"
-        layout="@layout/register_toolbar" />
+        layout="@layout/my_custom_toolbar" />
+
     <ScrollView
+        android:background="#515151"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="116dp">
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
             <ImageView
+                android:id="@+id/background"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/code_city" />
 
-            <RelativeLayout
-                android:id="@+id/icon_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/bg_circle" />
-                <TextView
-                    android:id="@+id/icon_text"
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                android:background="@drawable/border"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="28dp" />
-            </RelativeLayout>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".40"/>
+                    <TextView
+                        android:id="@+id/textViewValue"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".60"/>
+
+                </LinearLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/SttgProfile_nicknameTxtInLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Update nickname ?"
+                    >
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/border"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/SttgProfile_emailTxtView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/SttgProfile_emailTxtInLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="Reset email"
+                    >
+                </android.support.v7.widget.AppCompatButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/border"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/SttgProfile_numeTxtView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/SttgProfile_numeTxtInLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Update first name ?"
+                    >
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="@drawable/border"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/SttgProfile_prenumeTxtView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/SttgProfile_prenumeTxtInLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Update second name ?"
+                    >
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/updateBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight=".50"
+                android:hint="UPDATE PROFILE"
+                >
+            </android.support.v7.widget.AppCompatButton>
 
         </LinearLayout>
     </ScrollView>

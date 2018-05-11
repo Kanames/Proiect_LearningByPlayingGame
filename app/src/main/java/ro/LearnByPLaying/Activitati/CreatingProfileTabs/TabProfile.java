@@ -37,6 +37,7 @@ import static ro.LearnByPLaying.Activitati.CreatingProfile.USER_OBJECT;
  */
 
 public class TabProfile extends Fragment {
+    private static final String TAG = "Fragment-TabProfile- ";
     View view;
     public static Button btnProfile;
     Spinner spinner;
@@ -50,7 +51,7 @@ public class TabProfile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
+        Log.d("Activitati", "<<< Intrat in TabProfile >>>");
         view = inflater.inflate(R.layout.creating_profile_tab_profile, container, false);
         displayTextView = view.findViewById(R.id.CP_editText);
         btnProfile = view.findViewById(R.id.CP_btnCompleteProfile);
@@ -62,13 +63,9 @@ public class TabProfile extends Fragment {
         textInputLayoutLastname = view.findViewById(R.id.CP_TextInputLayoutLastName);
 
         displayTextView.setText(Html.fromHtml(getString(R.string.CP_StringProfileBuilder)));
-
         spinner = (Spinner) view.findViewById(R.id.CP_countrySpinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.conuntrys_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
         btnProfile.setOnClickListener(new View.OnClickListener() {
@@ -76,10 +73,10 @@ public class TabProfile extends Fragment {
                 try {
                     StringUtils.controlTextInput(nickname, textInputLayoutNickname, getString(R.string.error_empty, "Nickname"));
                     StringUtils.controlTextInput(firstname, textInputLayoutFirstname, getString(R.string.error_empty, "Firstname"));
-                    Log.d("Activitati", "Check nickname: " + nickname.getText().toString());
-                    Log.d("Activitati", "Check firstname: " + firstname.getText().toString());
-                    Log.d("Activitati", "Check lastname: " + lastname.getText().toString());
-                    Log.d("Activitati", "Check country: " + spinner.getSelectedItem().toString());
+                    Log.d("Activitati", TAG+"Check nickname: " + nickname.getText().toString());
+                    Log.d("Activitati", TAG+"Check firstname: " + firstname.getText().toString());
+                    Log.d("Activitati", TAG+"Check lastname: " + lastname.getText().toString());
+                    Log.d("Activitati", TAG+"Check country: " + spinner.getSelectedItem().toString());
 
                     USER_OBJECT.setNickName(nickname.getText().toString());
                     USER_OBJECT.setFirstName(firstname.getText().toString());
@@ -105,7 +102,7 @@ public class TabProfile extends Fragment {
                     });
 
                 } catch (Exception e) {
-                    Log.e("Activitati", "Eroare: " + e.getMessage());
+                    Log.e("Activitati", TAG+"Eroare: " + e.getMessage());
                 }
             }
         });

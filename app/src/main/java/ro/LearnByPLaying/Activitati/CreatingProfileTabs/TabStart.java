@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,16 @@ import com.example.stefan.proiect_learningbyplayinggame.R;
 import ro.LearnByPLaying.Activitati.MainActivity;
 import ro.LearnByPLaying.Utilitare.TypeWriter;
 
+import static ro.LearnByPLaying.Activitati.CreatingProfile.USER_OBJECT;
+
 
 /**
  * Created by Stefan on 5/2/2018.
  */
 
 public class TabStart extends Fragment {
-    View view;
+    private static final String TAG = "Fragment-TabStart- ";
+    public static View view;
     public static ImageView img;
     public static TypeWriter textAI;
     public TabStart() {
@@ -28,6 +32,7 @@ public class TabStart extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        Log.d("Activitati", "<<< Intrat in TabStart >>>");
         view = inflater.inflate(R.layout.creating_profile_tab_start,container,false);
         FloatingActionButton btnStart = view.findViewById(R.id.CP_floatingActionButton);
         img = view.findViewById(R.id.image_message_profile);
@@ -42,9 +47,10 @@ public class TabStart extends Fragment {
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                    Intent intent = new Intent(getActivity(), MainActivity.class);
-//                    startActivity(intent);
-//                    getActivity().finish();
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("SESSION_USER", USER_OBJECT);
+                    startActivity(intent);
+                    getActivity().finish();
             }
         });
 
