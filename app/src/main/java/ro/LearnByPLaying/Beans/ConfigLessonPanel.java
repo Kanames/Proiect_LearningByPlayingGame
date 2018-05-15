@@ -1,4 +1,4 @@
-package ro.LearnByPLaying.Activitati.MainSubActivities;
+package ro.LearnByPLaying.Beans;
 
 import java.io.Serializable;
 
@@ -6,13 +6,13 @@ import java.io.Serializable;
  * Created by Stefan on 5/9/2018.
  */
 
-public class ConfigLessons implements Serializable {
+public class ConfigLessonPanel implements Serializable {
     private Integer wallpaper;
     private Integer colorTheme;
     private String wallText;
     private String titleLesson;
 
-    public ConfigLessons(Integer wallpaper, Integer colorTheme, String wallText, String titleLesson) {
+    public ConfigLessonPanel(Integer wallpaper, Integer colorTheme, String wallText, String titleLesson) {
         this.wallpaper = wallpaper;
         this.colorTheme = colorTheme;
         this.wallText = wallText;

@@ -1,4 +1,4 @@
-package ro.LearnByPLaying.Activitati.CreatingProfileTabs;
+package ro.LearnByPLaying.Adapters;
 
 
 import android.support.v4.app.Fragment;
@@ -19,6 +19,7 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     public ViewPageAdapter(FragmentManager fm){
         super(fm);
     }
+
     @Override
     public Fragment getItem(int position) {
         return fragmentList.get(position);

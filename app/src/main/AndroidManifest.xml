@@ -17,7 +17,11 @@
 
         <!-- LOGIN activity -->
         <activity android:name="ro.LearnByPLaying.Activitati.LoginActivity"> <!-- android:screenOrientation="portrait" -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- A child of the main activity - REGISTER - -->
@@ -40,21 +44,18 @@
             android:name="ro.LearnByPLaying.Activitati.RegisterAgreementsActivity"
             android:parentActivityName="ro.LearnByPLaying.Activitati.RegisterActivity" />
         <activity
-            android:name="ro.LearnByPLaying.Activitati.CreatingProfile"
-            android:screenOrientation="portrait"></activity>
+            android:name="ro.LearnByPLaying.Activitati.CreatingProfileActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name="ro.LearnByPLaying.Activitati.MainActivity"></activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot"></activity>
+        <activity android:name="ro.LearnByPLaying.Activitati.ChatBotActivity">
+
+        </activity>
         <activity
             android:name="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity"
             android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity"></activity>
         <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.LessonActivity" />
-        <activity android:name="ro.LearnByPLaying.Activitati.Testing_new_activitys.testing_meu_listActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

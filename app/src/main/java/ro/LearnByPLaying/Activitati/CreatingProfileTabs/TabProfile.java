@@ -1,14 +1,10 @@
 package ro.LearnByPLaying.Activitati.CreatingProfileTabs;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,15 +18,13 @@ import android.widget.TextView;
 
 import com.example.stefan.proiect_learningbyplayinggame.R;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 
-import ro.LearnByPLaying.Activitati.CreatingProfile;
+import ro.LearnByPLaying.Activitati.CreatingProfileActivity;
 import ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils;
 import ro.LearnByPLaying.Utilitare.StringUtils;
 
-import static ro.LearnByPLaying.Activitati.CreatingProfile.USER_OBJECT;
+import static ro.LearnByPLaying.Activitati.CreatingProfileActivity.USER_OBJECT;
 
 /**
  * Created by Stefan on 5/2/2018.
@@ -40,11 +34,11 @@ public class TabProfile extends Fragment {
     private static final String TAG = "Fragment-TabProfile- ";
     View view;
     public static Button btnProfile;
-    Spinner spinner;
+    private Spinner dropListCountry;
     private TextView displayTextView;
     private EditText nickname, firstname, lastname;
     private TextInputLayout textInputLayoutNickname, textInputLayoutFirstname, textInputLayoutLastname;
-
+    private View viewIncludeNickname,viewIncludeFirstname,viewIncludeLastname,viewIncludeCountry;
     public TabProfile() {
     }
 
@@ -55,18 +49,32 @@ public class TabProfile extends Fragment {
         view = inflater.inflate(R.layout.creating_profile_tab_profile, container, false);
         displayTextView = view.findViewById(R.id.CP_editText);
         btnProfile = view.findViewById(R.id.CP_btnCompleteProfile);
-        nickname = view.findViewById(R.id.CP_textEditNickname);
-        firstname = view.findViewById(R.id.CP_textEditFirstName);
-        lastname = view.findViewById(R.id.CP_textEditLastName);
-        textInputLayoutNickname = view.findViewById(R.id.CP_TextInputLayoutNickname);
-        textInputLayoutFirstname = view.findViewById(R.id.CP_TextInputLayoutFirstName);
-        textInputLayoutLastname = view.findViewById(R.id.CP_TextInputLayoutLastName);
 
-        displayTextView.setText(Html.fromHtml(getString(R.string.CP_StringProfileBuilder)));
-        spinner = (Spinner) view.findViewById(R.id.CP_countrySpinner);
+        viewIncludeNickname  = view.findViewById(R.id.customConstraintLayoutNickname);
+        viewIncludeFirstname = view.findViewById(R.id.customConstraintLayoutFirstname);
+        viewIncludeLastname  = view.findViewById(R.id.customConstraintLayoutLastname);
+        viewIncludeCountry  = view.findViewById(R.id.customConstraintLayoutCountry);
+
+        textInputLayoutNickname   = (TextInputLayout) viewIncludeNickname.findViewById(R.id.textDisplayed);
+        textInputLayoutFirstname  = (TextInputLayout) viewIncludeFirstname.findViewById(R.id.textDisplayed);
+        textInputLayoutLastname   = (TextInputLayout) viewIncludeLastname.findViewById(R.id.textDisplayed);
+
+        nickname   = (EditText) viewIncludeNickname.findViewById(R.id.inputValue);
+        firstname  = (EditText) viewIncludeFirstname.findViewById(R.id.inputValue);
+        lastname   = (EditText) viewIncludeLastname.findViewById(R.id.inputValue);
+
+        textInputLayoutNickname.setHint(getString(R.string.hint_nickname)+getString(R.string.hint_needed));
+        textInputLayoutFirstname.setHint(getString(R.string.hint_first_name)+getString(R.string.hint_needed));
+        textInputLayoutLastname.setHint(getString(R.string.hint_last_name)+getString(R.string.hint_optional));
+
+        TextView dropListCountryDescription = (TextView) viewIncludeCountry.findViewById(R.id.descriptionDropList);
+        dropListCountryDescription.setText(getString(R.string.hint_country)+getString(R.string.hint_optional));
+        dropListCountry = (Spinner) viewIncludeCountry.findViewById(R.id.dropListValues);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.conuntrys_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        dropListCountry.setAdapter(adapter);
+
+        displayTextView.setText(Html.fromHtml(getString(R.string.CP_StringProfileBuilder)));
 
         btnProfile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -76,12 +84,12 @@ public class TabProfile extends Fragment {
                     Log.d("Activitati", TAG+"Check nickname: " + nickname.getText().toString());
                     Log.d("Activitati", TAG+"Check firstname: " + firstname.getText().toString());
                     Log.d("Activitati", TAG+"Check lastname: " + lastname.getText().toString());
-                    Log.d("Activitati", TAG+"Check country: " + spinner.getSelectedItem().toString());
+                    Log.d("Activitati", TAG+"Check country: " + dropListCountry.getSelectedItem().toString());
 
                     USER_OBJECT.setNickName(nickname.getText().toString());
                     USER_OBJECT.setFirstName(firstname.getText().toString());
                     USER_OBJECT.setLastName(lastname.getText().toString());
-                    USER_OBJECT.setCountry(spinner.getSelectedItem().toString());
+                    USER_OBJECT.setCountry(dropListCountry.getSelectedItem().toString());
 
                     HashMap toModify = new HashMap();
                     toModify.put("nickName", USER_OBJECT.getNickName());
@@ -94,10 +102,10 @@ public class TabProfile extends Fragment {
                     TabStart.img.setImageResource(R.drawable.ai_happy);
                     TabStart.textAI.setCharacterDelay(75);
                     TabStart.textAI.animateText("Yey, you completed your profile and I am very glad to meet you " + USER_OBJECT.getNickName() + " we can start the app now by clicking the rounded button at the bottom of this activity");
-                    CreatingProfile.viewPager.post(new Runnable() {
+                    CreatingProfileActivity.viewPager.post(new Runnable() {
                         @Override
                         public void run() {
-                            CreatingProfile.viewPager.setCurrentItem(2);
+                            CreatingProfileActivity.viewPager.setCurrentItem(2);
                         }
                     });
 

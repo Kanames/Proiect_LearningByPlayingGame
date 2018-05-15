@@ -2,7 +2,6 @@ package ro.LearnByPLaying.Activitati;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,61 +11,55 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.stefan.proiect_learningbyplayinggame.R;
 
 import java.util.ArrayList;
 
-import ro.LearnByPLaying.Activitati.Chat_AI.ChatBot;
-import ro.LearnByPLaying.Activitati.Chat_AI.RecyclerViewAdapter;
-import ro.LearnByPLaying.Activitati.MainSubActivities.ConfigLessons;
-import ro.LearnByPLaying.Activitati.MainSubActivities.LessonActivity;
-import ro.LearnByPLaying.Activitati.MainSubActivities.LessonOnClickListener;
+import ro.LearnByPLaying.Beans.ConfigLessonPanel;
+import ro.LearnByPLaying.Activitati.MainSubActivities.menuListLessonOnClickListener;
 import ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity;
-import ro.LearnByPLaying.Activitati.MainSubActivities.RecyclerViewLessonsAdapter;
+import ro.LearnByPLaying.Adapters.RecyclerViewLessonsAdapter;
+import ro.LearnByPLaying.Beans.LessonsList;
 import ro.LearnByPLaying.Beans.User;
+import ro.LearnByPLaying.Utilitare.FunctionalMethods;
 
-import static ro.LearnByPLaying.Utilitare.StringUtils.trfOut;
+import static ro.LearnByPLaying.Utilitare.StringUtils.readObject;
 
 public class MainActivity extends AppCompatActivity {
-    private Toolbar mTopToolbar;
-    public static User SESSION_USER;
-    private LinearLayout linearLayoutLessons;
-    private ConstraintLayout main_lesson_line;
-    private ImageView chatBotImgView;
-    private ImageView imgViewIF,imgViewSwitch;
-    private ImageView imgViewFor,imgViewWhile,imgViewDoWhile;
-    private ImageView imgViewBreak,imgViewContinue,imgViewReturn;
+    private static final String TAG="MainActivity- ";
+    private static ArrayList<ConfigLessonPanel> listLessons;
+    private static Toolbar mTopToolbar;
+    public static  User SESSION_USER;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //-- Initializare resurse ---------------------
-        mTopToolbar = findViewById(R.id.toolbar);
-        //linearLayoutLessons = findViewById(R.id.main_linearLayoutMainLessons);
-        //main_lesson_line = findViewById(R.id.main_lesson_line);
+         mTopToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mTopToolbar);
+        SESSION_USER = (User) FunctionalMethods.getObjectSession(getIntent().getExtras(),"SESSION_USER","GET");
         //---------------------------------------------
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            SESSION_USER  = (User) extras.getSerializable("SESSION_USER");
-        }
-        Log.d("Activitati","!#!#!# userObject: "+trfOut(SESSION_USER));
-        final User finalUserObject = SESSION_USER;
+
+
+
+        Log.d("Activitati",TAG+"the user object we got from session: "+readObject(SESSION_USER));
+
         View.OnClickListener chatBotClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ChatBot.class);
-                intent.putExtra("SESSION_USER", finalUserObject);
+                Intent intent = new Intent(MainActivity.this, ChatBotActivity.class);
+                intent.putExtra("SESSION_USER", SESSION_USER);
                 startActivity(intent);
             }
         };
 
 
         final RecyclerView recyclerView = findViewById(R.id.main_list_lessons);
+
         ArrayList<String> titlesLesssons = new ArrayList<>();
         ArrayList<Integer> titlesLesssonsIcons = new ArrayList<>();
         ArrayList<View.OnClickListener> onClickListeners = new ArrayList<>();
@@ -79,32 +72,32 @@ public class MainActivity extends AppCompatActivity {
 
         titlesLesssons.add("Introduction");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_3);
-        onClickListeners.add(new LessonOnClickListener(new ConfigLessons(R.drawable.functional_programing_icons_3,Color.parseColor("#e57373"),getString(R.string.lesson_functional_programming),"Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_3,Color.parseColor("#e57373"),getString(R.string.lesson_functional_programming),"Introduction")));
         backColoors.add(Color.parseColor("#e57373"));
 
         titlesLesssons.add("F.P. (Functional Programming)");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_2);
-        onClickListeners.add(new LessonOnClickListener(new ConfigLessons(R.drawable.functional_programing_icons_2,Color.parseColor("#ba68c8"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_2,Color.parseColor("#ba68c8"),"yo","Introduction")));
         backColoors.add(Color.parseColor("#ba68c8"));
 
         titlesLesssons.add("F.P. (Functional Programming)");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_1);
-        onClickListeners.add(new LessonOnClickListener(new ConfigLessons(R.drawable.functional_programing_icons_1,Color.parseColor("#7986cb"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_1,Color.parseColor("#7986cb"),"yo","Introduction")));
         backColoors.add(Color.parseColor("#7986cb"));
 
         titlesLesssons.add("F.P. (Functional Programming)");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_4);
-        onClickListeners.add(new LessonOnClickListener(new ConfigLessons(R.drawable.functional_programing_icons_4,Color.parseColor("#4fc3f7"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_4,Color.parseColor("#4fc3f7"),"yo","Introduction")));
         backColoors.add(Color.parseColor("#4fc3f7"));
 
         titlesLesssons.add("F.P. (Functional Programming)");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_5);
-        onClickListeners.add(new LessonOnClickListener(new ConfigLessons(R.drawable.functional_programing_icons_5,Color.parseColor("#4db6ac"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_5,Color.parseColor("#4db6ac"),"yo","Introduction")));
         backColoors.add(Color.parseColor("#4db6ac"));
 
         titlesLesssons.add("Programming concepts");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_6);
-        onClickListeners.add(new LessonOnClickListener(new ConfigLessons(R.drawable.functional_programing_icons_6,Color.parseColor("#aed581"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_6,Color.parseColor("#aed581"),"yo","Introduction")));
         backColoors.add(Color.parseColor("#aed581"));
 
         //a 4 coloana https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=FF8A65
@@ -113,7 +106,9 @@ public class MainActivity extends AppCompatActivity {
         //ff8a65
         //e0e0e0
 
-        final RecyclerViewLessonsAdapter adapter = new RecyclerViewLessonsAdapter(titlesLesssons,titlesLesssonsIcons,onClickListeners,backColoors,getApplicationContext());
+        LessonsList lessonsList = new LessonsList(titlesLesssons,titlesLesssonsIcons,onClickListeners,backColoors);
+
+        final RecyclerViewLessonsAdapter adapter = new RecyclerViewLessonsAdapter(lessonsList,getApplicationContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

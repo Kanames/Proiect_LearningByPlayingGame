@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.stefan.proiect_learningbyplayinggame.R;
@@ -29,7 +30,10 @@ public class TabHello extends Fragment {
     private static final String TAG = "Fragment-TabHello- ";
     private static String msgDB;
     private static View view;
-    private static TextView editTextTitle,editText,editTextJava,editTextsql;
+    private static TextView editTextTitle,editText,bodyJAVA,secondaryTitleJava,primaryTitleJava;
+    private static TextView bodySQL,secondaryTitleSql,primaryTitleSql;
+    private static View whyJavaVIEW,whySqlVIEW;
+    private static ImageView logoJava,logoSql;
     public TabHello() {
     }
 
@@ -42,10 +46,40 @@ public class TabHello extends Fragment {
            editTextTitle.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPTitle)));
         editText = view.findViewById(R.id.CP_HelloAboutAPP);
            editText.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPP)));
-        editTextJava = view.findViewById(R.id.CP_HelloAboutAPPJava);
-           editTextJava.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPJava)));
-        editTextsql = view.findViewById(R.id.CP_HelloAboutAPPsql);
-           editTextsql.setText(Html.fromHtml(getString(R.string.CP_HelloAboutAPPsql)));
+
+
+        whyJavaVIEW  = view.findViewById(R.id.rez_java);
+
+        logoJava =  whyJavaVIEW.findViewById(R.id.logo);
+        logoJava.setImageResource(R.drawable.create_profile_java_logo);
+        primaryTitleJava = whyJavaVIEW.findViewById(R.id.PrimaryTitle);
+        primaryTitleJava.setText("Why JAVA 8 ?");
+        secondaryTitleJava = whyJavaVIEW.findViewById(R.id.SecondaryTitle);
+        secondaryTitleJava.setText("A new way for functional programming");
+        bodyJAVA = whyJavaVIEW.findViewById(R.id.BodyText);
+        bodyJAVA.setText(Html.fromHtml(getString(R.string.aboutJava)));
+
+
+        whySqlVIEW  = view.findViewById(R.id.rez_sql);
+
+        logoSql =  whySqlVIEW.findViewById(R.id.logo);
+        logoSql.setImageResource(R.drawable.create_profile_sql_logo);
+        primaryTitleSql = whySqlVIEW.findViewById(R.id.PrimaryTitle);
+        primaryTitleSql.setText("Why SQL ?");
+        secondaryTitleSql = whySqlVIEW.findViewById(R.id.SecondaryTitle);
+        secondaryTitleSql.setText("A basic concept to maintain and use");
+        bodySQL = whySqlVIEW.findViewById(R.id.BodyText);
+        bodySQL.setText(Html.fromHtml(getString(R.string.aboutSql)));
+
+//        whySqlVIEW.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                bodySQL.setVisibility(View.VISIBLE);
+//                bodySQL.setText(Html.fromHtml(getString(R.string.aboutSql)));
+//            }
+//        });
+
+
         getSpeach();
         return view;
     }

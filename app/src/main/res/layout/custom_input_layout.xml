@@ -4,35 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="ro.LearnByPLaying.Activitati.Testing_new_activitys.testing_meu_listActivity">
+    android:id="@+id/customConstraintLayout">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/imgView"
             android:layout_width="0dp"
-            android:layout_weight=".15"
             android:layout_height="50dp"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="13dp"
+            android:layout_weight=".15"
             android:contentDescription="TODO"
             android:padding="5dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/icon_email" />
+            android:src="@drawable/icon_person" />
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textDisplayed"
             android:layout_width="0dp"
-            android:layout_weight=".85"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
+            android:layout_weight=".85"
             android:hint="hint value">
+
             <EditText
                 android:id="@+id/inputValue"
                 android:layout_width="match_parent"
@@ -40,6 +51,4 @@
                 android:inputType="text" />
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
-
-
 </android.support.constraint.ConstraintLayout>

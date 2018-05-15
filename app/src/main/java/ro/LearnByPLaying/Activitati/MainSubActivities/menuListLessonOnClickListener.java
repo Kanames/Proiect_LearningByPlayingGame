@@ -3,20 +3,18 @@ package ro.LearnByPLaying.Activitati.MainSubActivities;
 import android.content.Intent;
 import android.view.View;
 
-import java.security.AccessController;
-
-import ro.LearnByPLaying.Activitati.MainActivity;
+import ro.LearnByPLaying.Beans.ConfigLessonPanel;
 
 
 /**
  * Created by Stefan on 5/9/2018.
  */
 
-public class LessonOnClickListener implements View.OnClickListener
+public class menuListLessonOnClickListener implements View.OnClickListener
 {
 
-    ConfigLessons configLessons;
-    public LessonOnClickListener(ConfigLessons configLessons) {
+    ConfigLessonPanel configLessons;
+    public menuListLessonOnClickListener(ConfigLessonPanel configLessons) {
         this.configLessons = configLessons;
     }
 

@@ -35,6 +35,7 @@ import static ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils.isUserRegister
 import static ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils.savingUSER;
 
 public class RegisterActivity extends AppCompatActivity {
+    private static final String TAG = "RegisterActivity- ";
     public static  EditText inputEmail,inputPassword1, inputPassword2;
     private TextInputLayout inputLayoutEmail,inputLayoutPass1,inputLayoutPass2;
     private ProgressBar progressBar;
@@ -106,28 +107,28 @@ public class RegisterActivity extends AppCompatActivity {
                                         try {
                                             throw task.getException();
                                         } catch (FirebaseAuthWeakPasswordException e) {
-                                            Log.e("Activitati", "RegisterActivity- FirebaseAuthWeakPasswordException: " + e.getMessage());
+                                            Log.e("Activitati", TAG+"FirebaseAuthWeakPasswordException: " + e.getMessage());
                                             Toast.makeText(RegisterActivity.this, getString(R.string.error_weak_password,"8"), Toast.LENGTH_SHORT).show();
                                             inputLayoutPass1.setError(getString(R.string.error_weak_password,"8"));
                                             inputLayoutPass2.setError(getString(R.string.error_weak_password,"8"));
                                             inputLayoutPass1.requestFocus();
                                         } catch (FirebaseAuthInvalidCredentialsException e) {
-                                            Log.e("Activitati", "RegisterActivity- FirebaseAuthInvalidCredentialsException: " + e.getMessage());
+                                            Log.e("Activitati", TAG+"FirebaseAuthInvalidCredentialsException: " + e.getMessage());
                                             Toast.makeText(RegisterActivity.this, getString(R.string.error_firebase_invalid_email), Toast.LENGTH_SHORT).show();
                                             inputLayoutEmail.setError(getString(R.string.error_firebase_invalid_email));
                                             inputEmail.requestFocus();
                                         } catch (FirebaseAuthUserCollisionException e) {
-                                            Log.e("Activitati", "RegisterActivity- FirebaseAuthUserCollisionException: " + e.getMessage());
-                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_firebase_user_exists) + task.getException(), Toast.LENGTH_SHORT).show();
+                                            Log.e("Activitati", TAG+"FirebaseAuthUserCollisionException: " + e.getMessage());
+                                            Toast.makeText(RegisterActivity.this, getString(R.string.error_firebase_user_exists), Toast.LENGTH_SHORT).show();
                                             inputLayoutEmail.setError(getString(R.string.error_firebase_user_exists));
                                             inputEmail.requestFocus();
                                         } catch (Exception e) {
-                                            Log.e("Activitati", "RegisterActivity- Exception: " + e.getMessage());
+                                            Log.e("Activitati", TAG+"Exception: " + e.getMessage());
                                         }
                                     } else {
                                         User userObject = new User();
                                         FirebaseUser userFirebaseObject = task.getResult().getUser();
-                                        Log.d("Activitati", "RegisterActivity- userFirebaseObject.uid= " + userFirebaseObject.getUid());
+                                        Log.d("Activitati", TAG+" userFirebaseObject.uid= " + userFirebaseObject.getUid());
                                         userObject.setUserFirebaseID(userFirebaseObject.getUid());
                                         userObject.setDateAccountCreated(new Date().toString());
                                         userObject.setEmailAddress(emailStr);
@@ -141,9 +142,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
                 }catch (Exception e){
-                    Log.e("Activitati", "RegisterActivity- Error register: "+e.getMessage());
+                    Log.e("Activitati", TAG+"Error register: "+e.getMessage());
                 }
-
             }
         });
         Log.d("Activitati", "<<< Iesit din RegisterActivity.onCreate >>>");
@@ -179,11 +179,11 @@ public class RegisterActivity extends AppCompatActivity {
     public void checkbox_clicked(View v)
     {
         if(checkBoxAgree.isChecked()){
-            Log.d("Activitati", "RegisterActivity- check box agreements status: checked");
+            Log.d("Activitati", TAG+"check box agreements status: checked");
             Intent intent = new Intent(v.getContext(), RegisterAgreementsActivity.class);
             startActivity(intent);
         }else{
-            Log.d("Activitati", "RegisterActivity- check box agreements status: unchecked");
+            Log.d("Activitati", TAG+"check box agreements status: unchecked");
         }
     }
 }

@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import ro.LearnByPLaying.Utilitare.StringUtils;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
+    private static final String TAG ="ForgotPasswordActivity";
     private FirebaseAuth auth;
     private EditText inputEmail;
     private TextInputLayout textInputLayoutEmail;

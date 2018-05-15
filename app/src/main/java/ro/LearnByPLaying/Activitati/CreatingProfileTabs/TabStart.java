@@ -14,7 +14,7 @@ import com.example.stefan.proiect_learningbyplayinggame.R;
 import ro.LearnByPLaying.Activitati.MainActivity;
 import ro.LearnByPLaying.Utilitare.TypeWriter;
 
-import static ro.LearnByPLaying.Activitati.CreatingProfile.USER_OBJECT;
+import static ro.LearnByPLaying.Activitati.CreatingProfileActivity.USER_OBJECT;
 
 
 /**
@@ -26,6 +26,7 @@ public class TabStart extends Fragment {
     public static View view;
     public static ImageView img;
     public static TypeWriter textAI;
+    private static FloatingActionButton btnStart;
     public TabStart() {
     }
 
@@ -33,11 +34,12 @@ public class TabStart extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Log.d("Activitati", "<<< Intrat in TabStart >>>");
-        view = inflater.inflate(R.layout.creating_profile_tab_start,container,false);
-        FloatingActionButton btnStart = view.findViewById(R.id.CP_floatingActionButton);
-        img = view.findViewById(R.id.image_message_profile);
+        view     = inflater.inflate(R.layout.creating_profile_tab_start,container,false);
+        btnStart = view.findViewById(R.id.CP_floatingActionButton);
+        img      = view.findViewById(R.id.image_message_profile);
+
         img.setImageResource(R.drawable.ai_sad);
-        final ProgressBar progressBar = view.findViewById(R.id.co_progressBarTabStart);
+
 
         textAI = view.findViewById(R.id.text_message_body);
         textAI.setText("");
@@ -47,10 +49,15 @@ public class TabStart extends Fragment {
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                    intent.putExtra("SESSION_USER", USER_OBJECT);
-                    startActivity(intent);
-                    getActivity().finish();
+                    if(USER_OBJECT.getNickName() != null && USER_OBJECT.getNickName() !="") {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.putExtra("SESSION_USER", USER_OBJECT);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else{
+                        textAI.animateText("You can press for as long as you want but until you complete the creation of your profile we won't go foward");
+
+                    }
             }
         });
 

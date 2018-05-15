@@ -13,6 +13,13 @@
     <string name="error_firebase_reset_mail_sent">We have sent you instructions to reset your password!</string>
     <string name="error_firebase_reset_mail_fail">Failed to send reset email!</string>
 
+    <string name="hint_nickname">Nickname</string>
+    <string name="hint_first_name">First name</string>
+    <string name="hint_last_name">Last name</string>
+    <string name="hint_optional">(optional)</string>
+    <string name="hint_needed">*</string>
+    <string name="hint_country">Please select your country</string>
+
     <string name="ForgotPass_Toolbar_Title">Reseting password</string>
     <string name="Register_Toolbar_Title">Sign Up</string>
     <string name="RegisterToolbarString">Register form</string>
@@ -37,8 +44,6 @@
     <string name="LoginForgotPassword">Forgot password ?</string>
 
     <!-- Activitatea de Inregistrare -->
-
-
     <string name="RegisterPass2RAW">Reapeat the password:</string>
     <string name="RegisterAgreements">Check if you accept terms and conditions</string>
     <string name="RegisterAgreementsTitle">Terms and conditions</string>
@@ -82,6 +87,7 @@
     </string>
 
     <!-- Activitatea de construire a profilului -->
+
     <string name="CP_StringProfileBuilder" formatted="false">
         <![CDATA[
         <strong>This will take just a few moments</strong>
@@ -101,23 +107,21 @@
         <br>This applications will NOT learn you how to code, it will teach you why the code is written in X manner.
         ]]>
     </string>
-    <string name="CP_HelloAboutAPPJava" formatted="false">
+    <string name="aboutJava" formatted="false">
         <![CDATA[
-        <br><strong>WHY JAVA ?</strong>
-        <br>Not to be confused with JavaScript, this general-purpose language was designed to be easier to use than C++,
+        <p align="justify">&nbsp;&nbsp;&nbsp;&nbsp;Not to be confused with JavaScript, this general-purpose language was designed to be easier to use than C++,
         which was a notoriously complex language. 90% of the Fortune 500 companies have since used Java to develop desktop
          apps and website backend systems.Java is a highly portable language as it must be executed through a cross-platform
          compatible Java Virtual Machine (JVM).Furthermore, Android apps are also developed using Java since the Android Operating
-         System runs on a Java language environment.
+         System runs on a Java language environment.</p>
         ]]>
     </string>
-    <string name="CP_HelloAboutAPPsql" formatted="false">
+    <string name="aboutSql" formatted="false">
         <![CDATA[
-        <br><strong>WHY SQL ?</strong>
-        <br>SQL stands for Structured Query Language.
+        <p align="justify"><br>&nbsp;&nbsp;&nbsp;&nbsp;SQL stands for Structured Query Language.
         SQL is a language which helps us to work with the databases. Database do not understand English or any other language.
         Just as to create software, we use Java or C#, in the similar way to work with databases, we use SQL.
-        SQL is the standard language of Database and is also pronounced as Sequel by many people.
+        SQL is the standard language of Database and is also pronounced as Sequel by many people.</p>
         ]]>
     </string>
     <string name="AI_COMMUNICATION" formatted="false">

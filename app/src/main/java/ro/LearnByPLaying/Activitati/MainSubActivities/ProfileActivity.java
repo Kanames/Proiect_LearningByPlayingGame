@@ -1,6 +1,6 @@
 package ro.LearnByPLaying.Activitati.MainSubActivities;
 
-import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,15 +18,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import ro.LearnByPLaying.Activitati.MainActivity;
-import ro.LearnByPLaying.Activitati.MainSubActivities.MenuItems.RecyclerViewUpdateProfile;
+import ro.LearnByPLaying.Adapters.RecyclerViewUpdateProfile;
 import ro.LearnByPLaying.Beans.User;
 import ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils;
+import ro.LearnByPLaying.Utilitare.StringUtils;
 
-import static ro.LearnByPLaying.Activitati.CreatingProfile.USER_OBJECT;
 import static ro.LearnByPLaying.Utilitare.StringUtils.trfOut;
 
 public class ProfileActivity extends AppCompatActivity {
-    public static final String TAG = "CreatingProfile- ";
+    public static final String TAG = "CreatingProfileActivity- ";
     private static User SESSION_USER;
     private static HashMap<String,ArrayList<String>> values = new HashMap<>();
     private static ArrayList<String> afisareProprietati = new ArrayList<>();
@@ -56,12 +56,18 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setSubtitle(getString(R.string.RegisterToolbarSecondaryString));
 
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             SESSION_USER  = (User) extras.getSerializable("SESSION_USER");
         }
-        Log.d("Activitati","0000000000000000000000000000000 userObject: "+trfOut(SESSION_USER));
 
+        values.clear();
+        afisareProprietati.clear();
+        valoareProprietati.clear();
+        hinturi.clear();
+        clickListeners.clear();
+        Log.d("Activitati","0000000000000000000000000000000 userObject: "+afisareProprietati.size());
 
 
         afisareProprietati.add("Nickname: ");
@@ -70,15 +76,21 @@ public class ProfileActivity extends AppCompatActivity {
         clickListeners.add(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText x = (EditText) findViewById(R.id.inputLayoutUpdateValue);
-                TextView y = (TextView) findViewById(R.id.textViewValue);
-                String your_text = x.getText().toString();
-                Log.d("Activitati","new Nickname"+your_text);
+                TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutUpdate);
+                EditText inputValue = (EditText) findViewById(R.id.inputLayoutUpdateValue);
+                TextView textView = (TextView) findViewById(R.id.textViewValue);
+                String textRaw = inputValue.getText().toString();
+                try {
+                    StringUtils.controlTextInput(inputValue,textInputLayout, getString(R.string.error_empty));
+                } catch (Exception e) {
+                    Log.e("Activitati","Error: "+e.getMessage());
+                }
+                Log.d("Activitati","new Nickname"+textRaw);
                 HashMap toModify = new HashMap();
-                toModify.put("nickName", your_text);
-                SESSION_USER.setNickName(your_text);
-                y.setText(your_text);
-                MainActivity.SESSION_USER.setNickName(your_text);
+                toModify.put("nickName", textRaw);
+                SESSION_USER.setNickName(textRaw);
+                textView.setText(textRaw);
+                MainActivity.SESSION_USER.setNickName(textRaw);
                 FirebaseRealtimeDBUtils.updateUSER(SESSION_USER,toModify);
             }
         });
@@ -131,6 +143,12 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager =  new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
+    }
 
+    @Override
+    protected void onPause() {
+        Log.d("Activitati", TAG+" onPause()");
+        super.onPause();
+        this.finish();
     }
 }

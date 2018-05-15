@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/effect_shadow_box"
+    android:layout_margin="1dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="0dp"
+            android:layout_weight=".20"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/create_profile_java_logo"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".80"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/PrimaryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CheckedTextView"
+                tools:layout_editor_absoluteX="115dp"
+                tools:layout_editor_absoluteY="16dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/SecondaryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CheckedTextView"
+                android:textStyle="italic"
+                tools:layout_editor_absoluteX="115dp"
+                tools:layout_editor_absoluteY="44dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/BodyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CheckedTextView"
+        android:textStyle="italic"
+        android:padding="10dp"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="44dp" />
+
+</LinearLayout>

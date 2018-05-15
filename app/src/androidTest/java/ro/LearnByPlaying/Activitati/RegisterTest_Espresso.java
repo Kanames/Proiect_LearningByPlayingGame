@@ -2,9 +2,12 @@ package ro.LearnByPlaying.Activitati;
 
 import android.support.design.widget.TextInputLayout;
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.EditText;
 
 import com.example.stefan.proiect_learningbyplayinggame.R;
@@ -22,6 +25,7 @@ import ro.LearnByPLaying.Activitati.RegisterActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.core.internal.deps.guava.base.Preconditions.checkNotNull;
@@ -30,6 +34,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.core.Is.is;
 
 /**
@@ -75,18 +80,50 @@ public class RegisterTest_Espresso {
         RegisterActivity activity = mActivityTestRule.getActivity();
         onView(withText("Please agree with the terms")).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
+
     @Test
-    public void testScenario_02(){
-        Log.d("Espresso"," - Scenariul 02 doar email | checkBox NO - ");
+    public void testScenario_02a(){
+        Log.d("Espresso"," - Scenariul 02.a doar email | checkBox NO - ");
         Log.d("Espresso","inputs email: "+emailAlreadyRegistered);
-        Log.d("Espresso","inputs password: "+password1AlreadyRegistered);
-        Log.d("Espresso","inputs password: "+password2AlreadyRegistered);
         //input some text in edit text
         onView(withId(R.id.Register_editTextEmail)).perform(typeText(emailAlreadyRegistered));
         //close soft keyboard
         Espresso.closeSoftKeyboard();
         //perform button click
         onView(withId(R.id.Register_btnRegister)).perform(click());
+
+
+        onView(withId(R.id.Register_textInputLayoutPass1)).check
+                (matches(hasTextInputLayoutErrorText(mActivityTestRule.getActivity().getString(R.string
+                        .error_empty,"password"))));
+    }
+
+    @Test
+    public void testScenario_02b(){
+        Log.d("Espresso"," - Scenariul 02.b doar password 1 | checkBox NO - ");
+        Log.d("Espresso","inputs password1: "+password1AlreadyRegistered);
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass1)).perform(typeText(password1AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //perform button click
+        onView(withId(R.id.Register_btnRegister)).perform(click());
+        //checking the text in the textView
+        Espresso.onView(withId(R.id.Register_editTextEmail)).check(matches(hasErrorText("Error: please fill the input E-mail")));
+    }
+
+    @Test
+    public void testScenario_02c(){
+        Log.d("Espresso"," - Scenariul 02.c doar password 2 | checkBox NO - ");
+        Log.d("Espresso","inputs password2: "+password2AlreadyRegistered);
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass2)).perform(typeText(password2AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //perform button click
+        onView(withId(R.id.Register_btnRegister)).perform(click());
+        //checking the text in the textView
+        Espresso.onView(withId(R.id.Register_editTextEmail)).check(matches(hasErrorText("Error: please fill the input E-mail")));
     }
 
     @Test
@@ -112,29 +149,7 @@ public class RegisterTest_Espresso {
 
     @Test
     public void testScenario_04(){
-        Log.d("Espresso"," - Scenariul 04 doar email - ");
-        Log.d("Espresso","inputs email: "+emailAlreadyRegistered);
-        //input some text in edit text
-        onView(withId(R.id.Register_editTextEmail)).perform(typeText(emailAlreadyRegistered));
-        //close soft keyboard
-        Espresso.closeSoftKeyboard();
-        //perform button click
-        onView(withId(R.id.Register_btnRegister)).perform(click());
-
-        onView(withId(R.id.Register_textInputLayoutPass1)).check
-                (matches(hasTextInputLayoutErrorText(mActivityTestRule.getActivity().getString(R.string
-                        .error_empty,"password"))));
-    }
-
-    @Test
-    public void testScenario_05(){
-        Log.d("Espresso"," - Scenariul 05 doar cele 2 parole introduse - ");
-        Log.d("Espresso","inputs pass1: "+password1AlreadyRegistered);
-        Log.d("Espresso","inputs pass2: "+password2AlreadyRegistered);
-        //input some text in edit text
-        onView(withId(R.id.Register_editTextPass1)).perform(typeText(password1AlreadyRegistered));
-        //close soft keyboard
-        Espresso.closeSoftKeyboard();
+        Log.d("Espresso"," - Scenariul 04 fara input-uri");
         //input some text in edit text
         onView(withId(R.id.Register_editTextPass2)).perform(typeText(password2AlreadyRegistered));
         //close soft keyboard
@@ -145,6 +160,249 @@ public class RegisterTest_Espresso {
         Espresso.onView(withId(R.id.Register_editTextEmail)).check(matches(hasErrorText("Error: please fill the input E-mail")));
     }
 
+    @Test
+    public void testScenario_05(){
+        Log.d("Espresso"," - Scenariul 05 email,password1 si 2 completate checkbox bifat dar termeni neacceptati");
+        Log.d("Espresso","inputs email: "+emailAlreadyRegistered);
+        Log.d("Espresso","inputs password: "+password1AlreadyRegistered);
+        Log.d("Espresso","inputs password: "+password2AlreadyRegistered);
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextEmail)).perform(typeText(emailAlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass1)).perform(typeText(password1AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass2)).perform(typeText(password2AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+
+
+        ViewInteraction appCompatCheckBox = onView(
+                allOf(withId(R.id.Register_checkBoxAgree), withText("Check if you accept terms and conditions"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatCheckBox.perform(click());
+
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //perform button click
+        onView(withId(R.id.register_btnAgreementAcceptedNO)).perform(click());
+
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.Register_btnRegister), withText("Register to our system"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                4),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        //checking the text in the textView
+        Espresso.onView(withId(R.id.Register_editTextEmail)).check(matches(hasErrorText("Error: please fill the input E-mail")));
+    }
+
+    @Test
+    public void testScenario_06(){
+        Log.d("Espresso"," - Scenariul 06 email,password1 si 2 completate checkbox bifat , termeni acceptati dar cu email deja existent");
+        Log.d("Espresso","inputs email: "+emailAlreadyRegistered);
+        Log.d("Espresso","inputs password: "+password1AlreadyRegistered);
+        Log.d("Espresso","inputs password: "+password2AlreadyRegistered);
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextEmail)).perform(typeText(emailAlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass1)).perform(typeText(password1AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass2)).perform(typeText(password2AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+
+
+        ViewInteraction appCompatCheckBox = onView(
+                allOf(withId(R.id.Register_checkBoxAgree), withText("Check if you accept terms and conditions"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatCheckBox.perform(click());
+
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //perform button click
+        onView(withId(R.id.register_btnAgreementAcceptedYES)).perform(click());
+
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.Register_btnRegister), withText("Register to our system"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                4),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        //checking the toast
+        RegisterActivity activity = mActivityTestRule.getActivity();
+        onView(withText("Error: user already exists")).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testScenario_07(){
+        Log.d("Espresso"," - Scenariul 07 email,password1 si 2 completate checkbox bifat , termeni acceptati dar cu email gresit ca format");
+        emailAlreadyRegistered="test_test_test_test";
+        Log.d("Espresso","inputs email: "+emailAlreadyRegistered);
+        Log.d("Espresso","inputs password: "+password1AlreadyRegistered);
+        Log.d("Espresso","inputs password: "+password2AlreadyRegistered);
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextEmail)).perform(typeText(emailAlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass1)).perform(typeText(password1AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass2)).perform(typeText(password2AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+
+
+        ViewInteraction appCompatCheckBox = onView(
+                allOf(withId(R.id.Register_checkBoxAgree), withText("Check if you accept terms and conditions"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatCheckBox.perform(click());
+
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //perform button click
+        onView(withId(R.id.register_btnAgreementAcceptedYES)).perform(click());
+
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.Register_btnRegister), withText("Register to our system"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                4),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        //checking the toast
+        RegisterActivity activity = mActivityTestRule.getActivity();
+        onView(withText("Error: check your E-mail format")).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testScenario_08(){
+        Log.d("Espresso"," - Scenariul 08 email,password1 si 2 completate checkbox bifat , termeni acceptati dar parole diferite");
+        password1AlreadyRegistered="test_test_test_test";
+        Log.d("Espresso","inputs email: "+emailAlreadyRegistered);
+        Log.d("Espresso","inputs password: "+password1AlreadyRegistered);
+        Log.d("Espresso","inputs password: "+password2AlreadyRegistered);
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextEmail)).perform(typeText(emailAlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass1)).perform(typeText(password1AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.Register_editTextPass2)).perform(typeText(password2AlreadyRegistered));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+
+
+        ViewInteraction appCompatCheckBox = onView(
+                allOf(withId(R.id.Register_checkBoxAgree), withText("Check if you accept terms and conditions"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatCheckBox.perform(click());
+
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //perform button click
+        onView(withId(R.id.register_btnAgreementAcceptedYES)).perform(click());
+
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.Register_btnRegister), withText("Register to our system"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                4),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        onView(withId(R.id.Register_textInputLayoutPass1)).check
+                (matches(hasTextInputLayoutErrorText(mActivityTestRule.getActivity().getString(R.string
+                        .error_password_match))));
+        onView(withId(R.id.Register_textInputLayoutPass2)).check
+                (matches(hasTextInputLayoutErrorText(mActivityTestRule.getActivity().getString(R.string
+                        .error_password_match))));
+    }
 
 
 
@@ -207,6 +465,24 @@ public class RegisterTest_Espresso {
     }
     //-----------------------------------------------------------------------------------
 
+    private static Matcher<View> childAtPosition(
+            final Matcher<View> parentMatcher, final int position) {
+
+        return new TypeSafeMatcher<View>() {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Child at position " + position + " in parent ");
+                parentMatcher.describeTo(description);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                ViewParent parent = view.getParent();
+                return parent instanceof ViewGroup && parentMatcher.matches(parent)
+                        && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+    }
 
     @After
     public void tearDown() throws Exception{

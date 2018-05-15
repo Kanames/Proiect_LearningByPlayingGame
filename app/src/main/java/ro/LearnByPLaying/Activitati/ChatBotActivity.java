@@ -1,6 +1,5 @@
-package ro.LearnByPLaying.Activitati.Chat_AI;
+package ro.LearnByPLaying.Activitati;
 
-import android.app.DownloadManager;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -8,64 +7,47 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.stefan.proiect_learningbyplayinggame.R;
-import com.google.android.gms.common.api.Response;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
 import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.RequestTooLargeException;
 import com.ibm.watson.developer_cloud.service.exception.ServiceResponseException;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import ro.LearnByPLaying.Beans.User;
-import ro.LearnByPLaying.Utilitare.StringUtils;
+import ro.LearnByPLaying.Adapters.RecyclerViewAdapterChat;
 
-import static ro.LearnByPLaying.Utilitare.StringUtils.trfOut;
-
-public class ChatBot extends AppCompatActivity {
-    private String HUMAN = "Human";
-    private String BOT = "Ben";
-    private ArrayList<String> questions = new ArrayList<>();
-    private ArrayList<String> responses = new ArrayList<>();
-    private RecyclerViewAdapter adapter;
+public class ChatBotActivity extends AppCompatActivity {
+    private static final String TAG = "ChatBotActivity- ";
+    private ArrayList<String> conversation = new ArrayList<>();
+    private ArrayList<String> typeHumanOrBot = new ArrayList<>();
+    private RecyclerViewAdapterChat adapter;
     private RecyclerView recyclerView;
+    private static FloatingActionButton sendMsgBTN;
+    private EditText questionInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("Activitati","<<<<< IN ChatBot.onCreate() >>>>");
+        Log.d("Activitati","<<<<< IN ChatBotActivity.onCreate() >>>>");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_bot);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        final EditText questionRAW = (EditText) findViewById(R.id.input);
-        recyclerView = findViewById(R.id.list_of_messages);
-        questions.add("Hi");
+        sendMsgBTN     = findViewById(R.id.fab);
+        recyclerView   = findViewById(R.id.list_of_messages);
+        questionInput  = findViewById(R.id.input);
 
         Bundle extras = getIntent().getExtras();
         User userObject = null;
@@ -73,22 +55,25 @@ public class ChatBot extends AppCompatActivity {
             userObject = (User) extras.getSerializable("SESSION_USER");
         }
 
-        adapter = new RecyclerViewAdapter(questions,userObject.getNickName(),getApplicationContext(),HUMAN);
+        conversation.add("Hi");
+        typeHumanOrBot.add("BOT");
+        adapter = new RecyclerViewAdapterChat(conversation,userObject.getNickName(),getApplicationContext(),typeHumanOrBot);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        sendMsgBTN.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String questionStr =questionRAW.getText().toString();
-                if(!TextUtils.isEmpty(questionStr)){
-                    questionRAW.setText("");
-                    questions.add(questionStr);
+            public void onClick(View v) {
+                Log.d("Activitati",TAG+"onClick");
+                String questionProcessesd = questionInput.getText().toString().trim();
+                Log.d("Activitati",TAG+"questionProcessesd: "+questionProcessesd);
+                questionInput.setText("");
+                if(!TextUtils.isEmpty(questionProcessesd)){
+                    typeHumanOrBot.add("HUMAN");
+                    conversation.add(questionProcessesd);
                     adapter.notifyItemChanged(recyclerView.getAdapter().getItemCount());
-                    Log.d("Activitati","recyclerView.getAdapter().getItemCount()-1 -----> "+String.valueOf(recyclerView.getAdapter().getItemCount()-1));
-                    new AskingWatson().execute(questionStr);
+                    new AskingWatson().execute(questionProcessesd);
                 }
             }
         });
@@ -124,25 +109,22 @@ public class ChatBot extends AppCompatActivity {
 
                 MessageResponse response = assistant.message(options).execute();
 
-                Log.d("Activitati", " getOutput WATSON: " +trfOut(response.getOutput().getText()));
-                Log.d("Activitati", " getOutput get(0) WATSON: " +response.getOutput().getText().get(0));
+                Log.d("Activitati", TAG+"getOutput(0) WATSON: " +response.getOutput().getText().get(0));
                 responseWatson = response.getOutput().getText().get(0);
-                Log.d("Activitati", " response WATSON: " +response);
+                Log.i("Activitati", TAG+"response in thread WATSON: " +response);
             } catch (NotFoundException e) {
                 // Handle Not Found (404) exception
-                Log.d("Activitati", " NotFoundException WATSON: " + e.getMessage());
+                Log.e("Activitati", TAG+"NotFoundException WATSON: " + e.getMessage());
             } catch (RequestTooLargeException e) {
                 // Handle Request Too Large (413) exception
-                Log.d("Activitati", " RequestTooLargeException WATSON: " + e.getMessage());
+                Log.e("Activitati", TAG+"RequestTooLargeException WATSON: " + e.getMessage());
             } catch (ServiceResponseException e) {
                 // Base class for all exceptions caused by error responses from the service
-                Log.d("Activitati", " ServiceResponseException WATSON: " + e.getMessage());
+                Log.e("Activitati", TAG+"ServiceResponseException WATSON: " + e.getMessage());
             } catch (JSONException e) {
-                Log.d("Activitati", " JSONException WATSON: " + e.getMessage());
-                e.printStackTrace();
+                Log.e("Activitati", TAG+"JSONException WATSON: " + e.getMessage());
             } catch (IOException e) {
-                Log.d("Activitati", " IOException WATSON: " + e.getMessage());
-                e.printStackTrace();
+                Log.e("Activitati", TAG+"IOException WATSON: " + e.getMessage());
             }
             return responseWatson;
         }
@@ -150,8 +132,9 @@ public class ChatBot extends AppCompatActivity {
         protected void onPostExecute(String result)
         {
             // call an external function as a result
-            Log.d("Activitati", " result!!!! WATSON: " + result);
-            questions.add(result);
+            Log.d("Activitati", TAG+"WATSON reply before inserting in activity: " + result);
+            typeHumanOrBot.add("BOT");
+            conversation.add(result);
             adapter.notifyItemChanged(recyclerView.getAdapter().getItemCount());
             recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
         }

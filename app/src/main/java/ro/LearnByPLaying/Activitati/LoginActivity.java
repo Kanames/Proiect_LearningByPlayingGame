@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotPass  = findViewById(R.id.login_textViewForgotPassword);
         textInputLayoutEmail = findViewById(R.id.login_textInputLayoutEmail);
         textInputLayoutPassword = findViewById(R.id.login_textInputLayoutPassword);
-        intent = new Intent(LoginActivity.this, CreatingProfile.class);
+        intent = new Intent(LoginActivity.this, CreatingProfileActivity.class);
         //---Daca venim din RegisterActivity----
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

@@ -1,4 +1,4 @@
-package ro.LearnByPLaying.Activitati.MainSubActivities.MenuItems;
+package ro.LearnByPLaying.Adapters;
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;

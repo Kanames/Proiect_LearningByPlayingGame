@@ -9,7 +9,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="10dp"
-    tools:context="ro.LearnByPLaying.Activitati.Chat_AI.ChatBot">
+    tools:context="ro.LearnByPLaying.Activitati.ChatBotActivity">
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

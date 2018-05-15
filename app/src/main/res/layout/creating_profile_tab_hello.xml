@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ro.LearnByPLaying.Activitati.CreatingProfile">
+    tools:context="ro.LearnByPLaying.Activitati.CreatingProfileActivity">
 
     <ScrollView
         android:id="@+id/CP_scrollView"
@@ -46,51 +46,23 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/CP_HelloAboutAPP"
                 android:text="@string/CP_HelloAboutAPP"
+                android:layout_margin="5dp"/>
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/rez_java"
+                layout="@layout/custom_lesson_01"
                 />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_height="100dp"
-                    android:layout_width="70dp"
-                    android:padding="10dp"
-                    android:src="@drawable/create_profile_java_logo"
-                    android:layout_gravity="center"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/CP_HelloAboutAPPJava"
-                    android:text="@string/CP_HelloAboutAPPJava"
-                    />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/CP_HelloAboutAPPsql"
-                    android:text="@string/CP_HelloAboutAPPsql"
-
-                    android:layout_weight=".70"/>
-                <ImageView
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/create_profile_sql_logo"
-                    android:layout_weight=".30"
-                    />
-            </LinearLayout>
-
-
-
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/rez_sql"
+                layout="@layout/custom_lesson_01"
+                />
         </LinearLayout>
 
 

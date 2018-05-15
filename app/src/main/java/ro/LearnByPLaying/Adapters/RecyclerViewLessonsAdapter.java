@@ -1,4 +1,4 @@
-package ro.LearnByPLaying.Activitati.MainSubActivities;
+package ro.LearnByPLaying.Adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.stefan.proiect_learningbyplayinggame.R;
 import java.util.ArrayList;
+
+import ro.LearnByPLaying.Beans.Lesson;
+import ro.LearnByPLaying.Beans.LessonsList;
 
 
 /**
@@ -25,12 +28,12 @@ public class RecyclerViewLessonsAdapter extends RecyclerView.Adapter<RecyclerVie
 
     //Crearea constructorului pentru Adapter
     //View-ul va trebui sa poata afla: ce titlu are, ce img/logo are, ce culoare de background sa aiba, ce actiune onClick sa faca.
-    public RecyclerViewLessonsAdapter(ArrayList<String> LESSONS_TITLES, ArrayList<Integer> LESSONS_IMGS,ArrayList<View.OnClickListener> LESSONS_IMG_ACTIONS,ArrayList<Integer> LESSONS_BACKGROUND_COLORS, Context nContext) {
+    public RecyclerViewLessonsAdapter(LessonsList lessonsList, Context nContext) {
         Log.d("Activitati", "<<<<< IN RecyclerViewAdapter() >>>>");
-        this.LESSONS_TITLES = LESSONS_TITLES;
-        this.LESSONS_IMGS = LESSONS_IMGS;
-        this.LESSONS_IMG_ACTIONS = LESSONS_IMG_ACTIONS;
-        this.LESSONS_BACKGROUND_COLORS=LESSONS_BACKGROUND_COLORS;
+        this.LESSONS_TITLES =           lessonsList.getLESSONS_TITLES();
+        this.LESSONS_IMGS =             lessonsList.getLESSONS_IMGS();
+        this.LESSONS_IMG_ACTIONS =      lessonsList.getLESSONS_IMG_ACTIONS();
+        this.LESSONS_BACKGROUND_COLORS= lessonsList.getLESSONS_BACKGROUND_COLORS();
         this.nContext = nContext;
     }
     @Override

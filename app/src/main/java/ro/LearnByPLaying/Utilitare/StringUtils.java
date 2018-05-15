@@ -5,10 +5,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.example.stefan.proiect_learningbyplayinggame.R;
+
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import javax.security.auth.login.LoginException;
 
@@ -115,4 +120,6 @@ public class StringUtils {
             throw new Exception(errorPasswordMatch);
         }
     }
+
+
 }
