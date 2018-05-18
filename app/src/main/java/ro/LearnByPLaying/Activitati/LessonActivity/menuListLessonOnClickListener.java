@@ -1,4 +1,4 @@
-package ro.LearnByPLaying.Activitati.MainSubActivities;
+package ro.LearnByPLaying.Activitati.LessonActivity;
 
 import android.content.Intent;
 import android.view.View;

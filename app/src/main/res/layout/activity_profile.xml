@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity"
+    tools:context="ro.LearnByPLaying.Activitati.ProfileActivity"
     android:background="#515151">
 
     <include
@@ -37,8 +37,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </android.support.v7.widget.RecyclerView>
+            <include
+                layout="@layout/custom_delete_btn_account">
 
+            </include>
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

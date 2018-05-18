@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Date;
 
 import ro.LearnByPLaying.Beans.User;
+import ro.LearnByPLaying.Utilitare.FunctionalMethods;
 import ro.LearnByPLaying.Utilitare.StringUtils;
 
 import static ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils.isUserRegistered;

@@ -9,12 +9,13 @@ import java.io.Serializable;
 public class ConfigLessonPanel implements Serializable {
     private Integer wallpaper;
     private Integer colorTheme;
-    private String wallText;
-    private String titleLesson;
+     private String wallText;
+     private String titleLesson;
 
     public ConfigLessonPanel(Integer wallpaper, Integer colorTheme, String wallText, String titleLesson) {
         this.wallpaper = wallpaper;
         this.colorTheme = colorTheme;
+        this.titleLesson = titleLesson;
         this.wallText = wallText;
     }
 

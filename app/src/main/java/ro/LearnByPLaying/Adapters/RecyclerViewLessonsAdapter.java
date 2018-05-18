@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.stefan.proiect_learningbyplayinggame.R;
 import java.util.ArrayList;
 
-import ro.LearnByPLaying.Beans.Lesson;
 import ro.LearnByPLaying.Beans.LessonsList;
 
 

@@ -95,7 +95,7 @@ public class RegisterTest_Espresso {
 
         onView(withId(R.id.Register_textInputLayoutPass1)).check
                 (matches(hasTextInputLayoutErrorText(mActivityTestRule.getActivity().getString(R.string
-                        .error_empty,"password"))));
+                        .error_weak_password,8))));
     }
 
     @Test

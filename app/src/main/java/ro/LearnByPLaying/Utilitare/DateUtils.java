@@ -2,11 +2,15 @@ package ro.LearnByPLaying.Utilitare;
 
 import android.util.Log;
 
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
+import ro.LearnByPLaying.Utilitare.Interfaces.IFunction1;
+import ro.LearnByPLaying.Utilitare.Interfaces.IFunction2;
 
 /**
  * Created by Stefan on 5/4/2018.
@@ -19,23 +23,35 @@ public class DateUtils {
      * @param pattern The object of type String that will represents the pattern in witch the object Date with be displayed Ex: "MM/dd/yyyy"
      * @return A object of type String that represents the Date object in human readable format.
      */
+    private static IFunction2 func_DisplayDate= (obj, pattern) -> {
+        if(obj instanceof Date){
+            Date dateTypeObject = (Date) obj;
+            Log.d("Activitati","DateUtils.displayDate("+dateTypeObject+","+pattern+")");
+            // Initializare SimpleDateFormat
+            SimpleDateFormat sdf = new SimpleDateFormat(String.valueOf(pattern));
+            // format the calendar date
+            String formattedDate = sdf.format(dateTypeObject.getTime());
+            Log.d("Activitati","Formatted date:"+formattedDate);
+            return formattedDate;
+        }else if(obj instanceof Timestamp){
+            Timestamp dateTypeObject = (Timestamp) obj;
+            Date dateToBeDisplayed = new Date(dateTypeObject.getTime());
+            // Initializare SimpleDateFormat
+            SimpleDateFormat sdf = new SimpleDateFormat((String) pattern);
+            // format the calendar date
+            String formattedDate = sdf.format(dateToBeDisplayed);
+            Log.d("Activitati","Formatted date:"+formattedDate);
+            return formattedDate;
+        }
+        return null;
+    };
+
     public static String displayDate(Date dateTypeObject , String pattern){
-        Log.d("Activitati","DateUtils.displayDate("+dateTypeObject+","+pattern+")");
-        // Initializare SimpleDateFormat
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        // format the calendar date
-        String formattedDate = sdf.format(dateTypeObject.getTime());
-        Log.d("Activitati","Formatted date:"+formattedDate);
-        return formattedDate;
+        return (String) func_DisplayDate.apply(dateTypeObject,pattern);
     }
 
     public static String displayDate(Timestamp dateToBeDisplayed , String pattern){
-        // Initializare SimpleDateFormat
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        // format the calendar date
-        String formattedDate = sdf.format(dateToBeDisplayed);
-        Log.d("Activitati","Formatted date:"+formattedDate);
-        return formattedDate;
+        return (String) func_DisplayDate.apply(dateToBeDisplayed,pattern);
     }
 
     public static String fromStringToDate(Date dateToBeDisplayed , String pattern){

@@ -1,4 +1,4 @@
-package ro.LearnByPLaying.Activitati.MainSubActivities;
+package ro.LearnByPLaying.Activitati;
 
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;

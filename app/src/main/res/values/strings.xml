@@ -152,9 +152,161 @@
     </string-array>
 
 
+    <string name="title_activity_testing">testing</string>
+
+    <string name="action_settings">Settings</string>
+
+
+
+
+
+
+
+    <!-- "Material is the metaphor.\n\n"-->
     <string name="lesson_functional_programming" formatted="false">
          <![CDATA[
         <br><strong>So why the functional way ?</strong>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        In the beginning of computer science, before most of computer science was actually done on computers, there lived two great computer scientists: Alonzo Church, and Alan Turing. They produced two different, but equivalent universal models of computation. Both models could compute anything that can be computed (hence, “universal”).
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Alonzo Church invented lambda calculus. Lambda calculus is a universal model of computation based on function application. Alan Turing is known for the turing machine. A turing machine is a universal model of computation that defines a theoretical device that manipulates symbols on a strip of tape.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Together, they collaborated to show that lambda calculus and the turing machine are functionally equivalent.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Lambda calculus is all about function composition. Thinking in terms of function composition is a remarkably expressive and eloquent way to compose software. In this text, we’re going to discuss the importance of function composition in software design.
+
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        There are three important points that make lambda calculus special:
+        <p>
+        1.Functions are always anonymous. In JavaScript, the right side of const
+        <font face="verdana" color="green">Tsum = (x, y) => x + y</font>
+        T is the anonymous function expression
+        <font face="verdana" color="green">T(x, y) => x + y.
+        </p>
+
+        <p>
+        2.Functions in lambda calculus only accept a single input. They’re unary. If you need more than one parameter, the function will take one input and return a new function that
+        takes the next, and so on. The n-ary function
+        <font face="verdana" color="green">(x, y) => x + y </font>
+        can be expressed as a unary function like:
+        <font face="verdana" color="green">x => y => x + y </font>
+        . This transformation from an n-ary function to a unary function is known as currying.
+        </p>
+
+        <p>
+        3.Functions are first-class, meaning that functions can be used as inputs to other functions, and functions can return functions.
+        </p>
+
+        <br><br>
+        <font color="RED">Content Copyright © Feb 19, 2017 by Eric Elliott</font>
+    ]]>
+    </string>
+    <string name="lesson_pure_functions" formatted="false">
+         <![CDATA[
+        <br><strong>What are PURE FUNCTIONS ?</strong>
+        <br>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        A pure function is a function which:
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Given the same input, will always return the same output.
+        Produces no side effects.
+        A dead giveaway that a function is impure is if it makes sense to call it without using its return value. For pure functions, that’s a noop.
+        I recommend that you favor pure functions. Meaning, if it is practical to implement a program requirement using pure functions, you should use them over other options. Pure functions take
+        some input and return some output based on that input. They are the simplest reusable building blocks of code in a program. Perhaps the most important design principle in computer science
+        is KISS (Keep It Simple, Stupid). I prefer Keep It Stupid Simple. Pure functions are stupid simple in the best possible way.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Pure functions have many beneficial properties, and form the foundation of functional programming. Pure functions are completely independent of outside state, and as such, they are immune
+        to entire classes of bugs that have to do with shared mutable state. Their independent nature also makes them great candidates for parallel processing across many CPUs, and across entire
+        distributed computing clusters, which makes them essential for many types of scientific and resource-intensive computing tasks.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Pure functions are also extremely independent — easy to move around, refactor, and reorganize in your code, making your programs more flexible and adaptable to future changes.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        The Trouble with Shared State
+        Several years ago I was working on an app that allowed users to search a database for musical artists and load the artist’s music playlist into a web player. This was around the time
+        Google Instant landed, which displays instant search results as you type your search query. AJAX-powered autocomplete was suddenly all the rage.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        The only problem was that users often type faster than an API autocomplete search response can be returned, which caused some strange bugs. It would trigger race conditions, where newer s
+        uggestions would be replaced by outdated suggestions.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Why did that happen? Because each AJAX success handler was given access to directly update the suggestion list that was displayed to users. The slowest AJAX request would always win the
+        user’s attention by blindly replacing results, even when those replaced results may have been newer.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        To fix the problem, I created a suggestion manager — a single source of truth to manage the state of the query suggestions. It was aware of a currently pending AJAX request, and when the
+        user typed something new, the pending AJAX request would be canceled before a new request was issued, so only a single response handler at a time would ever be able to trigger a UI state update.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Any sort of asynchronous operation or concurrency could cause similar race conditions. Race conditions happen if output is dependent on the sequence of uncontrollable events (such as
+        network, device latency, user input, randomness, etc…). In fact, if you’re using shared state and that state is reliant on sequences which vary depending on indeterministic factors,
+        for all intents and purposes, the output is impossible to predict, and that means it’s impossible to properly test or fully understand. As Martin Odersky (creator of Scala) puts it:
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        <font face="verdana" color="green">non-determinism = parallel processing + mutable state</font>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Program determinism is usually a desirable property in computing. Maybe you think you’re OK because JS runs in a single thread, and as such, is immune to parallel processing concerns,
+        but as the AJAX example demonstrates, a single threaded JS engine does not imply that there is no concurrency. On the contrary, there are many sources of concurrency in JavaScript.
+        API I/O, event listeners, web workers, iframes, and timeouts can all introduce indeterminism into your program. Combine that with shared state, and you’ve got a recipe for bugs.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Pure functions can help you avoid those kinds of bugs.
+
+        <br><br>
+        <font color="RED">Content Copyright © Mar 26, 2016 by Eric Elliott</font>
+        ]]>
+    </string>
+    <string name="lesson_fclass_hordefunctions" formatted="false">
+         <![CDATA[
+        <br><strong>What do you mean Functions as parameters ?</strong>
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        A higher order function is a function that takes a function as an argument, or returns a function. Higher order function is in contrast to first order functions, which don’t take a function as an argument or return a function as output.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Earlier we saw examples of .map() and .filter(). Both of them take a function as an argument. They\'re both higher order functions.
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        Let’s look at an example of a first-order function which filters all the 4-letter words from a list of words:
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>&nbsp;
+        <font face="verdana" color="green">
+        &nbsp;const censor = words => { <br>
+        &nbsp;&nbsp;  const filtered = [];<br>
+        &nbsp;&nbsp;  for (let i = 0, { length } = words; i < length; i++) {<br>
+        &nbsp;&nbsp;&nbsp;    const word = words[i];<br>
+        &nbsp;&nbsp;&nbsp;    if (word.length !== 4) filtered.push(word);<br>
+        &nbsp;&nbsp;  }<br>
+        &nbsp;};return filtered;<br>
+        &nbsp;};<br>
+        censor([\'oops\', \'gasp\',\'shout\', \'sun\']);<br>
+        // [ \'shout\', \'sun\' ] <br>
+
+
+        <br><br>
+        </font>
+        <font color="RED">Content Copyright © Mar 4, 2017 by Eric Elliott</font>
+        ]]>
+    </string>
+    <string name="lesson_recursion" formatted="false">
+         <![CDATA[
+        <br><strong>RECURSION recursion recursion</strong>
+
+
+        <br><br>
+        </font>
+        <font color="RED">Content Copyright © Mar 4, 2017 by Eric Elliott</font>
+        ]]>
+    </string>
+    <string name="lesson_lambdas" formatted="false">
+         <![CDATA[
+        <br><strong>Such a big WORD: LAMBDA</strong>
+
+
+        <br><br>
+        </font>
+        <font color="RED">Content Copyright © Mar 4, 2017 by Eric Elliott</font>
+        ]]>
+    </string>
+    <string name="lesson_oop_vs_fp" formatted="false">
+         <![CDATA[
+        <br><strong>OOP vs FP</strong>
+
+
+        <br><br>
+        </font>
+        <font color="RED">Content Copyright © Mar 4, 2017 by Eric Elliott</font>
         ]]>
     </string>
 </resources>

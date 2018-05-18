@@ -29,9 +29,11 @@ public class CreatingProfileActivity extends FragmentActivity {
         viewPager = findViewById(R.id.CreateProfile_viewPager);
 
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(getSupportFragmentManager());
+
         viewPageAdapter.addFragment(new TabHello(), "Hello");
         viewPageAdapter.addFragment(new TabProfile(), "Create profile");
         viewPageAdapter.addFragment(new TabStart(), "START");
+
         viewPager.setAdapter(viewPageAdapter);
         viewPager.setOffscreenPageLimit(2);
         tabLayout.setupWithViewPager(viewPager);

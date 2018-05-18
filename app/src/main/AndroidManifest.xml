@@ -48,14 +48,12 @@
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.MainActivity"></activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.ChatBotActivity">
-
-        </activity>
+        <activity android:name="ro.LearnByPLaying.Activitati.MainActivity" />
+        <activity android:name="ro.LearnByPLaying.Activitati.ChatBotActivity"></activity>
         <activity
-            android:name="ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity"
-            android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity"></activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.MainSubActivities.LessonActivity" />
+            android:name="ro.LearnByPLaying.Activitati.ProfileActivity"
+            android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity" />
+        <activity android:name="ro.LearnByPLaying.Activitati.LessonActivity.LessonActivity" />
     </application>
 
 </manifest>

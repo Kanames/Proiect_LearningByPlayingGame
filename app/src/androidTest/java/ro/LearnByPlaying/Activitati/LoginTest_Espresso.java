@@ -49,38 +49,18 @@ public class LoginTest_Espresso {
     public void setUp() throws Exception{
 
     }
-
     @Test
     public void testScenario_01(){
-        Log.d("Espresso"," - Scenariul 01 ambele imput-uri bune - ");
-        Log.d("Espresso","inputs email: "+email);
-        Log.d("Espresso","inputs password: "+password);
-        //input some text in edit text
-        onView(withId(R.id.editTextEmail)).perform(typeText(email));
-        //close soft keyboard
-        Espresso.closeSoftKeyboard();
-        //input some text in edit text
-        onView(withId(R.id.login_editTextPassword)).perform(typeText(password));
-        //close soft keyboard
-        Espresso.closeSoftKeyboard();
-        //perform button click
-        onView(withId(R.id.login_button)).perform(click());
-    }
-    @Test
-    public void testScenario_02(){
-        Log.d("Espresso"," - Scenariul 02 input doar pentru password - ");
-        Log.d("Espresso","inputs password: "+password);
-        onView(withId(R.id.login_editTextPassword)).perform(typeText(password));
-        //close soft keyboard
-        Espresso.closeSoftKeyboard();
+        Log.d("Espresso"," - Scenariul 01 lasarea libera a input-urilor - ");
         //perform button click
         onView(withId(R.id.login_button)).perform(click());
         //checking the text in the textView
         Espresso.onView(withId(R.id.editTextEmail)).check(matches(hasErrorText("Error: please fill the input E-mail")));
     }
+
     @Test
-    public void testScenario_03(){
-        Log.d("Espresso"," - Scenariul 03 input doar pentru email - ");
+    public void testScenario_02a(){
+        Log.d("Espresso"," - Scenariul 02.a input doar pentru email - ");
         Log.d("Espresso","inputs email: "+email);
         //input some text in edit text
         onView(withId(R.id.editTextEmail)).perform(typeText(email));
@@ -92,8 +72,21 @@ public class LoginTest_Espresso {
         Espresso.onView(withId(R.id.login_editTextPassword)).check(matches(hasErrorText("Error: please fill the input password")));
     }
     @Test
-    public void testScenario_04(){
-        Log.d("Espresso"," - Scenariul 04 fake email and password - ");
+    public void testScenario_02b(){
+        Log.d("Espresso"," - Scenariul 02.b input doar pentru password - ");
+        Log.d("Espresso","inputs password: "+password);
+        onView(withId(R.id.login_editTextPassword)).perform(typeText(password));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //perform button click
+        onView(withId(R.id.login_button)).perform(click());
+        //checking the text in the textView
+        Espresso.onView(withId(R.id.editTextEmail)).check(matches(hasErrorText("Error: please fill the input E-mail")));
+    }
+
+    @Test
+    public void testScenario_03(){
+        Log.d("Espresso"," - Scenariul 03 email neinregistrat - ");
         Log.d("Espresso","inputs email: "+"fake@fake.com");
         Log.d("Espresso","inputs password: "+"fakefakefake");
         //input some text in edit text
@@ -110,9 +103,10 @@ public class LoginTest_Espresso {
         LoginActivity activity = mActivityTestRule.getActivity();
         onView(withText("Incorrect email address")).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
+
     @Test
-    public void testScenario_05(){
-        Log.d("Espresso"," - Scenariul 05 real email and  fake password - ");
+    public void testScenario_04(){
+        Log.d("Espresso"," - Scenariul 04 email real si parola gresita- ");
         Log.d("Espresso","inputs email: "+email);
         Log.d("Espresso","inputs password: "+"fakefakefake");
         //input some text in edit text
@@ -129,6 +123,26 @@ public class LoginTest_Espresso {
         LoginActivity activity = mActivityTestRule.getActivity();
         onView(withText("Invalid password")).inRoot(withDecorView(not(is(activity.getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
+
+    @Test
+    public void testScenario_05(){
+        Log.d("Espresso"," - Scenariul 05 ambele imput-uri bune | posibil cont dezactivat - ");
+        Log.d("Espresso","inputs email: "+email);
+        Log.d("Espresso","inputs password: "+password);
+        //input some text in edit text
+        onView(withId(R.id.editTextEmail)).perform(typeText(email));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //input some text in edit text
+        onView(withId(R.id.login_editTextPassword)).perform(typeText(password));
+        //close soft keyboard
+        Espresso.closeSoftKeyboard();
+        //perform button click
+        onView(withId(R.id.login_button)).perform(click());
+    }
+
+
+
 
 
     //--- Validate standard setError text set on editText view with Expresso ----

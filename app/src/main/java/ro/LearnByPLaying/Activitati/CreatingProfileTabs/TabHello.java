@@ -71,14 +71,6 @@ public class TabHello extends Fragment {
         bodySQL = whySqlVIEW.findViewById(R.id.BodyText);
         bodySQL.setText(Html.fromHtml(getString(R.string.aboutSql)));
 
-//        whySqlVIEW.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                bodySQL.setVisibility(View.VISIBLE);
-//                bodySQL.setText(Html.fromHtml(getString(R.string.aboutSql)));
-//            }
-//        });
-
 
         getSpeach();
         return view;

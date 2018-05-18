@@ -38,6 +38,7 @@
         <!-- colorAccent is used as the default value for colorControlActivated which is used to tint widgets. -->
         <item name="colorAccent">#E7E5E5</item>
     </style>
+
     <style name="MyCustomToolbar_darkMode" parent="Theme.AppCompat.Light">
         <item name="android:background">#17202A</item>
         <item name="android:textColorPrimary">#E7E5E5</item>
@@ -50,4 +51,8 @@
         <!-- colorAccent is used as the default value for colorControlActivated which is used to tint widgets. -->
         <item name="colorAccent">#E7E5E5</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

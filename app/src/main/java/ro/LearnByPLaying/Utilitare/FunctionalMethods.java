@@ -1,9 +1,9 @@
 package ro.LearnByPLaying.Utilitare;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import ro.LearnByPLaying.Beans.User;
+import ro.LearnByPLaying.Utilitare.Interfaces.ISession;
 
 /**
  * Created by Stefan on 5/14/2018.
@@ -11,16 +11,7 @@ import ro.LearnByPLaying.Beans.User;
 
 public class FunctionalMethods{
 
-    public static Object getObjectSession(Bundle extras,String wantYouWANT,String ACTION) {
-        ISession action = null;
-        if(ACTION.equals("GET")){
-            action = methodGetObjectSession;
-            return action.getObjectFromSession(extras,wantYouWANT);
-        }
-        return null;
-    }
-
-    private static ISession methodGetObjectSession = (extras , wantYouWANT) -> {
+    private static ISession varMethodGetUser = (extras , wantYouWANT) -> {
         if (extras != null) {
             return (User) extras.getSerializable(wantYouWANT);
         }else{
@@ -29,11 +20,18 @@ public class FunctionalMethods{
         return null;
     };
 
+    public static Object methodGetUser(Bundle extras, String wantYouWANT, String ACTION) {
+        ISession action = null;
+        if(ACTION.equals("GET")){
+            action = varMethodGetUser;
+            return action.getObjectFromSession(extras,wantYouWANT);
+        }
+        return null;
+    }
+
+
+
 }
 
-@FunctionalInterface
-interface ISession {
-    Object getObjectFromSession(Bundle extras,String wantYouWANT);
-}
 
 

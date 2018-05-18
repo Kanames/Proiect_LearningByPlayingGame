@@ -18,8 +18,7 @@ import com.example.stefan.proiect_learningbyplayinggame.R;
 import java.util.ArrayList;
 
 import ro.LearnByPLaying.Beans.ConfigLessonPanel;
-import ro.LearnByPLaying.Activitati.MainSubActivities.menuListLessonOnClickListener;
-import ro.LearnByPLaying.Activitati.MainSubActivities.ProfileActivity;
+import ro.LearnByPLaying.Activitati.LessonActivity.menuListLessonOnClickListener;
 import ro.LearnByPLaying.Adapters.RecyclerViewLessonsAdapter;
 import ro.LearnByPLaying.Beans.LessonsList;
 import ro.LearnByPLaying.Beans.User;
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //-- Initializare resurse ---------------------
          mTopToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mTopToolbar);
-        SESSION_USER = (User) FunctionalMethods.getObjectSession(getIntent().getExtras(),"SESSION_USER","GET");
+        SESSION_USER = (User) FunctionalMethods.methodGetUser(getIntent().getExtras(),"SESSION_USER","GET");
         //---------------------------------------------
 
 
@@ -77,27 +76,27 @@ public class MainActivity extends AppCompatActivity {
 
         titlesLesssons.add("F.P. (Functional Programming)");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_2);
-        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_2,Color.parseColor("#ba68c8"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_2,Color.parseColor("#ba68c8"),getString(R.string.lesson_pure_functions),"Basic theory F.P.")));
         backColoors.add(Color.parseColor("#ba68c8"));
 
         titlesLesssons.add("F.P. (Functional Programming)");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_1);
-        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_1,Color.parseColor("#7986cb"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_1,Color.parseColor("#7986cb"),getString(R.string.lesson_fclass_hordefunctions),"Basic theory F.P.")));
         backColoors.add(Color.parseColor("#7986cb"));
 
         titlesLesssons.add("F.P. (Functional Programming)");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_4);
-        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_4,Color.parseColor("#4fc3f7"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_4,Color.parseColor("#4fc3f7"),getString(R.string.lesson_recursion),"Basic theory F.P.")));
         backColoors.add(Color.parseColor("#4fc3f7"));
 
         titlesLesssons.add("F.P. (Functional Programming)");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_5);
-        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_5,Color.parseColor("#4db6ac"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_5,Color.parseColor("#4db6ac"),getString(R.string.lesson_lambdas),"Basic theory F.P.")));
         backColoors.add(Color.parseColor("#4db6ac"));
 
         titlesLesssons.add("Programming concepts");
         titlesLesssonsIcons.add(R.drawable.functional_programing_icons_6);
-        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_6,Color.parseColor("#aed581"),"yo","Introduction")));
+        onClickListeners.add(new menuListLessonOnClickListener(new ConfigLessonPanel(R.drawable.functional_programing_icons_6,Color.parseColor("#aed581"),getString(R.string.lesson_oop_vs_fp),"Basic concepts F.P.")));
         backColoors.add(Color.parseColor("#aed581"));
 
         //a 4 coloana https://material.io/tools/color/#!/?view.left=0&view.right=0&primary.color=FF8A65
