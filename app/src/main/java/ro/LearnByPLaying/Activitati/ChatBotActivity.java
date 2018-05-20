@@ -40,6 +40,8 @@ public class ChatBotActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private static FloatingActionButton sendMsgBTN;
     private EditText questionInput;
+
+    private static Assistant assistant = new Assistant("2018-05-10");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Activitati","<<<<< IN ChatBotActivity.onCreate() >>>>");
@@ -61,7 +63,6 @@ public class ChatBotActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-
         sendMsgBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +74,24 @@ public class ChatBotActivity extends AppCompatActivity {
                     typeHumanOrBot.add("HUMAN");
                     conversation.add(questionProcessesd);
                     adapter.notifyItemChanged(recyclerView.getAdapter().getItemCount());
-                    new AskingWatson().execute(questionProcessesd);
+
+                    JSONObject credentials = null; // Convert the file into a JSON object
+
+                    String username = null;
+                    String password = null;
+                    try {
+                        credentials = new JSONObject(IOUtils.toString(
+                                getResources().openRawResource(R.raw.credentials), "UTF-8"
+                        ));
+                        // Extract the two values
+                         username = credentials.getString("username");
+                         password = credentials.getString("password");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    new AskingWatson().execute(questionProcessesd,username,password);
                 }
             }
         });
@@ -82,19 +100,9 @@ public class ChatBotActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             //-- watson
-            JSONObject credentials = null; // Convert the file into a JSON object
-            Log.d("Activitati", " strings[0] WATSON: " + strings[0]);
             String responseWatson = null;
             try {
-                credentials = new JSONObject(IOUtils.toString(
-                        getResources().openRawResource(R.raw.credentials), "UTF-8"
-                ));
-                // Extract the two values
-                String username = credentials.getString("username");
-                String password = credentials.getString("password");
-
-                Assistant assistant = new Assistant("2018-05-10");
-                assistant.setUsernameAndPassword(username,password);
+                assistant.setUsernameAndPassword(strings[1],strings[2]);
                 assistant.setEndPoint("https://gateway.watsonplatform.net/assistant/api");
                 Map<String, String> headers = new HashMap<String, String>();
                 headers.put("X-Watson-Learning-Opt-Out", "true");
@@ -121,10 +129,6 @@ public class ChatBotActivity extends AppCompatActivity {
             } catch (ServiceResponseException e) {
                 // Base class for all exceptions caused by error responses from the service
                 Log.e("Activitati", TAG+"ServiceResponseException WATSON: " + e.getMessage());
-            } catch (JSONException e) {
-                Log.e("Activitati", TAG+"JSONException WATSON: " + e.getMessage());
-            } catch (IOException e) {
-                Log.e("Activitati", TAG+"IOException WATSON: " + e.getMessage());
             }
             return responseWatson;
         }

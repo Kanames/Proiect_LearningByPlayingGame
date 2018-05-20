@@ -45,15 +45,20 @@
             android:parentActivityName="ro.LearnByPLaying.Activitati.RegisterActivity" />
         <activity
             android:name="ro.LearnByPLaying.Activitati.CreatingProfileActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="ro.LearnByPLaying.Activitati.MainActivity" >
 
         </activity>
-        <activity android:name="ro.LearnByPLaying.Activitati.MainActivity" />
-        <activity android:name="ro.LearnByPLaying.Activitati.ChatBotActivity"></activity>
+        <activity android:name="ro.LearnByPLaying.Activitati.ChatBotActivity" />
         <activity
             android:name="ro.LearnByPLaying.Activitati.ProfileActivity"
-            android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity" />
+            android:parentActivityName="ro.LearnByPLaying.Activitati.MainActivity" >
+
+        </activity>
         <activity android:name="ro.LearnByPLaying.Activitati.LessonActivity.LessonActivity" />
+        <activity android:name="ro.LearnByPLaying.Activitati.Main2Activity">
+
+        </activity>
     </application>
 
 </manifest>

@@ -1,13 +1,19 @@
 package ro.LearnByPLaying.Utilitare;
 import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import ro.LearnByPLaying.Beans.Courses;
 import ro.LearnByPLaying.Beans.User;
 
 /**
@@ -62,12 +68,51 @@ public class FirebaseRealtimeDBUtils {
         return user[0];
     }
 
-    public static void doSomethingWithUser(User user){
-        Log.d("Activitati"," User email address from DB: "+ user.getEmailAddress());
-    }
 
     public static String getUserFirebaseID(FirebaseAuth auth) {
         return auth.getUid();
     }
+
+    public static ArrayList<Courses> getCoursesList(){
+        ArrayList<Courses> courses = new ArrayList<>();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("COURSES");
+
+        // Create a storage reference from our app
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d(dataSnapshot.getKey(),dataSnapshot.getChildrenCount() + "");
+                Courses course = dataSnapshot.getValue(Courses.class);
+                Log.d("Activitati", "course name: ----> "+ course.getCourseName());
+                Log.d("Activitati", "course chapter: ----> "+ course.getCourseChapter());
+                Log.d("Activitati", "course urlBackground: ----> "+ course.getLinkBackground());
+                if(course.getLinkBackground() != null ){
+                    SystemUtils.saveTempPNG(firebaseStorage.getReferenceFromUrl(course.getLinkBackground()),course);
+                }
+                courses.add(course);
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return courses;
+    }
+
 
 }

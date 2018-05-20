@@ -161,11 +161,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentMenuProfile);
             return true;
         }
-        if (id == R.id.menu_about) {
-            Log.d("Activitati", "MainActivity- " + "menu about");
-            Toast.makeText(MainActivity.this, "Action menu_about", Toast.LENGTH_SHORT).show();
-            return true;
-        }
+//        if (id == R.id.menu_about) {
+//            Log.d("Activitati", "MainActivity- " + "menu about");
+//            Toast.makeText(MainActivity.this, "Action menu_about", Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
         if (id == R.id.log_out) {
             Log.d("Activitati", "MainActivity- " + "log out");
             Toast.makeText(MainActivity.this, "Application closed", Toast.LENGTH_SHORT).show();

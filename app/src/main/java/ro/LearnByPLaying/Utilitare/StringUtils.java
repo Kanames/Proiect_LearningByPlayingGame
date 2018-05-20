@@ -146,6 +146,7 @@ public class StringUtils {
     }
 
 
+    
     /**
      * Old method in OOP style
      * @param object

@@ -15,10 +15,12 @@ import android.widget.TextView;
 import com.example.stefan.proiect_learningbyplayinggame.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
-import ro.LearnByPLaying.Activitati.MainActivity;
 import ro.LearnByPLaying.Adapters.RecyclerViewUpdateProfile;
+import ro.LearnByPLaying.Beans.SettingProfileView;
 import ro.LearnByPLaying.Beans.User;
 import ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils;
 import ro.LearnByPLaying.Utilitare.StringUtils;
@@ -34,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static ArrayList<String> hinturi = new ArrayList<>();
     private static ArrayList<View.OnClickListener> clickListeners = new ArrayList<>();
     private static Button updateBtn;
+    private List<SettingProfileView> viewProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,16 +54,23 @@ public class ProfileActivity extends AppCompatActivity {
         //-------------------------------------------------------------------------
 
         // Display icon in the toolbar---------------------------------------------
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Profile");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setSubtitle(getString(R.string.RegisterToolbarSecondaryString));
-
+        try {
+            getSupportActionBar().setTitle("Profile");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setSubtitle(getString(R.string.RegisterToolbarSecondaryString));
+        } catch (Exception e) {
+            Log.e("Activitati", TAG + "problem");
+        }
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             SESSION_USER  = (User) extras.getSerializable("SESSION_USER");
         }
+
+//        viewProfile.clear();
+//        viewProfile = Arrays.asList(
+//                new SettingProfileView("Nickname",SESSION_USER.getNickName(),"Change the nickname ?")
+//        );
 
         values.clear();
         afisareProprietati.clear();

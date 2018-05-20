@@ -157,11 +157,6 @@
     <string name="action_settings">Settings</string>
 
 
-
-
-
-
-
     <!-- "Material is the metaphor.\n\n"-->
     <string name="lesson_functional_programming" formatted="false">
          <![CDATA[
@@ -282,7 +277,36 @@
     <string name="lesson_recursion" formatted="false">
          <![CDATA[
         <br><strong>RECURSION recursion recursion</strong>
-
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+        The first technique that we are going to use is called head recursion. Let\'s translate the previous function to a head recursive function:
+        <br>
+        <font face="verdana" color="green">
+        &nbsp;def sumIntsToRecursive(i: Int) : Int =<br>
+        &nbsp;&nbsp;  if (i == 0) 0 else i + sumIntsToRecursive(i - 1)<br>
+        </font>
+        <br>
+        This function does not have any side effects. Internally, it calculates a sum until we reach the base case, which is 0. Here is the stack trace for sumIntsToRecursive(5):
+        <br>
+        <font face="verdana" color="green">
+        sumIntsToRecursive(5)<br>
+        5 + sumIntsToRecursive(4)<br>
+        5 + (4 + sumIntsToRecursive(3))<br>
+        5 + (4 + (3 + sumIntsToRecursive(2)))<br>
+        5 + (4 + (3 + (2 + sumIntsToRecursive(1))))<br>
+        5 + (4 + (3 + (2 + (1 + sumIntsToRecursive(0)))))<br>
+        5 + (4 + (3 + (2 + (1 + 0))))<br>
+        > 15
+        </font>
+        <br>
+        We can say that the recursive calls occur before the computation, or at the head. That means that after the recursive call we can have other blocks to evaluate, or like in this case,
+        we evaluate the first sum after all the consequent evaluations are reduced.
+        <br>
+        You could see as well that we have to keep the state of the current computation until we finish evaluating the stack, so in the last step we will end up holding: 5 + 4 + 3 + 2 + 1 and
+        then we will evaluate the last case to finish up with the computation of all the values that we had in the intermediate steps.
+        <br>
+        Holding this state can be a problem, especially if we deal with a large set of numbers. If we try to evaluate the previous function passing Integer.MAX_VALUE as the argument, we will
+        see that the function crashes and gives us a StackOverflowException. Even if we achieved our initial purpose of not having side effects, we do have one if the number is too large to be
+        evaluated. That leads us to the next technique, tail recursion.
 
         <br><br>
         </font>
@@ -292,21 +316,28 @@
     <string name="lesson_lambdas" formatted="false">
          <![CDATA[
         <br><strong>Such a big WORD: LAMBDA</strong>
-
+        <br>
+        Lambda expressions are introduced in Java 8 and are touted to be the biggest feature of Java 8. Lambda expression facilitates functional programming, and simplifies the development a lot.
+        <br><br>
+        <strong>Optional type declaration </strong>− No need to declare the type of a parameter. The compiler can inference the same from the value of the parameter.
+        <br>
+        <strong>Optional parenthesis around parameter</strong> − No need to declare a single parameter in parenthesis. For multiple parameters, parentheses are required.
+        <br>
+        <strong>Optional curly braces </strong>− No need to use curly braces in expression body if the body contains a single statement.
+        <br>
+        <strong>Optional return keyword </strong>− The compiler automatically returns the value if the body has a single expression to return the value. Curly braces are required to indicate that expression returns a value.
 
         <br><br>
         </font>
-        <font color="RED">Content Copyright © Mar 4, 2017 by Eric Elliott</font>
+        <font color="RED">Content Copyright © Tutorials Point (India) Pvt. Ltd.</font>
         ]]>
     </string>
     <string name="lesson_oop_vs_fp" formatted="false">
          <![CDATA[
         <br><strong>OOP vs FP</strong>
 
+            << - in construction - >>
 
-        <br><br>
-        </font>
-        <font color="RED">Content Copyright © Mar 4, 2017 by Eric Elliott</font>
         ]]>
     </string>
 </resources>

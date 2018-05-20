@@ -26,7 +26,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import javax.security.auth.login.LoginException;
+
+import ro.LearnByPLaying.Beans.Courses;
 import ro.LearnByPLaying.Beans.User;
 import ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils;
 import ro.LearnByPLaying.Utilitare.StringUtils;
@@ -110,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                                                   Log.d("Activitati", TAG+"FirstNameDB email: " + user[0].getFirstName());
                                                                                                   intent.putExtra("SESSION_USER", user[0]);
                                                                                                   if(user[0].getNickName() != null) {
+                                                                                                      final ArrayList<Courses> cursuri = FirebaseRealtimeDBUtils.getCoursesList();
                                                                                                       Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
                                                                                                       intent2.putExtra("SESSION_USER", user[0]);
                                                                                                       startActivity(intent2);
