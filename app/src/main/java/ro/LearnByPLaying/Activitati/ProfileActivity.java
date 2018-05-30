@@ -62,16 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
             Log.e("Activitati", TAG + "problem");
         }
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            SESSION_USER  = (User) extras.getSerializable("SESSION_USER");
-        }
-
-//        viewProfile.clear();
-//        viewProfile = Arrays.asList(
-//                new SettingProfileView("Nickname",SESSION_USER.getNickName(),"Change the nickname ?")
-//        );
-
         values.clear();
         afisareProprietati.clear();
         valoareProprietati.clear();
@@ -79,6 +69,16 @@ public class ProfileActivity extends AppCompatActivity {
         clickListeners.clear();
         Log.d("Activitati","0000000000000000000000000000000 userObject: "+afisareProprietati.size());
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            SESSION_USER  = (User) extras.getSerializable("SESSION_USER");
+            Log.e("Activitati", TAG + "SESSION_USER: "+SESSION_USER);
+        }
+
+//        viewProfile.clear();
+//        viewProfile = Arrays.asList(
+//                new SettingProfileView("Nickname",SESSION_USER.getNickName(),"Change the nickname ?")
+//        );
 
         afisareProprietati.add("Nickname: ");
         valoareProprietati.add(SESSION_USER.getNickName());
@@ -111,14 +111,20 @@ public class ProfileActivity extends AppCompatActivity {
         clickListeners.add(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText x = (EditText) findViewById(R.id.inputLayoutUpdateValue);
-                TextView y = (TextView) findViewById(R.id.textViewValue);
-                String your_text = x.getText().toString();
+                TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutUpdate);
+                EditText inputValue = (EditText) findViewById(R.id.inputLayoutUpdateValue);
+                TextView textView = (TextView) findViewById(R.id.textViewValue);
+                String your_text = textView.getText().toString();
+                try {
+                    StringUtils.controlTextInput(inputValue,textInputLayout, getString(R.string.error_empty));
+                } catch (Exception e) {
+                    Log.e("Activitati","Error: "+e.getMessage());
+                }
                 Log.d("Activitati","new First name: "+your_text);
                 HashMap toModify = new HashMap();
                 toModify.put("firstname", your_text);
                 SESSION_USER.setFirstName(your_text);
-                y.setText(your_text);
+                textView.setText(your_text);
                 MainActivity.SESSION_USER.setFirstName(your_text);
                 FirebaseRealtimeDBUtils.updateUSER(SESSION_USER,toModify);
             }

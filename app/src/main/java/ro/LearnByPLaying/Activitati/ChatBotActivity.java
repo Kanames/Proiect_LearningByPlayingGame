@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.example.stefan.proiect_learningbyplayinggame.R;
 import com.ibm.watson.developer_cloud.assistant.v1.Assistant;
+import com.ibm.watson.developer_cloud.assistant.v1.model.Context;
 import com.ibm.watson.developer_cloud.assistant.v1.model.InputData;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.assistant.v1.model.MessageResponse;
@@ -25,8 +26,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ro.LearnByPLaying.Beans.User;
@@ -40,8 +43,9 @@ public class ChatBotActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private static FloatingActionButton sendMsgBTN;
     private EditText questionInput;
-
-    private static Assistant assistant = new Assistant("2018-05-10");
+private static boolean firstApiCall = true;
+private static Context context;
+    private static Assistant assistant = new Assistant("2018-05-23");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Activitati","<<<<< IN ChatBotActivity.onCreate() >>>>");
@@ -63,6 +67,29 @@ public class ChatBotActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
+
+        JSONObject credentials = null; // Convert the file into a JSON object
+
+        String username = null;
+        String password = null;
+        try {
+            credentials = new JSONObject(IOUtils.toString(
+                    getResources().openRawResource(R.raw.credentials), "UTF-8"
+            ));
+            // Extract the two values
+            username = credentials.getString("username");
+            password = credentials.getString("password");
+            assistant.setUsernameAndPassword(username,password);
+            assistant.setEndPoint("https://gateway.watsonplatform.net/assistant/api");
+            Map<String, String> headers = new HashMap<String, String>();
+            headers.put("X-Watson-Learning-Opt-Out", "true");
+            assistant.setDefaultHeaders(headers);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         sendMsgBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,51 +101,34 @@ public class ChatBotActivity extends AppCompatActivity {
                     typeHumanOrBot.add("HUMAN");
                     conversation.add(questionProcessesd);
                     adapter.notifyItemChanged(recyclerView.getAdapter().getItemCount());
-
-                    JSONObject credentials = null; // Convert the file into a JSON object
-
-                    String username = null;
-                    String password = null;
-                    try {
-                        credentials = new JSONObject(IOUtils.toString(
-                                getResources().openRawResource(R.raw.credentials), "UTF-8"
-                        ));
-                        // Extract the two values
-                         username = credentials.getString("username");
-                         password = credentials.getString("password");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    new AskingWatson().execute(questionProcessesd,username,password);
+                    new AskingWatson().execute(questionProcessesd);
                 }
             }
         });
     }
-    class AskingWatson extends AsyncTask<String, Void, String> {
+    class AskingWatson extends AsyncTask<String, Void, List<String>> {
         @Override
-        protected String doInBackground(String... strings) {
+        protected List<String> doInBackground(String... strings) {
             //-- watson
-            String responseWatson = null;
+            List<String> responseWatson = null;
             try {
-                assistant.setUsernameAndPassword(strings[1],strings[2]);
-                assistant.setEndPoint("https://gateway.watsonplatform.net/assistant/api");
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put("X-Watson-Learning-Opt-Out", "true");
-                assistant.setDefaultHeaders(headers);
-                InputData input = new InputData.Builder( strings[0]).build();
-
+                InputData input = new InputData.Builder(strings[0]).build();
                 String workspaceId = "9357f8a2-5b1d-4669-a233-7b881b7257d7";
+                MessageOptions options;
 
-                MessageOptions options = new MessageOptions.Builder(workspaceId)
-                        .input(input)
-                        .build();
-
+                if(firstApiCall){
+                    Log.d("Activitati", TAG+" first API call");
+                    options = new MessageOptions.Builder(workspaceId).input(input).build();
+                    firstApiCall = false;
+                }else{
+                     Log.d("Activitati", TAG+" second API call");
+                     options = new MessageOptions.Builder(workspaceId).input(input).context(context).build();
+                }
+                Log.d("Activitati", TAG+"options: " +options);
                 MessageResponse response = assistant.message(options).execute();
-
-                Log.d("Activitati", TAG+"getOutput(0) WATSON: " +response.getOutput().getText().get(0));
-                responseWatson = response.getOutput().getText().get(0);
+                Log.i("Activitati", TAG+"response: " +response);
+                context=response.getContext();
+                responseWatson=response.getOutput().getText();
                 Log.i("Activitati", TAG+"response in thread WATSON: " +response);
             } catch (NotFoundException e) {
                 // Handle Not Found (404) exception
@@ -133,14 +143,16 @@ public class ChatBotActivity extends AppCompatActivity {
             return responseWatson;
         }
         @Override
-        protected void onPostExecute(String result)
+        protected void onPostExecute(List<String> results)
         {
             // call an external function as a result
-            Log.d("Activitati", TAG+"WATSON reply before inserting in activity: " + result);
-            typeHumanOrBot.add("BOT");
-            conversation.add(result);
+            for (int i = 0 ; i < results.size() ; i++) {
+                Log.d("Activitati", TAG + "WATSON reply before inserting in activity: " + results.get(i));
+                typeHumanOrBot.add("BOT");
+                conversation.add(results.get(i));
+            }
             adapter.notifyItemChanged(recyclerView.getAdapter().getItemCount());
-            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
+            recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
         }
     }
 }

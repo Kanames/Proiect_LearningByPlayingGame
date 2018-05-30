@@ -133,6 +133,8 @@ public class RegisterActivity extends AppCompatActivity {
                                         userObject.setUserFirebaseID(userFirebaseObject.getUid());
                                         userObject.setDateAccountCreated(new Date().toString());
                                         userObject.setEmailAddress(emailStr);
+                                        userObject.setLastName("");
+                                        userObject.setFirstName("");
                                         userObject.setPassword(password1Str);
                                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                         intent.putExtra("SESSION_USER", userObject);
