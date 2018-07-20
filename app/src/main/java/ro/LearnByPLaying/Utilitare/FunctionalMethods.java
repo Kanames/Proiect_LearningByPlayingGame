@@ -21,10 +21,8 @@ public class FunctionalMethods{
     };
 
     public static Object methodGetUser(Bundle extras, String wantYouWANT, String ACTION) {
-        ISession action = null;
         if(ACTION.equals("GET")){
-            action = varMethodGetUser;
-            return action.getObjectFromSession(extras,wantYouWANT);
+            return varMethodGetUser.getObjectFromSession(extras,wantYouWANT);
         }
         return null;
     }

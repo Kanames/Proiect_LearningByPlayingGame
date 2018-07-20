@@ -26,17 +26,22 @@ import ro.LearnByPLaying.Utilitare.FirebaseRealtimeDBUtils;
 import ro.LearnByPLaying.Utilitare.StringUtils;
 
 import static ro.LearnByPLaying.Utilitare.StringUtils.trfOut;
-
+/*
+    Activity made for editing the profile of the user.
+    (Licenta)
+ */
 public class ProfileActivity extends AppCompatActivity {
-    public static final String TAG = "CreatingProfileActivity- ";
-    private static User SESSION_USER;
-    private static HashMap<String,ArrayList<String>> values = new HashMap<>();
-    private static ArrayList<String> afisareProprietati = new ArrayList<>();
-    private static ArrayList<String> valoareProprietati = new ArrayList<>();
-    private static ArrayList<String> hinturi = new ArrayList<>();
-    private static ArrayList<View.OnClickListener> clickListeners = new ArrayList<>();
+    public static final String TAG = "CreatingProfileActivity- ";//Variables used for logging
+    private static User SESSION_USER;                            //The user that comes from session
+    private static HashMap<String,ArrayList<String>> values = new HashMap<>(); //represents the content of the RecyclerViewUpdateProfile
+       private static ArrayList<String> afisareProprietati = new ArrayList<>();  // parameter for the RecyclerViewUpdateProfile: What we are gone change ?
+       private static ArrayList<String> valoareProprietati = new ArrayList<>();  // parameter for the RecyclerViewUpdateProfile: What values is it ?
+       private static ArrayList<String> hinturi = new ArrayList<>();             // parameter for the RecyclerViewUpdateProfile: What hints we can offer ?
+       private static ArrayList<View.OnClickListener> clickListeners = new ArrayList<>(); // parameter for the RecyclerViewUpdateProfile: What action should it do ?
+
     private static Button updateBtn;
-    private List<SettingProfileView> viewProfile;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +50,14 @@ public class ProfileActivity extends AppCompatActivity {
         //Find the toolbar view inside the activity layout------
         Toolbar toolbar = findViewById(R.id.toolbar);
         updateBtn = findViewById(R.id.updateBtn);
-
         //------------------------------------------------------
+
 
         // Sets the Toolbar to act as the ActionBar for this Activity window.------
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
         //-------------------------------------------------------------------------
+
 
         // Display icon in the toolbar---------------------------------------------
         try {
@@ -59,26 +65,24 @@ public class ProfileActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setSubtitle(getString(R.string.RegisterToolbarSecondaryString));
         } catch (Exception e) {
-            Log.e("Activitati", TAG + "problem");
+            Log.e("Activitati", TAG + "Problem with the Toolbar: "+e.getMessage());
         }
 
-        values.clear();
-        afisareProprietati.clear();
-        valoareProprietati.clear();
-        hinturi.clear();
-        clickListeners.clear();
-        Log.d("Activitati","0000000000000000000000000000000 userObject: "+afisareProprietati.size());
+        values.clear();  //------------- Cleaning the variables ----
+          afisareProprietati.clear();
+          valoareProprietati.clear();
+          hinturi.clear();
+          clickListeners.clear();
+        //----------------------------------------------------------
 
+
+        Log.d("Activitati",TAG+"UserObject that comes from the session: "+afisareProprietati.size());
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             SESSION_USER  = (User) extras.getSerializable("SESSION_USER");
-            Log.e("Activitati", TAG + "SESSION_USER: "+SESSION_USER);
+            Log.e("Activitati", TAG + "SESSION_USER(problemes): "+SESSION_USER);
         }
 
-//        viewProfile.clear();
-//        viewProfile = Arrays.asList(
-//                new SettingProfileView("Nickname",SESSION_USER.getNickName(),"Change the nickname ?")
-//        );
 
         afisareProprietati.add("Nickname: ");
         valoareProprietati.add(SESSION_USER.getNickName());
@@ -86,21 +90,24 @@ public class ProfileActivity extends AppCompatActivity {
         clickListeners.add(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutUpdate);
-                EditText inputValue = (EditText) findViewById(R.id.inputLayoutUpdateValue);
-                TextView textView = (TextView) findViewById(R.id.textViewValue);
-                String textRaw = inputValue.getText().toString();
+                TextInputLayout textInputLayout =  findViewById(R.id.inputLayoutUpdate);
+                EditText inputValue =  findViewById(R.id.inputLayoutUpdateValue);
+                TextView textView =  findViewById(R.id.textViewValue);
+                String textRawNickname = inputValue.getText().toString();
+                inputValue.setText("");
+                inputValue.getText().clear();
+
                 try {
                     StringUtils.controlTextInput(inputValue,textInputLayout, getString(R.string.error_empty));
                 } catch (Exception e) {
-                    Log.e("Activitati","Error: "+e.getMessage());
+                    Log.e("Activitati",TAG+"User Nickname Error: "+e.getMessage());
                 }
-                Log.d("Activitati","new Nickname"+textRaw);
+                Log.d("Activitati",TAG+"User new Nickname: "+textRawNickname);
                 HashMap toModify = new HashMap();
-                toModify.put("nickName", textRaw);
-                SESSION_USER.setNickName(textRaw);
-                textView.setText(textRaw);
-                MainActivity.SESSION_USER.setNickName(textRaw);
+                toModify.put("nickName", textRawNickname);
+                SESSION_USER.setNickName(textRawNickname);
+                textView.setText(textRawNickname);
+                MainActivity.SESSION_USER.setNickName(textRawNickname);
                 FirebaseRealtimeDBUtils.updateUSER(SESSION_USER,toModify);
             }
         });
